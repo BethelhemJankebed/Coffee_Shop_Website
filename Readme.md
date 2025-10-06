@@ -25,7 +25,7 @@ It simulates a modern coffee shop’s online presence by:
 
 The goal is to create a **clean, responsive, and user-friendly site** that could realistically be used by a small coffee shop.
 
----
+--
 
 ## 🛠️ Sections & Features
 
