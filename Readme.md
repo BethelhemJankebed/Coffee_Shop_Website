@@ -22,9 +22,7 @@ It simulates a modern coffee shop’s online presence by:
 - Allowing table reservations 🪑
 - Providing information about the business 📜
 
-The goal is to create a **clean, responsive, and user-friendly site** that could realistically be used by a small coffee shop.
-
---
+The goal of this project is to design a clean, responsive, and user-friendly website that reflects the atmosphere of a real coffee shop while providing essential features for both customers and business owners.
 
 ## 🛠️ Sections & Features
 
