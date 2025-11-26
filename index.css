@@ -112,6 +112,25 @@
   border-radius: 14px;
 }
 /*Reservation*/
+#reservation {
+  padding: 70px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  gap: 15px;
+}
+
+.reservation-form input,
+.reservation-form button {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+}
 /*Popular-Menu*/
 /*Blog*/
 /*Review*/
