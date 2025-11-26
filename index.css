@@ -132,6 +132,24 @@
   border: none;
 }
 /*Popular-Menu*/
+#popular-menu {
+  padding: 70px 10%;
+  background: #1f140f;
+  color: #fff;
+}
+
+.menu-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-card {
+  background: #3b241b;
+  width: 30%;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+}
 /*Blog*/
 /*Review*/
 /*Footer*/
