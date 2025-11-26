@@ -1,0 +1,172 @@
+/* Abissina Coffee*/
+#hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 80px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+#hero .logo {
+  font-size: 50px;
+  font-family: "Georgia", serif;
+}
+
+#hero .tagline {
+  margin-top: 15px;
+  max-width: 400px;
+  line-height: 1.6;
+}
+
+#hero .hero-buttons button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #c08a58;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#hero .hero-buttons .outline {
+  background: transparent;
+  border: 2px solid #c08a58;
+}
+
+#hero .hero-image img {
+  width: 350px;
+}
+
+/* our story*/
+#story {
+  padding: 80px 10%;
+  background: #1f140f;
+  color: #fff;
+}
+
+#story h2 {
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+.story-content {
+  display: flex;
+  gap: 50px;
+}
+
+.story-img img {
+  width: 280px;
+  border-radius: 12px;
+}
+
+.story-text p {
+  max-width: 500px;
+  line-height: 1.7;
+}
+
+.more-btn {
+  margin-top: 20px;
+  display: inline-block;
+  padding: 10px 18px;
+  background: #c08a58;
+  border-radius: 6px;
+  color: #fff;
+}
+/* Services*/
+#services {
+  padding: 70px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+#services h2 {
+  margin-bottom: 30px;
+  font-size: 38px;
+}
+
+.service-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.service-card {
+  background: #3b241b;
+  padding: 25px;
+  border-radius: 12px;
+  width: 18%;
+  text-align: center;
+}
+/*cup animation*/
+/*Offer*/
+#offer {
+  padding: 60px 10%;
+  background: #1c0f0a;
+  color: #fff;
+}
+
+.offer-box {
+  background: linear-gradient(#4a3025, #2b1a14);
+  padding: 40px;
+  border-radius: 14px;
+}
+/*Reservation*/
+#reservation {
+  padding: 70px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+.reservation-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  gap: 15px;
+}
+
+.reservation-form input,
+.reservation-form button {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+}
+/*Popular-Menu*/
+#popular-menu {
+  padding: 70px 10%;
+  background: #1f140f;
+  color: #fff;
+}
+
+.menu-grid {
+  display: flex;
+  justify-content: space-between;
+}
+
+.menu-card {
+  background: #3b241b;
+  width: 30%;
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+}
+/*Blog*/
+#blog {
+  padding: 70px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+.blog-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.blog-card {
+  background: #3b241b;
+  padding: 25px;
+  border-radius: 12px;
+  width: 50%;
+}
+/*Review*/
+/*Footer*/
