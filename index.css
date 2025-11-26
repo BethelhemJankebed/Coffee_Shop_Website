@@ -169,4 +169,15 @@
   width: 50%;
 }
 /*Review*/
+#reviews {
+  padding: 70px 10%;
+  background: #1c0f0a;
+  color: #fff;
+}
+
+.review-box {
+  background: #3b241b;
+  padding: 30px;
+  border-radius: 12px;
+}
 /*Footer*/
