@@ -151,5 +151,22 @@
   text-align: center;
 }
 /*Blog*/
+#blog {
+  padding: 70px 10%;
+  background: #2b1a14;
+  color: #fff;
+}
+
+.blog-grid {
+  display: flex;
+  gap: 20px;
+}
+
+.blog-card {
+  background: #3b241b;
+  padding: 25px;
+  border-radius: 12px;
+  width: 50%;
+}
 /*Review*/
 /*Footer*/
