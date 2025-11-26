@@ -100,6 +100,17 @@
 }
 /*cup animation*/
 /*Offer*/
+#offer {
+  padding: 60px 10%;
+  background: #1c0f0a;
+  color: #fff;
+}
+
+.offer-box {
+  background: linear-gradient(#4a3025, #2b1a14);
+  padding: 40px;
+  border-radius: 14px;
+}
 /*Reservation*/
 /*Popular-Menu*/
 /*Blog*/
