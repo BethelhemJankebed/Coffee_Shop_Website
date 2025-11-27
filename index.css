@@ -1,3 +1,19 @@
+/* Reset defaults and ensure a dark page background so no white strip shows */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #1e1814;
+  color: #e6c9ad;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 /* Abissina Coffee*/
 #hero {
   display: flex;
