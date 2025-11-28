@@ -4,19 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abissina Coffee</title>
+    <link rel="icon" href="img/coffeelogo.png" />
     <style>
       body {
         margin: 0;
         padding: 0;
         height: 100vh;
         background-color: #1e1814; /* fallback */
-        background-image: linear-gradient(180deg, #3b241b 0%, #1e1814 100%);
+        background-image: linear-gradient(180deg, #1f120f 40%, #39231b 100%);
         color: bisque;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         padding-left: 80px;
-        overflow: hidden; /* prevent page scrollbars from animated beans */
+        overflow: hidden;
       }
       .hero {
         max-width: 700px;
@@ -121,7 +122,6 @@
       }
       .spillingcofee {
         position: absolute;
-        border: solid red 2px;
         top: -2%;
         right: 6%;
       }
@@ -133,10 +133,73 @@
       .hero {
         position: relative;
         z-index: 2;
+        padding-top: 74px; /* leave room for fixed navbar */
+      }
+      /* navbar styles */
+      .site-header {
+        background: rgba(30, 24, 20, 0.92);
+        backdrop-filter: blur(4px);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 6;
+      }
+      .site-nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+      }
+      .site-brand-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .site-logo {
+        width: 46px;
+        height: auto;
+        display: block;
+      }
+      .site-brand {
+        color: bisque;
+        font-weight: 700;
+        font-size: 20px;
+        text-decoration: none;
+      }
+      .nav-links a {
+        color: bisque;
+        text-decoration: none;
+        margin-left: 18px;
+        font-size: 15px;
+      }
+      .nav-links a:hover {
+        text-decoration: underline;
       }
     </style>
   </head>
   <body>
+    <header class="site-header">
+      <div class="site-nav">
+        <div class="site-brand-row">
+          <img
+            src="img/coffeelogo.png"
+            alt="Abissina Coffee logo"
+            class="site-logo"
+          />
+          <a class="site-brand" href="index.html#hero">Abissina Coffee</a>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html#hero">Home</a>
+          <a href="index.html#popular-menu">Popular Menu</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="index.html#story">Our Story</a>
+          <a href="index.html#services">Services</a>
+        </nav>
+      </div>
+    </header>
     <div class="hero">
       <h1>Abbisina Coffee</h1>
       <h2>Where Every Sip Tells A Story</h2>
