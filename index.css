@@ -197,3 +197,9 @@ body {
   border-radius: 12px;
 }
 /*Footer*/
+#footer {
+  padding: 30px;
+  text-align: center;
+  background: #0d0705;
+  color: #fff;
+}
