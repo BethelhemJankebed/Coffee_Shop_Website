@@ -69,3 +69,4 @@ The goal of this project is to design a clean, responsive, and user-friendly web
 - **HTML5** – structure and semantic layout
 - **CSS3** – styling and responsive design (Flexbox, Grid, Media Queries)
 - **JavaScript** – interactivity (form validation, dynamic content)
+  
