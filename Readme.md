@@ -43,7 +43,7 @@ The goal of this project is to design a clean, responsive, and user-friendly web
 - Simple JavaScript form validation
 - Confirmation message on successful submission
 
-### 4. About Us Section
+### 4. Our Section
 
 - Short history / mission of the coffee shop
 - High-quality images of shop interior or staff
@@ -52,26 +52,15 @@ The goal of this project is to design a clean, responsive, and user-friendly web
 
 - Photo gallery of drinks, pastries, and shop ambiance
 
-###  6. Contact Section
-
-- Shop address, phone number, email
-- Google Maps embed (optional)
-- Social media icons (Instagram, Facebook, etc.)
-
 ###  7. Footer
 
 - Copyright notice
 - Quick links to top sections
 - Social media links
 
----
-
-## Extra Features (Optional)
-
--  Dark/Light mode toggle
+## Extra Features 
 - Testimonials / Customer reviews
-- Special Offers / Promotions
-- Newsletter signup
+- Special Offers 
 
 ---
 
