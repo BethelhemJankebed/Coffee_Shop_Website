@@ -227,7 +227,7 @@ body {
   background: #3b241b;
   padding: 25px 20px;
   border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 8px 15px rgba(33, 31, 31, 0.806);
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
 }
@@ -235,7 +235,7 @@ body {
 /* Hover effect for cards */
 .review-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 15px 15px rgba(86, 81, 81, 0.895);
 }
 
 /* Quote styling */
