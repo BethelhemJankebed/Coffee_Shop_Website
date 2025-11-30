@@ -1,5 +1,8 @@
 # Coffee Shop Website
 
+<img width="1080" height="734" alt="image" src="https://github.com/user-attachments/assets/040eb55b-5b8b-4806-bacf-60535ea06754" />
+
+
 ##  Team 6 - Group Assignment
 
 **Section:** A
