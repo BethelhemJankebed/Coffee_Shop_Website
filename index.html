@@ -12,6 +12,7 @@
     />
 
     <link rel="icon" href="img/coffeelogo.png" />
+    
     <style>
       .site-header {
         background: rgba(30, 24, 20, 0.9);
@@ -33,6 +34,14 @@
         font-weight: 700;
         font-size: 20px;
         text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px; 
+      }
+      /* Style for the logo inside Nav */
+      .site-brand img {
+        height: 40px; 
+        width: auto;
       }
       .nav-links a {
         color: #e6c9ad;
@@ -40,8 +49,10 @@
         margin-left: 18px;
         font-size: 15px;
       }
+      /* TASK 4: Remove underline on hover */
       .nav-links a:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        color: #fff;
       }
       @media (max-width: 720px) {
         .nav-links {
@@ -55,7 +66,10 @@
   <body>
     <header class="site-header">
       <div class="site-nav">
-        <a class="site-brand" href="index.html#hero">Abssina Coffee</a>
+        <a class="site-brand" href="index.html#hero">
+            <img src="img/coffeelogo.png" alt="Logo">
+            Abssina Coffee
+        </a>
         <nav class="nav-links">
           <a href="index.html#hero">Home</a>
           <a href="index.html#popular-menu">Popular Menu</a>
@@ -65,7 +79,7 @@
         </nav>
       </div>
     </header>
-    <!-----------Abssina Coffee----->
+    
     <section id="hero">
       <div class="hero-content">
         <h1 class="logo">Abssina Coffee</h1>
@@ -75,31 +89,39 @@
 
         <div class="hero-buttons">
           <button>Shop Now</button>
-          <button class="outline">Catalog</button>
-        </div>
+          
+          </div>
       </div>
 
       <div class="hero-image">
-        <img src="images/coffee-cup.png" alt="Coffee Cup" />
+        <img src="img/flyingcup.png" alt="Coffee Cup" />
       </div>
     </section>
-    <!-------Our Story----------->
+    
     <section id="story">
       <h2>Our Story</h2>
       <div class="story-content">
         <div class="story-img">
-          <img src="images/woman-face.png" alt="Story Image" />
+          <img src="img/bunchofcoffee.png" alt="Story Image" />
         </div>
         <div class="story-text">
+          <input type="checkbox" id="story-toggle" class="read-more-checkbox" style="display: none;">
+          
           <p>
             Elza is a modern coffee house that offers the finest selection of
-            specialty coffees…
+            specialty coffees.
+            <span class="more-text">
+                We pride ourselves on sourcing the best beans from Ethiopia. 
+                Our atmosphere is designed for relaxation and productivity, 
+                making us the perfect spot for your daily brew.
+            </span>
           </p>
-          <a href="#" class="more-btn">More</a>
+          
+          <label for="story-toggle" class="more-btn">More</label>
         </div>
       </div>
     </section>
-    <!---Services-->
+
     <section id="services">
       <h2>Services</h2>
 
@@ -111,7 +133,7 @@
         <div class="service-card">Pastry</div>
       </div>
     </section>
-    <!--Offer-->
+
     <section id="offer">
       <div class="offer-box">
         <h3>Up to 50% Off</h3>
@@ -119,7 +141,7 @@
         <button>Shop Now</button>
       </div>
     </section>
-    <!--Reservation-->
+
     <section id="reservation">
       <h2>Reserve a Table</h2>
 
@@ -130,7 +152,7 @@
         <button>Submit</button>
       </form>
     </section>
-    <!--Popular Menu-->
+
     <section id="popular-menu">
       <h2>Popular Menu</h2>
 
@@ -140,7 +162,7 @@
         <div class="menu-card">Cappuccino</div>
       </div>
     </section>
-    <!--Blog-->
+
     <section id="blog">
       <h2>Our Blog</h2>
       <div class="blog-grid">
@@ -149,7 +171,6 @@
       </div>
     </section>
 
-    <!--Review-->
     <section id="reviews">
       <h2>Customer Reviews</h2>
       <div class="reviews-container">
@@ -175,7 +196,6 @@
         </div>
       </div>
     </section>
-    <!--footer-->
 
     <footer class="footer">
       <div class="footer-section">
