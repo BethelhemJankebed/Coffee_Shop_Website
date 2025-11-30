@@ -1,6 +1,15 @@
-
-
-
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #1e1814;
+  color: #e6c9ad;
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 /* Abissina Coffee*/
 #hero {
   display: flex;
@@ -183,7 +192,7 @@
   font-size: 38px;
   margin-bottom: 30px;
   text-align: center;
-  font-family: 'Georgia', serif;
+  font-family: "Georgia", serif;
   letter-spacing: 1px;
 }
 
@@ -191,11 +200,11 @@
 .reviews-container {
   display: flex;
   gap: 25px;
-  overflow-x: auto;       
-  flex-wrap: nowrap;      
+  overflow-x: auto;
+  flex-wrap: nowrap;
   padding: 20px 0;
   scroll-behavior: smooth;
-  scrollbar-width: thin;  /* for Firefox */
+  scrollbar-width: thin; /* for Firefox */
 }
 
 .reviews-container::-webkit-scrollbar {
@@ -218,7 +227,7 @@
   background: #3b241b;
   padding: 25px 20px;
   border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
 }
@@ -226,7 +235,7 @@
 /* Hover effect for cards */
 .review-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
 }
 
 /* Quote styling */
@@ -253,7 +262,6 @@
   color: #c08a58;
 }
 
-
 .review-box p::after {
   content: "”";
   font-size: 30px;
@@ -271,7 +279,7 @@
   align-items: flex-start;
 
   gap: 40px;
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
 }
 
 .footer-section {
@@ -298,8 +306,8 @@
   transition: 0.3s;
 }
 
-.footer-section  {
-  color: #d4a373; 
+.footer-section {
+  color: #d4a373;
 }
 
 /* Social icons */
@@ -333,4 +341,3 @@
   background: #0d0705;
   color: #fff;
 }
-
