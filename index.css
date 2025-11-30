@@ -1,3 +1,6 @@
+
+
+
 /* Abissina Coffee*/
 #hero {
   display: flex;
@@ -250,6 +253,7 @@
   color: #c08a58;
 }
 
+
 .review-box p::after {
   content: "”";
   font-size: 30px;
@@ -322,4 +326,11 @@
   }
 }
 
+/*Footer*/
+#footer {
+  padding: 30px;
+  text-align: center;
+  background: #0d0705;
+  color: #fff;
+}
 
