@@ -1,18 +1,5 @@
-/* Reset defaults and ensure a dark page background so no white strip shows */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #1e1814;
-  color: #e6c9ad;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+
+
 
 /* Abissina Coffee*/
 #hero {
@@ -26,7 +13,7 @@ body {
 
 #hero .logo {
   font-size: 50px;
-  font-family: "Georgia", serif;
+  font-family: "Georgia ", serif;
 }
 
 #hero .tagline {
@@ -185,17 +172,160 @@ body {
   width: 50%;
 }
 /*Review*/
+/* Reviews Section */
 #reviews {
   padding: 70px 10%;
-  background: #1c0f0a;
+  background: linear-gradient(to right, #1c0f0a, #2b1a14); /* subtle gradient */
   color: #fff;
 }
 
-.review-box {
-  background: #3b241b;
-  padding: 30px;
-  border-radius: 12px;
+#reviews h2 {
+  font-size: 38px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  letter-spacing: 1px;
 }
+
+/* Scrollable container */
+.reviews-container {
+  display: flex;
+  gap: 25px;
+  overflow-x: auto;       
+  flex-wrap: nowrap;      
+  padding: 20px 0;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;  /* for Firefox */
+}
+
+.reviews-container::-webkit-scrollbar {
+  height: 10px;
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+  background: #c08a58;
+  border-radius: 5px;
+}
+
+.reviews-container::-webkit-scrollbar-track {
+  background: #1c0f0a;
+}
+
+/* Review card */
+.review-box {
+  flex: 0 0 300px;
+  min-width: 300px;
+  background: #3b241b;
+  padding: 25px 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+/* Hover effect for cards */
+.review-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+}
+
+/* Quote styling */
+.review-box p {
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.review-box span {
+  display: block;
+  text-align: right;
+  font-weight: bold;
+  color: #e6c9ad;
+}
+
+/* Optional: small quotation marks */
+.review-box p::before {
+  content: "“";
+  font-size: 30px;
+  vertical-align: top;
+  margin-right: 5px;
+  color: #c08a58;
+}
+
+
+.review-box p::after {
+  content: "”";
+  font-size: 30px;
+  margin-left: 5px;
+  color: #c08a58;
+}
+/* Footer */
+.footer {
+  background-color: #1e1814;
+  color: #e6c9ad;
+  padding: 40px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  gap: 40px;
+  flex-wrap: nowrap; 
+}
+
+.footer-section {
+  max-width: 200px;
+}
+
+.footer-section h3 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.footer-section p {
+  margin: 6px 0;
+}
+
+.footer i {
+  margin-right: 10px;
+}
+
+/* Quick Links styling */
+.footer-section a {
+  color: #d4a373;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-section  {
+  color: #d4a373; 
+}
+
+/* Social icons */
+.social-icons i {
+  font-size: 22px;
+  margin-right: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-icons i {
+  color: #d4a373;
+}
+
+/* responsive mode */
+@media (max-width: 900px) {
+  .footer {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .footer-section {
+    max-width: 100%;
+  }
+}
+
 /*Footer*/
 #footer {
   padding: 30px;
@@ -203,3 +333,4 @@ body {
   background: #0d0705;
   color: #fff;
 }
+
