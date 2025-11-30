@@ -18,6 +18,12 @@ body {
   padding: 80px 10%;
   background: #2b1a14;
   color: #fff;
+  transition: box-shadow 0.3s ease; /* For section glow */
+}
+
+/* Section Glow */
+#hero:hover {
+    box-shadow: 0 0 15px rgba(192, 138, 88, 0.5); 
 }
 
 #hero .logo {
@@ -40,15 +46,25 @@ body {
   color: #fff;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.3s ease;
 }
 
-#hero .hero-buttons .outline {
-  background: transparent;
-  border: 2px solid #c08a58;
+/* FIX: SHOP NOW BUTTON GLOW */
+#hero .hero-buttons button:hover {
+    box-shadow: 0 0 10px #c08a58, 0 0 20px #c08a58, 0 0 40px #c08a58;
+    transform: scale(1.05);
 }
 
 #hero .hero-image img {
   width: 350px;
+  /* Optional: Add a slight float animation to flying cup */
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
 }
 
 /* our story*/
@@ -56,6 +72,12 @@ body {
   padding: 80px 10%;
   background: #1f140f;
   color: #fff;
+  transition: box-shadow 0.3s ease; /* For section glow */
+}
+
+/* Section Glow */
+#story:hover {
+    box-shadow: 0 0 15px rgba(192, 138, 88, 0.4); 
 }
 
 #story h2 {
@@ -78,6 +100,21 @@ body {
   line-height: 1.7;
 }
 
+/* TASK 7: MORE TEXT LOGIC */
+.more-text {
+    display: none; 
+}
+
+/* Show text when checkbox is checked */
+.read-more-checkbox:checked ~ p .more-text {
+    display: inline;
+}
+
+/* FIX: Hide the "More" label when the checkbox is checked */
+.read-more-checkbox:checked + .more-btn {
+    display: none;
+}
+
 .more-btn {
   margin-top: 20px;
   display: inline-block;
@@ -85,7 +122,17 @@ body {
   background: #c08a58;
   border-radius: 6px;
   color: #fff;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.3s ease; /* Ensure smooth transition */
 }
+
+/* FIX: MORE BUTTON GLOW */
+.more-btn:hover {
+    box-shadow: 0 0 8px #c08a58, 0 0 15px #c08a58;
+    transform: scale(1.05);
+}
+
 /* Services*/
 #services {
   padding: 70px 10%;
@@ -110,7 +157,7 @@ body {
   width: 18%;
   text-align: center;
 }
-/*cup animation*/
+
 /*Offer*/
 #offer {
   padding: 60px 10%;
@@ -123,6 +170,7 @@ body {
   padding: 40px;
   border-radius: 14px;
 }
+
 /*Reservation*/
 #reservation {
   padding: 70px 10%;
@@ -184,7 +232,7 @@ body {
 /* Reviews Section */
 #reviews {
   padding: 70px 10%;
-  background: linear-gradient(to right, #1c0f0a, #2b1a14); /* subtle gradient */
+  background: linear-gradient(to right, #1c0f0a, #2b1a14);
   color: #fff;
 }
 
@@ -204,7 +252,7 @@ body {
   flex-wrap: nowrap;
   padding: 20px 0;
   scroll-behavior: smooth;
-  scrollbar-width: thin; /* for Firefox */
+  scrollbar-width: thin; 
 }
 
 .reviews-container::-webkit-scrollbar {
