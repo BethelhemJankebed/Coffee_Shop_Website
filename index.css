@@ -18,10 +18,9 @@ body {
   padding: 80px 10%;
   background: #2b1a14;
   color: #fff;
-  transition: box-shadow 0.3s ease; /* For section glow */
+  transition: box-shadow 0.3s ease;
 }
 
-/* Section Glow */
 #hero:hover {
   box-shadow: 0 0 15px rgba(192, 138, 88, 0.5);
 }
@@ -49,15 +48,13 @@ body {
   transition: 0.3s ease;
 }
 
-/* FIX: SHOP NOW BUTTON GLOW */
 #hero .hero-buttons button:hover {
   box-shadow: 0 0 10px #c08a58, 0 0 20px #c08a58, 0 0 40px #c08a58;
   transform: scale(1.05);
 }
 
 #hero .hero-image img {
-  width: 350px;
-  /* Optional: Add a slight float animation to flying cup */
+  width: 500px;
   animation: float 3s ease-in-out infinite;
 }
 
@@ -78,10 +75,9 @@ body {
   padding: 80px 10%;
   background: #1f140f;
   color: #fff;
-  transition: box-shadow 0.3s ease; /* For section glow */
+  transition: box-shadow 0.3s ease;
 }
 
-/* Section Glow */
 #story:hover {
   box-shadow: 0 0 15px rgba(192, 138, 88, 0.4);
 }
@@ -106,17 +102,14 @@ body {
   line-height: 1.7;
 }
 
-/* MORE TEXT LOGIC */
 .more-text {
   display: none;
 }
 
-/* Show text when checkbox is checked */
 .read-more-checkbox:checked ~ p .more-text {
   display: inline;
 }
 
-/* Hide the "More" label when the checkbox is checked */
 .read-more-checkbox:checked + .more-btn {
   display: none;
 }
@@ -130,10 +123,9 @@ body {
   color: #fff;
   cursor: pointer;
   user-select: none;
-  transition: 0.3s ease; /* Ensure smooth transition */
+  transition: 0.3s ease;
 }
 
-/* FIX: MORE BUTTON GLOW */
 .more-btn:hover {
   box-shadow: 0 0 8px #c08a58, 0 0 15px #c08a58;
   transform: scale(1.05);
@@ -395,13 +387,13 @@ body {
   overflow-x: auto;
   padding: 40px 20px;
   scroll-behavior: smooth;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   width: 100%;
 }
 
 .blog-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none;
 }
 
 .scroll-btn {
@@ -523,7 +515,6 @@ body {
 .read-more:hover i {
   transform: translateX(5px);
 }
-/*Review*/
 /* Reviews Section */
 #reviews {
   padding: 70px 10%;
@@ -538,8 +529,6 @@ body {
   font-family: "Georgia", serif;
   letter-spacing: 1px;
 }
-
-/* Scrollable container */
 .reviews-container {
   display: flex;
   gap: 25px;
@@ -563,7 +552,6 @@ body {
   background: #1c0f0a;
 }
 
-/* Review card */
 .review-box {
   flex: 0 0 300px;
   min-width: 300px;
@@ -575,13 +563,11 @@ body {
   position: relative;
 }
 
-/* Hover effect for cards */
 .review-box:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 15px rgba(86, 81, 81, 0.895);
 }
 
-/* Quote styling */
 .review-box p {
   font-style: italic;
   line-height: 1.6;
@@ -596,7 +582,6 @@ body {
   color: #e6c9ad;
 }
 
-/* Optional: small quotation marks */
 .review-box p::before {
   content: "“";
   font-size: 30px;
@@ -642,7 +627,6 @@ body {
   margin-right: 10px;
 }
 
-/* Quick Links styling */
 .footer-section a {
   color: #d4a373;
   text-decoration: none;
@@ -652,8 +636,6 @@ body {
 .footer-section {
   color: #d4a373;
 }
-
-/* Social icons */
 .social-icons i {
   font-size: 22px;
   margin-right: 15px;
@@ -665,7 +647,6 @@ body {
   color: #d4a373;
 }
 
-/* responsive mode */
 @media (max-width: 900px) {
   .footer {
     flex-wrap: wrap;
@@ -699,8 +680,8 @@ body {
 }
 
 .card {
-  width: 260px; /* fixed same width */
-  height: 330px; /* fixed same height */
+  width: 260px;
+  height: 330px;
   background: #55443d;
   color: #fff;
   border-radius: 15px;
@@ -713,8 +694,8 @@ body {
 
 .card img {
   width: 100%;
-  height: 180px; /* force equal height */
-  object-fit: cover; /* makes images evenly cropped */
+  height: 180px;
+  object-fit: cover;
   border-radius: 10px;
 }
 
@@ -724,7 +705,6 @@ body {
   text-align: center;
 }
 
-/* Infinite loop */
 @keyframes scroll {
   0% {
     transform: translateX(0);
@@ -733,6 +713,7 @@ body {
     transform: translateX(-50%);
   }
 }
+
 .order-btn {
   margin-top: auto;
   padding: 10px 20px;
@@ -751,6 +732,8 @@ body {
 .order-btn:active {
   background: #2b1a14;
 }
+
+/*offer*/
 .offer-section {
   text-align: center;
   opacity: 0.95;
