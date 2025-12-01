@@ -136,7 +136,7 @@ body {
 /* Services*/
 #services {
   padding: 70px 10%;
-  background: #2b1a14;
+  background: #25140d;
   color: #fff;
 }
 
@@ -668,4 +668,123 @@ body {
   text-align: center;
   background: #0d0705;
   color: #fff;
+
+}
+
+
+
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    padding: 30px 0;
+}
+
+.slider-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scroll 25s linear infinite;
+}
+
+.card {
+    width: 260px;              /* fixed same width */
+    height: 330px;             /* fixed same height */
+    background: #55443d;
+    color: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.card img {
+    width: 100%;
+    height: 180px;             /* force equal height */
+    object-fit: cover;         /* makes images evenly cropped */
+    border-radius: 10px;
+}
+
+.card h3 {
+    margin-top: 12px;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* Infinite loop */
+@keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+.order-btn {
+    margin-top: auto;
+    padding: 10px 20px;
+    background: #d49b63;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.order-btn:hover {
+    background: #b7804f;
+}
+.order-btn:active {
+    background: #2b1a14;
+}.offer-section {
+    text-align: center;
+    opacity: 0.95;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f8f1e7, #fff);
+    border-radius: 15px;
+    box-shadow: 0px 8px 25px rgba(0,0,0,0.15);
+    max-width: 700px;
+    margin: 40px auto;
+}
+
+.offer-top-text {
+    font-size: 18px;
+    font-weight: 600;
+    color: #a67c52;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.offer-section h2 {
+    font-size: 45px;
+    margin: 10px 0;
+    color: #3a2e1e;
+    font-weight: 700;
+}
+
+.offer-section h2 span {
+    color: #d35400;
+    font-weight: bold;
+}
+
+.offer-desc {
+    font-size: 17px;
+    color: #444;
+    margin: 15px 0 30px;
+}
+
+.offer-btn {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #d35400;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 17px;
+    font-weight: 600;
+    transition: 0.3s ease;
+    box-shadow: 0px 4px 15px rgba(211, 84, 0, 0.4);
+}
+
+.offer-btn:hover {
+    background: #a84300;
+    transform: translateY(-3px);
 }
