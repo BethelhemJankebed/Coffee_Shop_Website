@@ -184,7 +184,7 @@
   letter-spacing: 1px;
 }
 
-/* Scrollable container */
+
 .reviews-container {
   display: flex;
   gap: 25px;
@@ -192,7 +192,7 @@
   flex-wrap: nowrap;      
   padding: 20px 0;
   scroll-behavior: smooth;
-  scrollbar-width: thin;  /* for Firefox */
+  scrollbar-width: thin;  
 }
 
 .reviews-container::-webkit-scrollbar {
@@ -200,12 +200,12 @@
 }
 
 .reviews-container::-webkit-scrollbar-thumb {
-  background: #c08a58;
+  background: #483011;
   border-radius: 5px;
 }
 
 .reviews-container::-webkit-scrollbar-track {
-  background: #1c0f0a;
+  background: #e5dfdc;
 }
 
 /* Review card */
@@ -215,7 +215,7 @@
   background: #3b241b;
   padding: 25px 20px;
   border-radius: 15px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 15px rgba(235, 197, 197, 0.3);
   transition: transform 0.3s, box-shadow 0.3s;
   position: relative;
 }
@@ -223,7 +223,7 @@
 /* Hover effect for cards */
 .review-box:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 25px rgba(0,0,0,0.4);
+  box-shadow: 0 15px 25px rgba(56, 31, 31, 0.4);
 }
 
 /* Quote styling */
