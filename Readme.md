@@ -1,71 +1,99 @@
-# Coffee Shop Website
+# ☕ Coffee Shop Website
 
-##  Team 6 - Group Assignment
-
-**Section:** A
-
-###  Group Members
-
-1. BETHELEM JANKEBED MELESE — ETS0277/16
-2. BIRUKTAWIT MELKAMU — ETS0326/16
-3. DANIEL EWNETU AYALEW — ETS0386/16
-4. ABEL NEGASH ESTIFANOS — ETS0040/16
-5. BETHELHEM ALEMAYEHU — ETS0274/16
-
-##  Project Overview
-
-This project is a **Coffee Shop Website** built using **HTML, CSS, and JavaScript**.  
-It simulates a modern coffee shop’s online presence by:
-
-- Showcasing products 
-- Providing information about the business 
-
-The goal of this project is to design a clean, responsive, and user-friendly website that reflects the atmosphere of a real coffee shop while providing essential features for both customers and business owners.
-
-## Sections & Features
-
-###  1. Landing / Home Section
-
-- Hero image/banner (coffee shop vibe)
-- Welcome message & tagline
-- Navigation bar linking to all sections
-
-###  2. Products / Menu Section
-
-- Coffee products list (espresso, cappuccino, latte, etc.)
-- Prices and short descriptions
-- “Add to Cart” (optional, demo only)
-- Responsive grid layout for items
-
-###  3. Reserve a Table Section
-
-- Reservation form (name, email, phone, date, time, number of guests)
-- Simple JavaScript form validation
-- Confirmation message on successful submission
-
-### 4. Our Section
-
-- Short history / mission of the coffee shop
-- High-quality images of shop interior or staff
-
-### 5. Gallery Section
-
-- Photo gallery of drinks, pastries, and shop ambiance
-
-###  7. Footer
-
-- Copyright notice
-- Quick links to top sections
-- Social media links
-
-## Extra Features 
-- Testimonials / Customer reviews
-- Special Offers 
+<img width="1080" height="734" alt="Coffee Shop Preview" src="https://github.com/user-attachments/assets/040eb55b-5b8b-4806-bacf-60535ea06754" />
 
 ---
 
-## Technologies Used
+## 🧑‍💻 Team 6 — Group Assignment  
+**Section:** A
 
-- **HTML5** – structure and semantic layout
-- **CSS3** – styling and responsive design (Flexbox, Grid, Media Queries)
-- **JavaScript** – interactivity (form validation, dynamic content)
+### 👥 Group Members
+
+| Name | ID |
+|------|-----|
+| BETHELEM JANKEBED MELESE | ETS0277/16 |
+| BIRUKTAWIT MELKAMU | ETS0326/16 |
+| DANIEL EWNETU AYALEW | ETS0386/16 |
+| ABEL NEGASH ESTIFANOS | ETS0040/16 |
+| **BETHELHEM ALEMAYEHU** | **ETS0274/16** |
+
+---
+
+## 📌 Project Overview
+
+The **Coffee Shop Website** is a modern, responsive, and interactive web project built using **HTML, CSS, and JavaScript**.
+
+It simulates a real coffee shop’s online presence by offering:
+
+- A clean and welcoming interface  
+- Easy navigation  
+- Coffee product showcasing  
+- Table reservation features  
+
+The aim of this project is to design a professional, user-friendly site that captures the warm and cozy feeling of a real café.
+
+---
+
+## 📚 Features & Sections
+
+### ⭐ 1. Home / Landing Section
+- Coffee-themed hero banner  
+- Welcome text & tagline  
+- Navigation menu linking to main sections  
+
+### ⭐ 2. Products / Menu Section
+- Coffee menu items (Espresso, Latte, Cappuccino, etc.)  
+- Prices and short descriptions  
+- Responsive grid layout  
+- Optional “Add to Cart” button (demo only)
+
+### ⭐ 3. Reserve a Table
+- Reservation form including:
+  - Name  
+  - Email  
+  - Phone  
+  - Date  
+  - Time  
+  - Number of guests  
+- JavaScript form validation  
+- Confirmation message on success  
+
+### ⭐ 4. Our Story / About Section
+- Information about the coffee shop  
+- Mission, history, or short story  
+- High-quality images  
+
+### ⭐ 5. Gallery
+- Images displaying:
+  - Coffee drinks  
+  - Pastries  
+  - Café interior & ambiance  
+
+### ⭐ 6. Footer
+- Copyright  
+- Social media links  
+- Quick navigation links  
+
+---
+
+## 🎁 Extra Features
+- Customer testimonials  
+- Special discount/offers section  
+
+---
+
+## 🛠️ Technologies Used
+
+| Technology | Purpose |
+|------------|---------|
+| **HTML5** | Webpage structure & layout |
+| **CSS3** | Styling, animations, responsiveness |
+| **JavaScript** | Interactivity, form validation |
+
+---
+
+## 🚀 How to Run the Project
+
+1. Clone or download this repository:
+   ```bash
+   git clone https://github.com/BethelhemJankebed/Coffee_Shop_Website.git
