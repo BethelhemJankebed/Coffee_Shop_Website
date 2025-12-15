@@ -10,48 +10,68 @@
     TXNS: "coffeeShop.transactions",
   };
 
-  // Catalog
   const catalog = [
-    { id: "espresso", name: "Espresso", price: 3.0, desc: "Rich single shot" },
+    {
+      id: "espresso",
+      name: "Espresso",
+      price: 3.0,
+      desc: "Rich single shot",
+      image: "./img/esspresso.png",
+    },
     {
       id: "americano",
       name: "Americano",
       price: 3.5,
       desc: "Espresso + hot water",
+      image: "./img/moca.png",
     },
-    { id: "latte", name: "Latte", price: 4.5, desc: "Espresso + steamed milk" },
+    {
+      id: "latte",
+      name: "Latte",
+      price: 4.5,
+      desc: "Espresso + steamed milk",
+      image: "./img/c1.jpg",
+    },
     {
       id: "cappuccino",
       name: "Cappuccino",
       price: 4.5,
       desc: "Espresso + foam",
+      image: "./img/c2.jpg",
     },
-    { id: "mocha", name: "Mocha", price: 5.0, desc: "Chocolate + espresso" },
+    {
+      id: "mocha",
+      name: "Mocha",
+      price: 5.0,
+      desc: "Chocolate + espresso",
+      image: "./img/c3.jpg",
+    },
     {
       id: "macchiato",
       name: "Macchiato",
       price: 4.0,
       desc: "Espresso marked with foam",
+      image: "./img/c4.jpg",
     },
     {
       id: "croissant",
       name: "Butter Croissant",
       price: 3.25,
       desc: "Flaky, buttery pastry",
+      image: "./img/butter.jpg",
     },
     {
       id: "muffin",
-      name: "Blueberry Muffin",
+      name: "Chocolate Muffin",
       price: 3.0,
       desc: "Freshly baked daily",
+      image: "./img/cupcake.jpg",
     },
   ];
 
-  // State
   let cart = load(STORAGE.CART, []);
   let txns = load(STORAGE.TXNS, []);
 
-  // Elements
   const productsGrid = $("#products-grid");
   const cartCount = $("#cart-count");
   const cartEmpty = $("#cart-empty");
@@ -67,7 +87,6 @@
   const modalActions = $("#modal-actions");
   const modalTitle = $("#modal-title");
 
-  // Init
   renderCatalog();
   renderCart();
   renderTransactions();
@@ -86,14 +105,19 @@
     localStorage.setItem(key, JSON.stringify(value));
   }
 
-  // Render catalog cards
   function renderCatalog() {
     if (!productsGrid) return;
     productsGrid.innerHTML = "";
     catalog.forEach((item) => {
       const card = document.createElement("div");
       card.className = "card";
+      const imgSrc = item.image || "img/placeholder.png";
       card.innerHTML = `
+        <div class="thumb">${
+          imgSrc
+            ? `<img src="${imgSrc}" alt="${escapeHTML(item.name)}" />`
+            : '<div class="thumb placeholder">Image coming soon</div>'
+        }</div>
         <div class="title">${item.name}</div>
         <div class="desc">${item.desc}</div>
         <div class="price">${fmt(item.price)}</div>
@@ -211,7 +235,6 @@
     };
   }
 
-  // Cart rendering & actions
   function renderCart() {
     if (!cartList) return;
     cartList.innerHTML = "";
@@ -293,7 +316,6 @@
       qty: ci.qty,
     }));
     showReceipt(lines);
-    // After confirming in modal, we'll clear the cart via hook below
     const confirmBtnObserver = new MutationObserver(() => {
       const btn = $("#receipt-confirm");
       if (btn) {
@@ -314,7 +336,6 @@
     }
   });
 
-  // Transactions
   function renderTransactions() {
     const host = $("#transactions-list");
     if (!host) return;
@@ -342,14 +363,12 @@
     });
   }
 
-  // Helpers
   function updateCartBadge() {
     const count = cart.reduce((s, i) => s + i.qty, 0);
     if (cartCount) cartCount.textContent = String(count);
   }
 
   function attachGlobalHandlers() {
-    // Close modal on backdrop or [data-close]
     modal.addEventListener("click", (e) => {
       if (
         e.target.hasAttribute("data-close") ||
@@ -370,7 +389,6 @@
   }
 
   function toast(msg) {
-    // Minimal inline toast
     const t = document.createElement("div");
     t.textContent = msg;
     t.style.position = "fixed";

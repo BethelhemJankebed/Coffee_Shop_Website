@@ -1,4 +1,3 @@
-/* Global */
 :root {
   --bg-1: #1f120f;
   --bg-2: #39231b;
@@ -29,7 +28,6 @@ body {
     "Segoe UI Symbol";
 }
 
-/* Header / Nav */
 .site-header {
   position: sticky;
   top: 0;
@@ -83,7 +81,28 @@ body {
   margin-left: 6px;
 }
 
-/* Layout */
+/* product thumbnails */
+.thumb {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #2f221b;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.thumb.placeholder {
+  color: var(--muted);
+  font-size: 13px;
+}
+
 .container {
   max-width: 1100px;
   margin: 0 auto;
@@ -109,7 +128,6 @@ body {
   display: none !important;
 }
 
-/* Grid of products */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -141,7 +159,6 @@ body {
   margin-top: 6px;
 }
 
-/* Buttons */
 .btn {
   appearance: none;
   border: 0;
@@ -171,8 +188,6 @@ body {
   line-height: 1;
   cursor: pointer;
 }
-
-/* Cart */
 .cart-list {
   display: grid;
   gap: 12px;
@@ -217,7 +232,6 @@ body {
   font-weight: 800;
 }
 
-/* Transactions */
 .transactions {
   display: grid;
   gap: 12px;
@@ -239,7 +253,6 @@ body {
   font-size: 14px;
 }
 
-/* Modal */
 .modal.hidden {
   display: none;
 }
@@ -296,7 +309,6 @@ body {
   color: var(--muted);
 }
 
-/* Responsive tweaks */
 @media (max-width: 640px) {
   .cart-item {
     grid-template-columns: 1fr auto auto;
