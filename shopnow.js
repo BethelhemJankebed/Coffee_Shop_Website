@@ -87,12 +87,16 @@
   const modalActions = $("#modal-actions");
   const modalTitle = $("#modal-title");
 
+  const transactionsList = $("#transactions-list");
+  const clearTxnsBtn = $("#clear-transactions");
+
   renderCatalog();
   renderCart();
   renderTransactions();
   updateCartBadge();
   attachGlobalHandlers();
 
+  // ---------- Load & Save ----------
   function load(key, fallback) {
     try {
       const v = JSON.parse(localStorage.getItem(key));
@@ -105,6 +109,7 @@
     localStorage.setItem(key, JSON.stringify(value));
   }
 
+  // ---------- Render Catalog ----------
   function renderCatalog() {
     if (!productsGrid) return;
     productsGrid.innerHTML = "";
@@ -113,11 +118,9 @@
       card.className = "card";
       const imgSrc = item.image || "img/placeholder.png";
       card.innerHTML = `
-        <div class="thumb">${
-          imgSrc
-            ? `<img src="${imgSrc}" alt="${escapeHTML(item.name)}" />`
-            : '<div class="thumb placeholder">Image coming soon</div>'
-        }</div>
+        <div class="thumb">
+          <img src="${imgSrc}" alt="${escapeHTML(item.name)}" />
+        </div>
         <div class="title">${item.name}</div>
         <div class="desc">${item.desc}</div>
         <div class="price">${fmt(item.price)}</div>
@@ -139,6 +142,7 @@
     });
   }
 
+  // ---------- Cart Actions ----------
   function onAddToCart(id) {
     const item = catalog.find((p) => p.id === id);
     if (!item) return;
@@ -175,6 +179,7 @@
     };
   }
 
+  // ---------- Receipt ----------
   function showReceipt(lines) {
     const subtotal = lines.reduce((s, l) => s + l.unitPrice * l.qty, 0);
     const tax = subtotal * 0.1;
@@ -235,6 +240,7 @@
     };
   }
 
+  // ---------- Render Cart ----------
   function renderCart() {
     if (!cartList) return;
     cartList.innerHTML = "";
@@ -279,9 +285,7 @@
     cartList.onclick = (e) => {
       const host = e.target.closest(".qty-controls, .cart-item");
       if (!host) return;
-      const id =
-        host.querySelector("[data-id]")?.dataset.id ||
-        host.querySelector(".qty-controls")?.dataset.id;
+      const id = host.querySelector("[data-id]")?.dataset.id;
       if (!id) return;
       if (e.target.matches("[data-inc]")) changeQty(id, +1);
       if (e.target.matches("[data-dec]")) changeQty(id, -1);
@@ -336,15 +340,15 @@
     }
   });
 
+  // ---------- Render Transactions ----------
   function renderTransactions() {
-    const host = $("#transactions-list");
-    if (!host) return;
-    host.innerHTML = "";
+    if (!transactionsList) return;
+    transactionsList.innerHTML = "";
     if (!txns.length) {
       const d = document.createElement("div");
       d.className = "muted";
       d.textContent = "No transactions yet.";
-      host.appendChild(d);
+      transactionsList.appendChild(d);
       return;
     }
     txns.forEach((t) => {
@@ -359,10 +363,25 @@
         </div>
         <div class="txn-items">${escapeHTML(itemsText)}</div>
       `;
-      host.appendChild(div);
+      transactionsList.appendChild(div);
     });
   }
 
+  // ---------- Clear Transactions ----------
+  clearTxnsBtn?.addEventListener("click", () => {
+    if (!txns.length) {
+      toast("No transactions to clear");
+      return;
+    }
+    if (confirm("Are you sure you want to clear all transactions?")) {
+      txns = [];
+      save(STORAGE.TXNS, txns);
+      renderTransactions();
+      toast("All transactions cleared");
+    }
+  });
+
+  // ---------- Utilities ----------
   function updateCartBadge() {
     const count = cart.reduce((s, i) => s + i.qty, 0);
     if (cartCount) cartCount.textContent = String(count);
