@@ -36,7 +36,8 @@ body {
   line-height: 1.6;
 }
 
-#hero .hero-buttons button {
+#hero .hero-buttons .hero-cta {
+  display: inline-block;
   margin-top: 20px;
   padding: 12px 25px;
   background: #c08a58;
@@ -46,9 +47,10 @@ body {
   cursor: pointer;
   font-weight: bold;
   transition: 0.3s ease;
+  text-decoration: none;
 }
 
-#hero .hero-buttons button:hover {
+#hero .hero-buttons .hero-cta:hover {
   box-shadow: 0 0 10px #c08a58, 0 0 20px #c08a58, 0 0 40px #c08a58;
   transform: scale(1.05);
 }
