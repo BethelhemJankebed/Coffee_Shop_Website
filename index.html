@@ -501,5 +501,21 @@
         </div>
       </div>
     </footer>
+    <script>
+  // Check if someone is logged in
+  const user = JSON.parse(localStorage.getItem('currentUser'));
+  const nav = document.querySelector('.nav-links');
+
+  if (user) {
+    // Show username and logout
+    const logoutBtn = `<a href="#" onclick="localStorage.clear(); location.reload();">Logout (${user.username})</a>`;
+    // Only show Dashboard link if the user is an admin
+    const adminBtn = user.role === 'admin' ? '<a href="admin.html" style="color: #f39c12;">Admin Dashboard</a>' : '';
+    nav.innerHTML += adminBtn + logoutBtn;
+  } else {
+    // If not logged in, show the link to the login page
+    nav.innerHTML += '<a href="login.html">Login</a>';
+  }
+</script>
   </body>
 </html>

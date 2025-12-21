@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - Abyssinia Coffee</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body { background: #1e1814; display: flex; justify-content: center; align-items: center; height: 100vh; color: #e6c9ad; font-family: sans-serif; }
+        .login-card { background: #2b1f18; padding: 40px; border-radius: 15px; border: 1px solid #5a4336; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 350px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #5a4336; background: #1e1814; color: #fff; box-sizing: border-box; }
+        .login-btn { width: 100%; padding: 12px; background: #6b513f; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .login-btn:hover { background: #8d6e63; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="img/coffeelogo.png" alt="Logo" style="height: 60px;">
+        <h2>Staff & Customer Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button class="login-btn" onclick="performLogin()">Login</button>
+        <p id="error" style="color: #ff6b6b; font-size: 14px; margin-top: 15px;"></p>
+    </div>
+
+    <script>
+        async function performLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+            
+            // Calling the Mock API
+            const res = await fetch('db.json');
+            const data = await res.json();
+            
+            const foundUser = data.users.find(user => user.username === u && user.password === p);
+            
+            if (foundUser) {
+                localStorage.setItem('currentUser', JSON.stringify(foundUser));
+                if (foundUser.role === 'admin') {
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                document.getElementById('error').innerText = "Invalid credentials. Try admin/123";
+            }
+        }
+    </script>
+</body>
+</html>
