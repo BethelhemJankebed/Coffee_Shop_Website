@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abyssinia Coffee</title>
+    <link rel="icon" href="img/coffeelogo.png" />
+    <link rel="stylesheet" href="shopnow.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="site-nav">
+        <div class="site-brand-row">
+          <img
+            src="img/coffeelogo.png"
+            alt="Abissina Coffee logo"
+            class="site-logo"
+          />
+          <a class="site-brand" href="index.html#hero">Abyssinia Coffee</a>
+        </div>
+        <nav class="nav-links">
+          <a href="index.html#hero">Home</a>
+          <a href="#shop">Shop</a>
+          <a href="#cart" class="cart-link"
+            >Cart <span id="cart-count" class="badge">0</span></a
+          >
+          <a href="#transactions">Previous Transactions</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section id="shop" class="section">
+        <h1 class="section-title">Shop Coffee & Treats</h1>
+        <div id="products-grid" class="grid"></div>
+      </section>
+
+      <section id="cart" class="section">
+        <div class="section-header">
+          <h2 class="section-title">Your Cart</h2>
+          <button id="checkout-btn" class="btn primary" disabled>
+            Checkout Cart
+          </button>
+        </div>
+        <div id="cart-empty" class="muted">Your cart is empty.</div>
+        <div id="cart-items" class="cart-list"></div>
+        <div id="cart-summary" class="cart-summary hidden">
+          <div><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+          <div><span>Tax (10%)</span><span id="cart-tax">$0.00</span></div>
+          <div class="total">
+            <span>Total</span><span id="cart-total">$0.00</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="transactions" class="section">
+        <h2 class="section-title">Previous Transactions</h2>
+        <button id="clear-transactions" class="btn ghost">
+          Clear Transactions
+        </button>
+        <div id="transactions-list" class="transactions"></div>
+      </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-backdrop" data-close></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modal-title">Buy Item</h3>
+          <button class="icon-btn" title="Close" data-close>&times;</button>
+        </div>
+        <div class="modal-body" id="modal-body"></div>
+        <div class="modal-actions" id="modal-actions"></div>
+      </div>
+    </div>
+
+    <script src="shopnow.js" defer></script>
+  </body>
+</html>
