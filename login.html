@@ -21,28 +21,34 @@
         <p id="error" style="color: #ff6b6b; font-size: 14px; margin-top: 15px;"></p>
     </div>
 
-    <script>
-        async function performLogin() {
-            const u = document.getElementById('username').value;
-            const p = document.getElementById('password').value;
-            
-            // Calling the Mock API
-            const res = await fetch('db.json');
-            const data = await res.json();
-            
-            const foundUser = data.users.find(user => user.username === u && user.password === p);
-            
-            if (foundUser) {
-                localStorage.setItem('currentUser', JSON.stringify(foundUser));
-                if (foundUser.role === 'admin') {
-                    window.location.href = 'admin.html';
-                } else {
-                    window.location.href = 'index.html';
-                }
+<script>
+    async function performLogin() {
+        const u = document.getElementById('username').value;
+        const p = document.getElementById('password').value;
+        
+        // 1. Fetch original accounts from your JSON Mock API
+        const res = await fetch('db.json');
+        const data = await res.json();
+        
+        // 2. Get any signed-up accounts from LocalStorage
+        const localUsers = JSON.parse(localStorage.getItem('extraUsers')) || [];
+        
+        // 3. Combine them to check login
+        const allUsers = [...data.users, ...localUsers];
+        
+        const foundUser = allUsers.find(user => user.username === u && user.password === p);
+        
+        if (foundUser) {
+            localStorage.setItem('currentUser', JSON.stringify(foundUser));
+            if (foundUser.role === 'admin') {
+                window.location.href = 'admin.html';
             } else {
-                document.getElementById('error').innerText = "Invalid credentials. Try admin/123";
+                window.location.href = 'index.html';
             }
+        } else {
+            document.getElementById('error').innerText = "Invalid credentials.";
         }
-    </script>
+    }
+</script>
 </body>
 </html>

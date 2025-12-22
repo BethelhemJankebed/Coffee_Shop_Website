@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign Up - Abyssinia Coffee</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        body { background: #1e1814; color: #e6c9ad; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        .signup-box { background: #2b1f18; padding: 40px; border-radius: 15px; border: 1px solid #5a4336; text-align: center; width: 350px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #5a4336; background: #1e1814; color: #fff; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; background: #6b513f; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #8d6e63; }
+    </style>
+</head>
+<body>
+    <div class="signup-box">
+        <h2>Create Account</h2>
+        <input type="text" id="new-user" placeholder="Choose Username">
+        <input type="password" id="new-pass" placeholder="Choose Password">
+        <button class="btn" onclick="handleSignUp()">Sign Up</button>
+        <p id="msg" style="margin-top:15px; font-size: 14px;"></p>
+        <a href="login.html" style="color: #f39c12; font-size: 13px; text-decoration: none;">Already have an account? Login</a>
+    </div>
+
+    <script>
+        function handleSignUp() {
+            const user = document.getElementById('new-user').value;
+            const pass = document.getElementById('new-pass').value;
+            const msg = document.getElementById('msg');
+
+            if (!user || !pass) {
+                msg.innerText = "Please fill in all fields.";
+                return;
+            }
+
+            // Save new user to LocalStorage since we can't write to db.json directly from browser
+            let localUsers = JSON.parse(localStorage.getItem('extraUsers')) || [];
+
+            if (localUsers.find(u => u.username === user)) {
+                msg.innerText = "Username already exists!";
+                return;
+            }
+
+            localUsers.push({ username: user, password: pass, role: "user" });
+            localStorage.setItem('extraUsers', JSON.stringify(localUsers));
+
+            msg.style.color = "#2ecc71";
+            msg.innerText = "Account created! Redirecting to login...";
+            
+            setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+        }
+    </script>
+</body>
+</html>
