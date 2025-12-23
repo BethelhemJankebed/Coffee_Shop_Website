@@ -12,5 +12,13 @@
     { "id": "macchiato", "name": "Macchiato", "price": 4.0, "desc": "Espresso marked with foam", "image": "./img/c4.jpg" },
     { "id": "croissant", "name": "Butter Croissant", "price": 3.25, "desc": "Flaky, buttery pastry", "image": "./img/butter.jpg" },
     { "id": "muffin", "name": "Chocolate Muffin", "price": 3.0, "desc": "Freshly baked daily", "image": "./img/cupcake.jpg" }
+  ],
+  "transactions": [
+    { "id": "TXN001", "user": "admin", "item": "Espresso", "type": "Order", "date": "2023-10-01" },
+    { "id": "TXN002", "user": "user", "item": "Table 4", "type": "Reservation", "date": "2023-10-02" }
+  ],
+  "gallery": [
+    { "id": 1, "type": "image", "url": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "caption": "Live Jazz Night at Abyssinia" },
+    { "id": 2, "type": "image", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085", "caption": "Our Morning Brew Process" }
   ]
 }

@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>In progress!</h1>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery - Abyssinia Coffee</title>
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .gallery-container { padding: 50px; max-width: 1200px; margin: auto; }
+        .post-form { background: #2b1f18; padding: 20px; border-radius: 10px; margin-bottom: 40px; border: 1px solid #5a4336; }
+        .post-form h3 { margin-top: 0; color: #f39c12; }
+        .post-form input { padding: 10px; margin-right: 10px; border-radius: 5px; border: 1px solid #5a4336; background: #1e1814; color: white; }
+
+        input[type="file"] { color: #e6c9ad; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .gallery-item { background: #2b1f18; padding: 10px; border-radius: 10px; border: 1px solid #5a4336; transition: 0.3s; position: relative; }
+        .gallery-item:hover { transform: translateY(-5px); border-color: #f39c12; }
+        .gallery-item img { width: 100%; border-radius: 5px; height: 200px; object-fit: cover; }
+        .gallery-item p { margin-top: 10px; font-size: 14px; color: #e6c9ad; text-align: center; }
+        .gallery-item .uploader-tag { font-size: 11px; color: #888; display: block; text-align: center; margin-top: 5px; }
+        
+        .btn-post { padding: 10px 20px; background: #f39c12; color: black; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-post:hover { background: #e67e22; }
+
+        .btn-delete { width: 100%; background: #e74c3c; color: white; border: none; padding: 5px; margin-top: 10px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+        .btn-delete:hover { background: #c0392b; }
+    </style>
+</head>
+<body>
+    <div class="gallery-container">
+        <h1>Community Gallery</h1>
+
+        <div class="post-form" id="post-section">
+            <h3>Post an Event Photo</h3>
+            <input type="file" id="media-file" accept="image/*">
+            <input type="text" id="media-caption" placeholder="Enter a caption...">
+            <button class="btn-post" onclick="addGalleryItem()">Upload Photo</button>
+        </div>
+
+        <div class="grid" id="gallery-grid"></div>
+    </div>
+
+<script>
+    // 1. Get current user info
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const postSection = document.getElementById('post-section');
+
+    // 2. Hide upload form if not logged in
+    if (!currentUser) {
+        postSection.innerHTML = "<p style='color: #f39c12; text-align: center; border: 1px solid #5a4336; padding: 20px; border-radius: 10px;'><a href='login.html' style='color: #fff;'>Login</a> to upload photos from your gallery!</p>";
+    }
+
+    async function loadGallery() {
+        const grid = document.getElementById('gallery-grid');
+        grid.innerHTML = "";
+
+        try {
+            const response = await fetch('db.json');
+            const data = await response.json();
+            const sampleItems = data.gallery || [];
+            const userItems = JSON.parse(localStorage.getItem('userGallery')) || [];
+
+            // Show Permanent Sample Items (from db.json)
+            sampleItems.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `
+                    <img src="${item.url}" alt="Coffee Event">
+                    <p>${item.caption}</p>
+                `;
+                grid.appendChild(div);
+            });
+
+            // Show User Items (from LocalStorage)
+            userItems.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                
+                // --- THE FIX IS HERE ---
+                // If owner is missing, we let the current user delete it for testing
+                const isOwner = currentUser && (item.owner === currentUser.username || !item.owner);
+                const isAdmin = currentUser && currentUser.role === 'admin';
+
+                const deleteBtn = (isOwner || isAdmin) 
+                    ? `<button class="btn-delete" onclick="deleteGalleryItem(${index})">Delete My Post</button>` 
+                    : '';
+
+                div.innerHTML = `
+                    <img src="${item.url}" alt="User Upload">
+                    <p>${item.caption}</p>
+                    <span class="uploader-tag">Posted by: ${item.owner || 'You (New)'}</span>
+                    ${deleteBtn}
+                `;
+                grid.appendChild(div);
+            });
+
+        } catch (error) {
+            console.error("Error loading gallery:", error);
+        }
+    }
+
+    function addGalleryItem() {
+        const fileInput = document.getElementById('media-file');
+        const captionInput = document.getElementById('media-caption');
+        const file = fileInput.files[0];
+
+        if (!file || !captionInput.value) {
+            return alert("Please select a photo and add a caption!");
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const base64Image = e.target.result; 
+            const userItems = JSON.parse(localStorage.getItem('userGallery')) || [];
+
+            // Tag the photo with the logged-in username
+            userItems.push({ 
+                url: base64Image, 
+                caption: captionInput.value, 
+                type: "image",
+                owner: currentUser ? currentUser.username : "Guest"
+            });
+
+            localStorage.setItem('userGallery', JSON.stringify(userItems));
+            alert("Photo uploaded!");
+
+            captionInput.value = ""; 
+            fileInput.value = ""; 
+            loadGallery();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    function deleteGalleryItem(index) {
+        if (confirm("Are you sure you want to remove this post?")) {
+            let userItems = JSON.parse(localStorage.getItem('userGallery')) || [];
+            userItems.splice(index, 1);
+            localStorage.setItem('userGallery', JSON.stringify(userItems));
+            loadGallery();
+        }
+    }
+
+    loadGallery();
+</script>
+</body>
 </html>
