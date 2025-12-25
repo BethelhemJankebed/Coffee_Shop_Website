@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abyssinia Coffee - Reserve Table</title>
+    <link rel="icon" href="img/coffeelogo.png" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #2b1a14;
+        color: #3a2e1e;
+      }
+
+      header {
+        background: #6b4f2a;
+        color: #fff;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+
+      .hero {
+        width: 100%;
+        height: 300px;
+        background: url("https://cdn.oreateai.com/aiimage/strategy/a49cbe47368c406ebf0821081f48a6a8.jpg")
+          center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 36px;
+        font-weight: 700;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+      }
+
+      .reserve-section {
+        padding: 60px 20px;
+        text-align: center;
+      }
+
+      .reserve-section h2 {
+        font-size: 36px;
+        margin-bottom: 10px;
+        color: #936f40;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      }
+      .reserve-section p {
+        font-size: 16px;
+        color: #936f40;
+        margin-bottom: 40px;
+        opacity: 0.9;
+      }
+
+      .reserve-form {
+        max-width: 500px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+
+      .reserve-form:hover {
+        transform: translateY(-5px);
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 14px;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus {
+        border-color: #d35400;
+        outline: none;
+      }
+
+      .reserve-btn {
+        width: 100%;
+        background: #5a3e2c;
+        color: white;
+        padding: 15px;
+        border: none;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: background 0.3s, transform 0.2s;
+      }
+
+      .reserve-btn:hover {
+        background: #2b1a0f;
+        transform: scale(1.05);
+      }
+
+      .coffee-image {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: -25px;
+        right: -25px;
+        border-radius: 50%;
+        border: 2px solid #5a3e2c;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .coffee-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        background: #6b4f2a;
+        color: #fff;
+        margin-top: 40px;
+      }
+    </style>
+  
+
+  </head>
+  <body>
+    <header>
+      <h1>Abyssinia Coffee</h1>
+    </header>
+
+    <div class="hero">Reserve Your Table</div>
+
+    <section class="reserve-section">
+      <h2>Plan Your Visit</h2>
+      <p>
+        Book ahead and enjoy the cozy coffee experience with friends and family.
+      </p>
+
+      <form class="reserve-form" action="#" method="post">
+        <div class="coffee-image">
+          <img src="img/flyingcup.png" alt="Coffee cup" />
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Your full name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            placeholder="e.g., +251 9XXXXXXXX"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="date">Reservation Date</label>
+          <input type="date" id="date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="time">Reservation Time</label>
+          <input type="time" id="time" required />
+        </div>
+
+        <div class="form-group">
+          <label for="guests">Number of Guests</label>
+          <input
+            type="number"
+            id="guests"
+            min="1"
+            max="20"
+            placeholder="e.g., 2"
+            required
+          />
+        </div>
+
+        <button type="submit" class="reserve-btn">Reserve Now</button>
+      </form>
+    </section>
+
+    <footer>&copy; 2025 Abyssinia Coffee. All rights reserved.</footer>
+    
+</section>
+
+
+  <script>
+  const form = document.querySelector(".reserve-form");
+  const MAX_SEATS = 10;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const full_name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const reservation_date = document.getElementById("date").value;
+    const reservation_time = document.getElementById("time").value;
+    const guests = Number(document.getElementById("guests").value); // IMPORTANT
+
+    // 1️⃣ GET existing reservations
+    fetch("http://localhost:4000/reservations")
+      .then(res => res.json())
+      .then(reservations => {
+
+        // 2️⃣ Filter same date & time
+        const sameSlot = reservations.filter(r =>
+          r.reservation_date === reservation_date &&
+          r.reservation_time === reservation_time
+        );
+
+        // 3️⃣ Count reserved seats
+        let reservedSeats = 0;
+        sameSlot.forEach(r => {
+          reservedSeats += Number(r.guests);
+        });
+
+        // 4️⃣ Check capacity
+        if (reservedSeats + guests > MAX_SEATS) {
+          alert("❌ Sorry, all seats are reserved for this time.");
+          return; // STOP here
+        }
+
+        // 5️⃣ POST reservation
+        const data = {
+          full_name,
+          phone,
+          reservation_date,
+          reservation_time,
+          guests
+        };
+
+        return fetch("http://localhost:4000/reservations", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+      })
+     .then(response => {
+  if (!response) return; 
+  alert("✅ Reservation successful! See you soon at Abyssinia Coffee.");
+  form.reset();
+})
+      .catch(err => {
+        console.error(err);
+        alert("❌ Error saving reservation");
+      });
+  });
+
+
+</script>
+
+
+</body>
+</html>
+
+  </body>
+</html>

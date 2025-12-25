@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abyssinia Coffee - Admin Reservations</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f1ee;
+      color: #3a2e1e;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #6b4f2a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #6b4f2a;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #6b4f2a;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f8f5f2;
+    }
+
+    .refresh-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #5a3e2c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .refresh-btn:hover {
+      background: #2b1a0f;
+    }
+    /* Delete button style */
+
+  /* Existing general button style (for Refresh List) */
+  #refresh-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #5a3e2c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* Delete button style */
+  .delete-btn {
+    padding: 6px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .delete-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+
+
+  </style>
+</head>
+<body>
+  <h1>Reserved Tables</h1>
+
+  <button class="refresh-btn">Refresh List</button>
+
+  <table >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Phone</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Guests</th>
+      </tr>
+    </thead>
+    <tbody id="reservations-table">
+      <!-- Reservations will appear here -->
+    </tbody>
+  </table>
+
+  <script>
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser || currentUser.role !== "admin") {
+    alert("Access denied");
+    window.location.href = "login.html";
+    throw new Error("Access denied"); 
+  }
+    const tableBody = document.getElementById("reservations-table");
+    const refreshBtn = document.querySelector(".refresh-btn");
+
+    function loadReservations() {
+      fetch("http://localhost:4000/reservations")
+ // we will create this endpoint in backend
+        .then(res => res.json())
+        .then(data => {
+          tableBody.innerHTML = ""; // clear table
+          data.forEach(reservation => {
+  const row = document.createElement("tr");
+  row.innerHTML = `
+  <td>${reservation.id}</td>
+  <td>${reservation.full_name}</td>
+  <td>${reservation.phone}</td>
+  <td>${reservation.reservation_date}</td>
+  <td>${reservation.reservation_time}</td>
+  <td>${reservation.guests}</td>
+  <td>
+    <button class="delete-btn" onclick="deleteReservation('${reservation.id}')"
+>
+      Delete
+    </button>
+  </td>
+`;
+
+  tableBody.appendChild(row);
+});
+
+        })
+        .catch(err => {
+          console.error(err);
+          alert("Error loading reservations");
+        });
+    }
+
+    refreshBtn.addEventListener("click", loadReservations);
+
+
+function deleteReservation(id) {
+  if (!confirm("Are you sure you want to delete this reservation?")) return;
+
+ fetch(`http://localhost:4000/reservations/${id}`, {
+    method: "DELETE"
+  })
+  .then(res => res.text())
+.then(() => {
+  loadReservations(); 
+})
+
+  .catch(err => {
+    console.error(err);
+    alert("Error deleting reservation");
+  });
+}
+
+    // Load reservations when page opens
+    loadReservations();
+  </script>
+</body>
+</html>

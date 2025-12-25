@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Orders</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f1ee;
+      padding: 30px;
+    }
+    h2 {
+      text-align: center;
+      color: #5a3e2c;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #5a3e2c;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background: #5a3e2c;
+      color: white;
+    }
+    button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .delete-btn {
+      background: #e74c3c;
+      color: white;
+    }
+    .delete-btn:hover {
+      background: #c0392b;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Admin – Orders Management</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Username</th>
+      <th>Items</th>
+      <th>Total</th>
+      <th>Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="orders-table"></tbody>
+</table>
+
+<script>
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser || currentUser.role !== "admin") {
+    alert("Access denied");
+    window.location.href = "login.html";
+  }
+
+  const table = document.getElementById("orders-table");
+
+  function loadOrders() {
+    fetch("http://localhost:4000/orders")
+      .then(res => res.json())
+      .then(orders => {
+        table.innerHTML = "";
+        orders.forEach((order, index) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${order.username}</td>
+            <td>${order.items.map(i => i.name).join(", ")}</td>
+            <td>$${order.total.toFixed(2)}</td>
+            <td>${order.date}</td>
+           <td><button class="delete-btn" onclick="deleteOrder('${order.id}')">Delete</button></td>
+
+
+          `;
+          table.appendChild(row);
+        });
+      });
+  }
+
+function deleteOrder(id) {
+    if (!confirm("Delete this order?")) return;
+    fetch(`http://localhost:4000/orders/${id}`, { method: "DELETE" })
+        .then(() => loadOrders());
+}
+
+
+  loadOrders();
+</script>
+
+</body>
+</html>
