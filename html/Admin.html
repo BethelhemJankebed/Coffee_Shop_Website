@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - Abyssinia Coffee</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f1ee;
+      padding: 30px;
+    }
+    h1 {
+      text-align: center;
+      color: #5a3e2c;
+    }
+    .cards {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .card {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 220px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 32px;
+      color: #6b4f2a;
+    }
+    .card p {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+    .actions {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .actions button {
+      margin: 10px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      background: #5a3e2c;
+      color: white;
+    }
+    .actions button:hover {
+      background: #2b1a0f;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<div class="cards">
+  <div class="card">
+    <h2 id="userCount">0</h2>
+    <p>Total Users</p>
+  </div>
+  <div class="card">
+    <h2 id="reservationCount">0</h2>
+    <p>Total Reservations</p>
+  </div>
+</div>
+
+<div class="actions">
+  <button onclick="location.href='admin-orders.html'">View Orders</button>
+  <button onclick="location.href='admin-users.html'">Manage Users</button>
+  <button onclick="location.href='Admin_reserve.html'">View Reservations</button>
+  <button onclick="logout()">Logout</button>
+</div>
+<script src="../js/admin.js" defer></script>
+</body>
+</html>
