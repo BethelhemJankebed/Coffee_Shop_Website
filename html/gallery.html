@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abyssinia Coffee | Member Gallery</title>
+    <style>
+        /* COFFEE SHOP THEME */
+        body {
+            background-color: #1e1814; /* Dark Coffee Bean */
+            color: #e6c9ad;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: #2b1f18;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #5a4336;
+        }
+
+        header h1 { margin: 0; color: #d9a46d; }
+        
+        .nav-links { margin-top: 10px; }
+        .nav-links a { color: #e6c9ad; text-decoration: none; margin: 0 15px; font-weight: bold; }
+        .nav-links a:hover { color: #fff; }
+
+        /* UPLOAD BOX */
+        .upload-card {
+            background: #2b1f18;
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid #5a4336;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .upload-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        input {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #5a4336;
+            background: #1e1814;
+            color: #fff;
+        }
+
+        .btn-post {
+            background: #6b513f;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn-post:hover { background: #8d6e63; transform: scale(1.05); }
+
+        /* GALLERY GRID */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            background: #2b1f18;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #5a4336;
+            transition: 0.3s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .gallery-info {
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .del-btn {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        .del-btn:hover { background: #e74c3c; }
+
+        /* CUSTOM CONFIRMATION MODAL STYLES */
+        .confirm-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000;
+        }
+        .confirm-box {
+            background: #2b1f18;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #d9a46d;
+            text-align: center;
+            max-width: 400px;
+        }
+        .confirm-btns {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Abyssinia Coffee Gallery</h1>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="shopnow.html">Shop</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="upload-card">
+            <h3>Add to our Coffee Wall</h3>
+            <div class="upload-controls">
+                <input type="file" id="media-file" accept="image/*">
+                <input type="text" id="media-title" placeholder="Enter a caption...">
+                <button onclick="handleUpload()" class="btn-post">Upload & Post</button>
+            </div>
+        </div>
+
+        <div id="gallery-grid" class="gallery-grid"></div>
+    </div>
+
+    <script src="js/alerts.js"></script>
+
+    <script>
+const API_URL = "http://localhost:4000/gallery";
+
+const getBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+async function fetchGallery() {
+    const grid = document.getElementById('gallery-grid');
+    try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error();
+        const items = await res.json();
+        grid.innerHTML = "";
+
+        if (items.length === 0) {
+            grid.innerHTML = "<p style='text-align:center;'>No photos yet. Be the first to upload!</p>";
+            return;
+        }
+
+        items.reverse().forEach(item => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.innerHTML = `
+                <img src="${item.url}" onerror="this.src='../img/coffeelogo.png'">
+                <div class="gallery-info">
+                    <span>${item.title}</span>
+                    <button class="del-btn" onclick="deleteItem('${item.id}')">Delete</button>
+                </div>
+            `;
+            grid.appendChild(div);
+        });
+    } catch (err) {
+        grid.innerHTML = "<p style='color:#ff6b6b;'>Server Error: Is json-server running on port 4000?</p>";
+    }
+}
+
+async function handleUpload() {
+    const fileBox = document.getElementById('media-file');
+    const titleBox = document.getElementById('media-title');
+    const btn = document.querySelector('.btn-post');
+
+    if (!fileBox.files[0] || !titleBox.value) {
+        alert("Please select an image and write a caption!");
+        return;
+    }
+
+    try {
+        btn.innerText = "Uploading...";
+        btn.disabled = true;
+        const base64String = await getBase64(fileBox.files[0]);
+        
+        const newPost = {
+            id: Date.now().toString(),
+            url: base64String,
+            title: titleBox.value
+        };
+
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newPost)
+        });
+
+        if (response.ok) {
+            titleBox.value = "";
+            fileBox.value = "";
+            fetchGallery();
+        } else {
+            alert("Upload failed. Try a smaller image file!");
+        }
+    } catch (err) {
+        alert("Connection error. Please check your terminal.");
+    } finally {
+        btn.innerText = "Upload & Post";
+        btn.disabled = false;
+    }
+}
+
+// FIXED DELETE FUNCTION WITH CUSTOM THEMED CONFIRMATION
+async function deleteItem(id) {
+    // Create custom modal elements
+    const overlay = document.createElement('div');
+    overlay.className = 'confirm-overlay';
+    overlay.innerHTML = `
+        <div class="confirm-box">
+            <h3 style="color: #d9a46d; margin-top: 0;">Remove Image?</h3>
+            <p>Are you sure you want to delete this photo from the gallery?</p>
+            <div class="confirm-btns">
+                <button id="confirm-yes" class="del-btn" style="padding: 10px 20px;">Yes, Delete</button>
+                <button id="confirm-no" class="btn-post" style="padding: 10px 20px;">Cancel</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    // Handle button clicks
+    document.getElementById('confirm-yes').onclick = async () => {
+        await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+        document.body.removeChild(overlay);
+        fetchGallery();
+    };
+
+    document.getElementById('confirm-no').onclick = () => {
+        document.body.removeChild(overlay);
+    };
+}
+
+window.onload = fetchGallery;
+    </script>
+</body>
+</html>
