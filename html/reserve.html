@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abyssinia Coffee - Reserve Table</title>
-    <link rel="icon" href="img/coffeelogo.png" />
+    <link rel="icon" href="../img/coffeelogo.png" />
     <style>
       body {
         margin: 0;
@@ -30,8 +30,7 @@
       .hero {
         width: 100%;
         height: 300px;
-        background: url("https://cdn.oreateai.com/aiimage/strategy/a49cbe47368c406ebf0821081f48a6a8.jpg")
-          center/cover no-repeat;
+        background: url("../img/reservebackg.jpg") center/cover no-repeat;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,6 +56,45 @@
         color: #936f40;
         margin-bottom: 40px;
         opacity: 0.9;
+      }
+
+      .custom-select {
+        position: relative;
+      }
+
+      .custom-select select {
+        width: 100%;
+        padding: 12px 40px 12px 12px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        background: #fff;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        transition: border-color 0.3s, box-shadow 0.3s;
+      }
+
+      .custom-select::after {
+        content: "▾";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        font-size: 16px;
+        color: #5a3e2c;
+      }
+
+      .custom-select select:focus {
+        border-color: #d35400;
+        box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.2);
+        outline: none;
+      }
+
+      .custom-select select option[value=""] {
+        color: #999;
       }
 
       .reserve-form {
@@ -144,8 +182,6 @@
         margin-top: 40px;
       }
     </style>
-  
-
   </head>
   <body>
     <header>
@@ -162,7 +198,7 @@
 
       <form class="reserve-form" action="#" method="post">
         <div class="coffee-image">
-          <img src="img/flyingcup.png" alt="Coffee cup" />
+          <img src="../img/flyingcup.png" alt="Coffee cup" />
         </div>
 
         <div class="form-group">
@@ -187,9 +223,25 @@
 
         <div class="form-group">
           <label for="time">Reservation Time</label>
-          <input type="time" id="time" required />
+          <div class="custom-select">
+            <select id="time" required>
+              <option value="">Select time</option>
+              <option value="09:00">9 AM</option>
+              <option value="10:00">10 AM</option>
+              <option value="11:00">11 AM</option>
+              <option value="12:00">12 PM</option>
+              <option value="13:00">1 PM</option>
+              <option value="14:00">2 PM</option>
+              <option value="15:00">3 PM</option>
+              <option value="16:00">4 PM</option>
+              <option value="17:00">5 PM</option>
+              <option value="18:00">6 PM</option>
+              <option value="19:00">7 PM</option>
+              <option value="20:00">8 PM</option>
+              <option value="21:00">9 PM</option>
+            </select>
+          </div>
         </div>
-
         <div class="form-group">
           <label for="guests">Number of Guests</label>
           <input
@@ -207,80 +259,8 @@
     </section>
 
     <footer>&copy; 2025 Abyssinia Coffee. All rights reserved.</footer>
-    
-</section>
 
-
-  <script>
-  const form = document.querySelector(".reserve-form");
-  const MAX_SEATS = 10;
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const full_name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const reservation_date = document.getElementById("date").value;
-    const reservation_time = document.getElementById("time").value;
-    const guests = Number(document.getElementById("guests").value); // IMPORTANT
-
-    // 1️⃣ GET existing reservations
-    fetch("http://localhost:4000/reservations")
-      .then(res => res.json())
-      .then(reservations => {
-
-        // 2️⃣ Filter same date & time
-        const sameSlot = reservations.filter(r =>
-          r.reservation_date === reservation_date &&
-          r.reservation_time === reservation_time
-        );
-
-        // 3️⃣ Count reserved seats
-        let reservedSeats = 0;
-        sameSlot.forEach(r => {
-          reservedSeats += Number(r.guests);
-        });
-
-        // 4️⃣ Check capacity
-        if (reservedSeats + guests > MAX_SEATS) {
-          alert("❌ Sorry, all seats are reserved for this time.");
-          return; // STOP here
-        }
-
-        // 5️⃣ POST reservation
-        const data = {
-          full_name,
-          phone,
-          reservation_date,
-          reservation_time,
-          guests
-        };
-
-        return fetch("http://localhost:4000/reservations", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        });
-      })
-     .then(response => {
-  if (!response) return; 
-  alert("✅ Reservation successful! See you soon at Abyssinia Coffee.");
-  form.reset();
-})
-      .catch(err => {
-        console.error(err);
-        alert("❌ Error saving reservation");
-      });
-  });
-
-
-</script>
-
-
-</body>
-</html>
-
+    <script src="../js/alerts.js"></script>
+    <script src="../js/reserve.js" defer></script>
   </body>
 </html>

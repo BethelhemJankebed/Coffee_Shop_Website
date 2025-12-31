@@ -22,7 +22,7 @@ body {
       rgba(30, 24, 20, 0.65),
       rgba(30, 24, 20, 0.65)
     ),
-    url("img/Coffeehero.jpg");
+    url("../img/Coffeehero.jpg");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -805,4 +805,48 @@ body {
   background: #a84300;
   transform: translateY(-3px);
 }
-  
+      .site-header {
+        background: rgba(30, 24, 20, 0.9);
+        backdrop-filter: blur(4px);
+        position: sticky;
+        top: 0;
+        z-index: 40;
+      }
+      .site-nav {
+        max-width: 1100px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 20px;
+      }
+      .site-brand {
+        color: #e6c9ad;
+        font-weight: 700;
+        font-size: 20px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .site-brand img {
+        height: 40px;
+        width: auto;
+      }
+      .nav-links a {
+        color: #e6c9ad;
+        text-decoration: none;
+        margin-left: 18px;
+        font-size: 15px;
+      }
+      .nav-links a:hover {
+        text-decoration: none;
+        color: #fff;
+      }
+      @media (max-width: 720px) {
+        .nav-links {
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+      }

@@ -1,5 +1,6 @@
 "use strict";
 
+
 // 🔐 LOGIN CHECK
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
@@ -51,9 +52,8 @@ function buyNow(product) {
   // 🔹 LOAD PRODUCTS
   async function init() {
     try {
-      const res = await fetch("db.json");
-      const data = await res.json();
-      catalog = data.products;
+const res = await fetch("http://localhost:4000/products");
+catalog = await res.json();
 renderCatalog();
 renderCart();
 renderTransactions();

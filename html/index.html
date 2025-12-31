@@ -1,71 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+   
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abyssinia Coffee</title>
-    <link rel="stylesheet" href="index.css" />
-
+    <link rel="stylesheet" href="../css/index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
 
-    <link rel="icon" href="img/coffeelogo.png" />
+    <link rel="icon" href="../img/coffeelogo.png" />
 
-    <style>
-      .site-header {
-        background: rgba(30, 24, 20, 0.9);
-        backdrop-filter: blur(4px);
-        position: sticky;
-        top: 0;
-        z-index: 40;
-      }
-      .site-nav {
-        max-width: 1100px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 12px 20px;
-      }
-      .site-brand {
-        color: #e6c9ad;
-        font-weight: 700;
-        font-size: 20px;
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-      .site-brand img {
-        height: 40px;
-        width: auto;
-      }
-      .nav-links a {
-        color: #e6c9ad;
-        text-decoration: none;
-        margin-left: 18px;
-        font-size: 15px;
-      }
-      .nav-links a:hover {
-        text-decoration: none;
-        color: #fff;
-      }
-      @media (max-width: 720px) {
-        .nav-links {
-          display: flex;
-          gap: 10px;
-          flex-wrap: wrap;
-        }
-      }
-    </style>
+    
   </head>
   <body>
     <header class="site-header">
       <div class="site-nav">
         <a class="site-brand" href="index.html#hero">
-          <img src="img/coffeelogo.png" alt="Logo" />
+          <img src="../img/coffeelogo.png" alt="Logo" />
           Abyssinia Coffee
         </a>
         <nav class="nav-links">
@@ -100,7 +54,7 @@
       <h2>Our Story</h2>
       <div class="story-content">
         <div class="story-img">
-          <img src="img/bunchofcoffee.png" alt="Story Image" />
+          <img src="../img/bunchofcoffee.png" alt="Story Image" />
         </div>
         <div class="story-text">
           <input
@@ -134,7 +88,7 @@
           <div class="card">
             <img
               src="data:image/jpeg;base64,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
-            alt="
+            "alt=""
             />
             <h3>Espresso</h3>
             <p>Small cup, big punch.</p>
@@ -213,7 +167,7 @@
         </div>
       </div>
     </section>
-
+</div> <script src="js/alerts.js"></script>
     <script>
       const track = document.querySelector(".slider-track");
 
@@ -273,7 +227,7 @@
         </div>
 
         <div class="menu-center-image">
-          <img src="./img/flyingcup.png" alt="Coffee Art" />
+          <img src="../img/flyingcup.png" alt="Coffee Art" />
         </div>
 
         <div class="menu-column right-column">
@@ -326,7 +280,7 @@
           <!-- Post 1 -->
           <div class="blog-card">
             <div class="blog-image">
-              <img src="./img/coffeebean.png" alt="Coffee Bean" />
+              <img src="../img/coffeebean.png" alt="Coffee Bean" />
             </div>
             <div class="blog-content">
               <span class="date">Dec 01, 2025</span>
@@ -343,7 +297,7 @@
           <!-- Post 2 -->
           <div class="blog-card">
             <div class="blog-image">
-              <img src="./img/bunchofcoffee.png" alt="Coffee Beans" />
+              <img src="../img/bunchofcoffee.png" alt="Coffee Beans" />
             </div>
             <div class="blog-content">
               <span class="date">Nov 28, 2025</span>
@@ -360,7 +314,7 @@
           <!-- Post 3 -->
           <div class="blog-card">
             <div class="blog-image">
-              <img src="./img/flyingcup.png" alt="Espresso" />
+              <img src="../img/flyingcup.png" alt="Espresso" />
             </div>
             <div class="blog-content">
               <span class="date">Nov 25, 2025</span>
@@ -377,7 +331,7 @@
           <!-- Post 4 -->
           <div class="blog-card">
             <div class="blog-image">
-              <img src="./img/coffeebean.png" alt="Roasting" />
+              <img src="../img/coffeebean.png" alt="Roasting" />
             </div>
             <div class="blog-content">
               <span class="date">Nov 20, 2025</span>
@@ -395,7 +349,7 @@
           <!-- Post 5 -->
           <div class="blog-card">
             <div class="blog-image">
-              <img src="./img/bunchofcoffee.png" alt="Sourcing" />
+              <img src="../img/bunchofcoffee.png" alt="Sourcing" />
             </div>
             <div class="blog-content">
               <span class="date">Nov 15, 2025</span>
@@ -514,5 +468,6 @@
     nav.innerHTML += '<a href="login.html">Login</a>';
   }
 </script>
+<script src="../js/script.js" defer></script>
   </body>
 </html>
