@@ -1,24 +1,120 @@
 {
   "users": [
-    { "id": 1, "username": "admin", "password": "123", "role": "admin" },
-    { "id": 2, "username": "user", "password": "123", "role": "user" }
+    {
+      "id": 1,
+      "username": "admin",
+      "email": "admin@coffee.com",
+      "password": "123",
+      "role": "admin"
+    },
+    {
+      "id": 3,
+      "username": "Elias Tesfaye",
+      "email": "elias@coffee.com",
+      "password": "123",
+      "role": "user"
+    }
   ],
   "products": [
-    { "id": "espresso", "name": "Espresso", "price": 3.0, "desc": "Rich single shot", "image": "./img/esspresso.png" },
-    { "id": "americano", "name": "Americano", "price": 3.5, "desc": "Espresso + hot water", "image": "./img/moca.png" },
-    { "id": "latte", "name": "Latte", "price": 4.5, "desc": "Espresso + steamed milk", "image": "./img/c1.jpg" },
-    { "id": "cappuccino", "name": "Cappuccino", "price": 4.5, "desc": "Espresso + foam", "image": "./img/c2.jpg" },
-    { "id": "mocha", "name": "Mocha", "price": 5.0, "desc": "Chocolate + espresso", "image": "./img/c3.jpg" },
-    { "id": "macchiato", "name": "Macchiato", "price": 4.0, "desc": "Espresso marked with foam", "image": "./img/c4.jpg" },
-    { "id": "croissant", "name": "Butter Croissant", "price": 3.25, "desc": "Flaky, buttery pastry", "image": "./img/butter.jpg" },
-    { "id": "muffin", "name": "Chocolate Muffin", "price": 3.0, "desc": "Freshly baked daily", "image": "./img/cupcake.jpg" }
+    {
+      "id": "espresso",
+      "name": "Classic Espresso",
+      "price": 60.0,
+      "desc": "Rich single shot of our signature blend.",
+      "image": "./img/esspresso.png"
+    },
+    {
+      "id": "americano",
+      "name": "Americano",
+      "price": 70.0,
+      "desc": "Smooth espresso balanced with hot water.",
+      "image": "./img/moca.png"
+    },
+    {
+      "id": "kaffa-blend",
+      "name": "Kaffa Estate Whole Bean",
+      "price": 1200.0,
+      "desc": "Premium 1kg bag of single-origin Ethiopian beans.",
+      "image": "./img/coffeebean.png"
+    },
+    {
+      "id": "yirgacheffe",
+      "name": "Yirgacheffe Special",
+      "price": 1500.0,
+      "desc": "Floral and citric notes, the apex of coffee.",
+      "image": "./img/bunchofcoffee.png"
+    },
+    {
+      "id": "latte",
+      "name": "Vanilla Latte",
+      "price": 110.0,
+      "desc": "Velvety espresso with Madagascar vanilla.",
+      "image": "./img/c1.jpg"
+    },
+    {
+      "id": "cappuccino",
+      "name": "Gold Cappuccino",
+      "price": 130.0,
+      "desc": "Espresso with thick microfoam and gold dust.",
+      "image": "./img/c2.jpg"
+    },
+    {
+      "id": "mocha",
+      "name": "Dark Chocolate Mocha",
+      "price": 120.0,
+      "desc": "Belgian chocolate combined with our dark roast.",
+      "image": "./img/c3.jpg"
+    },
+    {
+      "id": "macchiato",
+      "name": "Cloud Macchiato",
+      "price": 95.0,
+      "desc": "Fluffy milk foam marked with intense espresso.",
+      "image": "./img/c4.jpg"
+    },
+    {
+      "id": "croissant",
+      "name": "Butter Croissant",
+      "price": 65.0,
+      "desc": "French-style flaky, buttery pastry.",
+      "image": "./img/butter.jpg"
+    },
+    {
+      "id": "muffin",
+      "name": "Chocolate Muffin",
+      "price": 75.0,
+      "desc": "Rich cocoa muffin with melted chocolate center.",
+      "image": "./img/cupcake.jpg"
+    }
   ],
   "transactions": [
-    { "id": "TXN001", "user": "admin", "item": "Espresso", "type": "Order", "date": "2023-10-01" },
-    { "id": "TXN002", "user": "user", "item": "Table 4", "type": "Reservation", "date": "2023-10-02" }
+    {
+      "id": "TXN001",
+      "user": "admin",
+      "item": "Espresso",
+      "type": "Order",
+      "date": "2023-10-01"
+    },
+    {
+      "id": "TXN002",
+      "user": "user",
+      "item": "Table 4",
+      "type": "Reservation",
+      "date": "2023-10-02"
+    }
   ],
   "gallery": [
-    { "id": 1, "type": "image", "url": "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb", "caption": "Live Jazz Night at Abyssinia" },
-    { "id": 2, "type": "image", "url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085", "caption": "Our Morning Brew Process" }
+    {
+      "id": 1,
+      "type": "image",
+      "url": "./img/Coffeehero.jpg",
+      "caption": "The Abyssinia Morning Light"
+    },
+    {
+      "id": 2,
+      "type": "image",
+      "url": "./img/newheroimg.png",
+      "caption": "The Art of the Perfect Pour"
+    }
   ]
 }

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services | Abyssinia Coffee</title>
+    <link rel="icon" href="img/coffeelogo.png" />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="index.css" />
+    <style>
+        .services-hero {
+            padding: 180px 0 100px;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('img/Coffeehero.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+
+        .services-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .services-hero p {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .services-section {
+            padding: 100px 0;
+            background: #0d0d0d;
+        }
+
+        .services-premium-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .service-card {
+            background: #111;
+            border: 1px solid rgba(198, 168, 124, 0.05);
+            padding: 60px 40px;
+            border-radius: 30px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--accent-gold);
+            background: #161616;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-card i {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .service-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .service-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .service-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: gap 0.3s ease;
+        }
+
+        .service-link:hover {
+            gap: 15px;
+        }
+
+        /* Concierge Section */
+        .concierge-section {
+            padding: 120px 0;
+            background: #080808;
+            border-top: 1px solid rgba(198, 168, 124, 0.1);
+        }
+
+        .concierge-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .concierge-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 30px;
+        }
+
+        .concierge-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 40px;
+        }
+
+        .concierge-img {
+            position: relative;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .concierge-img img {
+            width: 100%;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .concierge-img:hover img {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 900px) {
+            .concierge-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .services-hero h1 {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="site-header">
+        <div class="site-nav">
+            <a class="site-brand" href="index.html">
+                <img src="img/coffeelogo.png" alt="Logo" />
+                Abyssinia Coffee
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="reserve.html">Reserve</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="story.html">Story</a>
+                <a href="services.html" class="active">Services</a>
+            </nav>
+            <div class="nav-extras">
+                <a href="login.html" class="user-link" aria-label="Login">
+                    <i class="fa-regular fa-user"></i>
+                </a>
+                <a href="shopnow.html" class="header-cta">GET YOUR COFFEE</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="services-hero">
+            <div class="container">
+                <h1 class="reveal-text">Bespoke Experiences</h1>
+                <p class="reveal-text-slow">From artisanal roasting to private curation, discover the full spectrum of
+                    our coffee craft.</p>
+            </div>
+        </section>
+
+        <section class="services-section">
+            <div class="services-premium-grid">
+                <div class="service-card reveal">
+                    <i class="fas fa-seedling"></i>
+                    <h3>Ethical Sourcing</h3>
+                    <p>We bridge the gap between small-scale Ethiopian farmers and your cup, ensuring fair trade and
+                        unparalleled quality beans.</p>
+                    <a href="shopnow.html" class="service-link">View Collection <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay: 0.1s;">
+                    <i class="fas fa-mug-hot"></i>
+                    <h3>Master Class</h3>
+                    <p>Join our head baristas for intimate workshops on pour-over techniques, latte art, and the science
+                        of coffee extraction.</p>
+                    <a href="reserve.html" class="service-link">Book Workshop <i class="fas fa-arrow-right"></i></a>
+                </div>
+
+                <div class="service-card reveal" style="transition-delay: 0.2s;">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>Events & Catering</h3>
+                    <p>Elevate your corporate events or private gatherings with our mobile espresso bar and dedicated
+                        craft coffee service.</p>
+                    <a href="reserve.html" class="service-link">Private Booking <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="concierge-section reveal">
+            <div class="concierge-content">
+                <div class="concierge-text">
+                    <h2>Abyssinia Concierge</h2>
+                    <p>Experience personalized service tailored to your taste. Our coffee experts are available for
+                        private consultations, helping you curate the perfect selection for your home or office.</p>
+                    <a href="reserve.html" class="header-cta" style="padding: 18px 45px;">Schedule Consultation</a>
+                </div>
+                <div class="concierge-img">
+                    <img src="img/bunchofcoffee.png" alt="Concierge Service">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-top">
+            <div class="container footer-grid">
+                <div class="footer-section">
+                    <a href="index.html" class="footer-brand">
+                        <img src="img/coffeelogo.png" alt="Abyssinia Coffee">
+                    </a>
+                    <p>Experience the true essence of Ethiopian coffee. Hand-picked, expertly roasted.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <nav class="footer-links">
+                        <a href="index.html">Home</a>
+                        <a href="menu.html">Menu</a>
+                        <a href="reserve.html">Reserve</a>
+                        <a href="shopnow.html">Shop</a>
+                        <a href="gallery.html">Gallery</a>
+                    </nav>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Opening Hours</h3>
+                    <p>Mon – Fri: 8:00 AM – 9:00 PM</p>
+                    <p>Sat – Sun: 9:00 AM – 10:00 PM</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-location-dot"></i> Bole, Addis Ababa</p>
+                    <p><i class="fas fa-phone"></i> +251 911 234 567</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2025 Abyssinia Coffee. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="auth.js"></script>
+    <script src="scroll-animations.js"></script>
+    <script>
+        // Header Scroll Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.site-header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+
+</html>
