@@ -1,0 +1,325 @@
+/* Center the Auth UI and match premium aesthetic */
+
+body.auth-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('img/Coffeehero.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack card and copyright vertically */
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 120px 20px;
+    width: 100%;
+}
+
+/* Card Style */
+.auth-card {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(20px);
+    width: 100%;
+    max-width: 480px;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 40px;
+    --text-main: #ffffff;
+    --text-muted: #888888;
+}
+
+.required-label::after {
+    content: " *";
+    color: #e24c3b;
+    margin-left: 2px;
+}
+
+.auth-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 25px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.auth-logo img {
+    height: 45px;
+}
+
+.auth-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.auth-header .subtitle {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Form Groups */
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 20px;
+    /* Slightly closer to edge for more text room */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+    z-index: 5;
+    /* Ensure icon stays on top */
+    pointer-events: none;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    cursor: pointer;
+    z-index: 10;
+    transition: color 0.3s;
+    font-size: 1rem;
+    padding: 10px;
+    /* Larger hit area */
+}
+
+.password-toggle:hover {
+    color: var(--accent-gold);
+}
+
+.form-input {
+    width: 100%;
+    padding: 18px 20px 18px 65px !important;
+    /* Increased left padding and forced it */
+    border: 2px solid #edeff2 !important;
+    border-radius: 12px !important;
+    font-size: 1rem !important;
+    background: #fff !important;
+    transition: all 0.3s ease !important;
+    color: #000 !important;
+    font-weight: 500 !important;
+}
+
+.form-input::placeholder {
+    color: #d1d1d1 !important;
+    /* Lighter/Subtle placeholder as requested */
+    font-weight: 400 !important;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #c6a87c;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(198, 168, 124, 0.1);
+}
+
+.form-input:focus+.input-icon {
+    color: #c6a87c;
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 18px;
+    background: #1a1a1a;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.btn-primary:hover {
+    background: #c6a87c;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 20px rgba(198, 168, 124, 0.25);
+}
+
+.btn-primary:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Utils */
+.auth-footer {
+    text-align: center;
+    margin-top: 35px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.auth-footer a {
+    color: #c6a87c;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.error-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #fff5f5;
+    color: #e53e3e;
+    font-size: 0.9rem;
+    border: 1px solid #fed7d7;
+    display: none;
+    text-align: center;
+}
+
+.success-box {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f0fff4;
+    color: #38a169;
+    font-size: 0.9rem;
+    border: 1px solid #c6f6d5;
+    display: none;
+    text-align: center;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Copyright Styling for Auth Pages */
+.auth-copyright {
+    display: block;
+    margin-top: 30px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
+}
+
+/* Hide navigation brand in auth pages Header as it's redundant with card logo */
+.site-header .site-brand {
+    display: none;
+}
+
+/* --- Success State Transitions --- */
+.auth-form-content {
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.auth-card.is-success .auth-form-content {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+    display: none;
+    /* Removed completely after transition */
+}
+
+.auth-success-state {
+    display: none;
+    text-align: center;
+    padding: 40px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.auth-card.is-success .auth-success-state {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.success-icon-wrapper {
+    width: 80px;
+    height: 80px;
+    background: rgba(56, 161, 105, 0.1);
+    color: #38a169;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 25px;
+    animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.auth-success-state h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+.auth-success-state p {
+    color: #666;
+    font-size: 1.1rem;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

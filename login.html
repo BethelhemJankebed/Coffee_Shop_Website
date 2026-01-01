@@ -1,54 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <title>Login - Abyssinia Coffee</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Back - Abyssinia Coffee</title>
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="index.css">
-    <style>
-        body { background: #1e1814; display: flex; justify-content: center; align-items: center; height: 100vh; color: #e6c9ad; font-family: sans-serif; }
-        .login-card { background: #2b1f18; padding: 40px; border-radius: 15px; border: 1px solid #5a4336; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; width: 350px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #5a4336; background: #1e1814; color: #fff; box-sizing: border-box; }
-        .login-btn { width: 100%; padding: 12px; background: #6b513f; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .login-btn:hover { background: #8d6e63; }
-    </style>
+    <link rel="stylesheet" href="auth.css">
 </head>
-<body>
-    <div class="login-card">
-        <img src="img/coffeelogo.png" alt="Logo" style="height: 60px;">
-        <h2>Staff & Customer Login</h2>
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button class="login-btn" onclick="performLogin()">Login</button>
-        <p id="error" style="color: #ff6b6b; font-size: 14px; margin-top: 15px;"></p>
+
+
+<body class="auth-page">
+    <header class="site-header" style="background: transparent; border: none; padding: 20px;">
+        <div class="site-nav">
+            <div class="nav-extras" style="margin-left: auto;">
+                <a href="index.html" class="hero-cta"
+                    style="border: 1px solid rgba(255,255,255,0.4); padding: 10px 25px; border-radius: 50px; color: #fff; font-size: 0.9rem; text-decoration: none; backdrop-filter: blur(5px);">Back
+                    to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="auth-logo">
+                    <img src="img/coffeelogo.png" alt="Logo">
+                    <span>Abyssinia Coffee</span>
+                </a>
+                <h1>Welcome Back</h1>
+                <p class="subtitle">Securely sign in to your account</p>
+            </div>
+
+            <div class="auth-form-content" id="auth-form-content">
+                <div class="form-group">
+                    <label for="username" class="form-label required-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="username" class="form-input" placeholder="email@example.com" required>
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label required-label">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="password" class="form-input" placeholder="Enter your password"
+                            required>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <i class="fa-solid fa-eye password-toggle"
+                            onclick="togglePasswordVisibility('password', this)"></i>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="login-btn" onclick="secureLogin()">Sign In</button>
+
+                <p id="error-msg" class="error-box"></p>
+
+                <div class="auth-footer">
+                    Don't have an account? <a href="signup.html">Join our community</a>
+                </div>
+            </div>
+
+            <!-- Success State UI -->
+            <div class="auth-success-state" id="auth-success-state">
+                <div class="success-icon-wrapper">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2>Welcome Back!</h2>
+                <p>Establishing secure connection...</p>
+            </div>
+        </div>
+
+        <!-- Correctly Repositioned Copyright -->
+        <span class="auth-copyright">&copy; 2025 Abyssinia Coffee. All rights reserved.</span>
     </div>
 
-<script>
-    async function performLogin() {
-        const u = document.getElementById('username').value;
-        const p = document.getElementById('password').value;
-        
-        // 1. Fetch original accounts from your JSON Mock API
-        const res = await fetch('db.json');
-        const data = await res.json();
-        
-        // 2. Get any signed-up accounts from LocalStorage
-        const localUsers = JSON.parse(localStorage.getItem('extraUsers')) || [];
-        
-        // 3. Combine them to check login
-        const allUsers = [...data.users, ...localUsers];
-        
-        const foundUser = allUsers.find(user => user.username === u && user.password === p);
-        
-        if (foundUser) {
-            localStorage.setItem('currentUser', JSON.stringify(foundUser));
-            if (foundUser.role === 'admin') {
-                window.location.href = 'admin.html';
+    <script src="auth.js"></script>
+    <script>
+        async function secureLogin() {
+            const email = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('login-btn');
+
+            if (!email || !pass) return showAuthMessage('error-msg', "Email and password required.");
+            if (!isValidEmail(email)) return showAuthMessage('error-msg', "Correct email input must contain . and @");
+
+            btn.disabled = true;
+            btn.textContent = "Verifying...";
+
+            const dbUsers = await getAuthUsers();
+            const localUsers = JSON.parse(localStorage.getItem('extraUsers')) || [];
+            const allUsers = [...dbUsers, ...localUsers];
+
+            const found = allUsers.find(u => (u.email === email || u.username === email) && u.password === pass);
+
+            if (found) {
+                // Trigger Success State UI
+                document.querySelector('.auth-card').classList.add('is-success');
+
+                localStorage.setItem('currentUser', JSON.stringify({
+                    id: found.id, username: found.username, role: found.role, initials: found.username.substring(0, 2)
+                }));
+
+                // Professional delay for success animation
+                setTimeout(() => {
+                    window.location.href = found.role === 'admin' ? 'admin.html' : 'index.html';
+                }, 1500);
             } else {
-                window.location.href = 'index.html';
+                showAuthMessage('error-msg', "Invalid credentials. Try 'user@coffee.com' / '123'");
+                btn.disabled = false;
+                btn.textContent = "Sign In";
             }
-        } else {
-            document.getElementById('error').innerText = "Invalid credentials.";
         }
-    }
-</script>
+    </script>
 </body>
+
 </html>
