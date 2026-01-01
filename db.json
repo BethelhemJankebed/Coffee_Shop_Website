@@ -1,31 +1,22 @@
 {
-<<<<<<< HEAD
   "reservations": [
     {
-      "id": "0c24",
+      "id": "2590",
       "full_name": "daniel ewnetu",
       "phone": "251940724615",
       "reservation_date": "2025-12-11",
-      "reservation_time": "20:00",
-      "guests": 2
+      "reservation_time": "15:00",
+      "guests": 9
     }
   ],
   "users": [
     {
       "id": "1",
       "username": "admin",
-=======
-  "users": [
-    {
-      "id": 1,
-      "username": "admin",
-      "email": "admin@coffee.com",
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
       "password": "123",
       "role": "admin"
     },
     {
-<<<<<<< HEAD
       "id": "d39b",
       "username": "abebu",
       "password": "1234",
@@ -42,44 +33,19 @@
       "username": "kidus",
       "password": "123",
       "role": "user"
-    },
-    {
-      "id": "193f",
-      "username": "bethelhem",
-      "password": "124",
-      "role": "user"
-    },
-    {
-      "id": "f913",
-      "username": "abel",
-=======
-      "id": 3,
-      "username": "Elias Tesfaye",
-      "email": "elias@coffee.com",
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
-      "password": "123",
-      "role": "user"
     }
   ],
   "products": [
     {
       "id": "espresso",
-<<<<<<< HEAD
       "name": "Espresso",
       "price": 3,
       "desc": "Rich single shot",
       "image": "../img/esspresso.png"
-=======
-      "name": "Classic Espresso",
-      "price": 60.0,
-      "desc": "Rich single shot of our signature blend.",
-      "image": "./img/esspresso.png"
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
     },
     {
       "id": "americano",
       "name": "Americano",
-<<<<<<< HEAD
       "price": 3.5,
       "desc": "Espresso + hot water",
       "image": "../img/moca.png"
@@ -111,77 +77,39 @@
       "price": 4,
       "desc": "Espresso marked with foam",
       "image": "../img/c4.jpg"
-=======
-      "price": 70.0,
-      "desc": "Smooth espresso balanced with hot water.",
-      "image": "./img/moca.png"
-    },
-    {
-      "id": "kaffa-blend",
-      "name": "Kaffa Estate Whole Bean",
-      "price": 1200.0,
-      "desc": "Premium 1kg bag of single-origin Ethiopian beans.",
-      "image": "./img/coffeebean.png"
-    },
-    {
-      "id": "yirgacheffe",
-      "name": "Yirgacheffe Special",
-      "price": 1500.0,
-      "desc": "Floral and citric notes, the apex of coffee.",
-      "image": "./img/bunchofcoffee.png"
-    },
-    {
-      "id": "latte",
-      "name": "Vanilla Latte",
-      "price": 110.0,
-      "desc": "Velvety espresso with Madagascar vanilla.",
-      "image": "./img/c1.jpg"
-    },
-    {
-      "id": "cappuccino",
-      "name": "Gold Cappuccino",
-      "price": 130.0,
-      "desc": "Espresso with thick microfoam and gold dust.",
-      "image": "./img/c2.jpg"
-    },
-    {
-      "id": "mocha",
-      "name": "Dark Chocolate Mocha",
-      "price": 120.0,
-      "desc": "Belgian chocolate combined with our dark roast.",
-      "image": "./img/c3.jpg"
-    },
-    {
-      "id": "macchiato",
-      "name": "Cloud Macchiato",
-      "price": 95.0,
-      "desc": "Fluffy milk foam marked with intense espresso.",
-      "image": "./img/c4.jpg"
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
     },
     {
       "id": "croissant",
       "name": "Butter Croissant",
-<<<<<<< HEAD
       "price": 3.25,
       "desc": "Flaky, buttery pastry",
       "image": "../img/butter.jpg"
-=======
-      "price": 65.0,
-      "desc": "French-style flaky, buttery pastry.",
-      "image": "./img/butter.jpg"
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
     },
     {
       "id": "muffin",
       "name": "Chocolate Muffin",
-<<<<<<< HEAD
       "price": 3,
       "desc": "Freshly baked daily",
       "image": "../img/cupcake.jpg"
     }
   ],
   "orders": [
+    {
+      "id": "4b64",
+      "username": "admin",
+      "items": [
+        {
+          "id": "americano",
+          "name": "Americano",
+          "price": 3.5,
+          "desc": "Espresso + hot water",
+          "image": "../img/moca.png",
+          "user": "admin"
+        }
+      ],
+      "total": 3.5,
+      "date": "12/25/2025, 11:36:43 PM"
+    },
     {
       "id": "1560",
       "username": "daniel",
@@ -245,60 +173,7 @@
       "total": 3,
       "date": "12/31/2025, 6:55:08 PM",
       "source": "BUY_NOW"
-    },
-    {
-      "id": "cf5e",
-      "username": "kidus",
-      "items": [
-        {
-          "id": "espresso",
-          "name": "Espresso",
-          "price": 3,
-          "desc": "Rich single shot",
-          "image": "../img/esspresso.png"
-        }
-      ],
-      "total": 3,
-      "date": "12/31/2025, 10:29:04 PM",
-      "source": "BUY_NOW"
     }
   ],
   "gallery": []
-=======
-      "price": 75.0,
-      "desc": "Rich cocoa muffin with melted chocolate center.",
-      "image": "./img/cupcake.jpg"
-    }
-  ],
-  "transactions": [
-    {
-      "id": "TXN001",
-      "user": "admin",
-      "item": "Espresso",
-      "type": "Order",
-      "date": "2023-10-01"
-    },
-    {
-      "id": "TXN002",
-      "user": "user",
-      "item": "Table 4",
-      "type": "Reservation",
-      "date": "2023-10-02"
-    }
-  ],
-  "gallery": [
-    {
-      "id": 1,
-      "type": "image",
-      "url": "./img/Coffeehero.jpg",
-      "caption": "The Abyssinia Morning Light"
-    },
-    {
-      "id": 2,
-      "type": "image",
-      "url": "./img/newheroimg.png",
-      "caption": "The Art of the Perfect Pour"
-    }
-  ]
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
 }
