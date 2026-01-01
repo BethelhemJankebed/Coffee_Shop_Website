@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Abyssinia Coffee</title>
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+
+
+<body class="auth-page">
+    <header class="site-header" style="background: transparent; border: none; padding: 20px;">
+        <div class="site-nav">
+            <div class="nav-extras" style="margin-left: auto;">
+                <a href="index.html" class="hero-cta"
+                    style="border: 1px solid rgba(255,255,255,0.4); padding: 10px 25px; border-radius: 50px; color: #fff; font-size: 0.9rem; text-decoration: none; backdrop-filter: blur(5px);">Back
+                    to Home</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="auth-logo">
+                    <img src="img/coffeelogo.png" alt="Logo">
+                    <span>Abyssinia Coffee</span>
+                </a>
+                <h1>Create Account</h1>
+                <p class="subtitle">Join our premium coffee community</p>
+            </div>
+
+            <div class="auth-form-content" id="auth-form-content">
+                <div class="form-group">
+                    <label for="new-user" class="form-label required-label">Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="new-user" class="form-input" placeholder="Your full name" required>
+                        <i class="fa-regular fa-user input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-email" class="form-label required-label">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="new-email" class="form-input" placeholder="email@example.com" required>
+                        <i class="fa-regular fa-envelope input-icon"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-pass" class="form-label required-label">Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="new-pass" class="form-input" placeholder="Create a strong password"
+                            required>
+                        <i class="fa-solid fa-lock input-icon"></i>
+                        <i class="fa-solid fa-eye password-toggle"
+                            onclick="togglePasswordVisibility('new-pass', this)"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="new-pass-confirm" class="form-label required-label">Confirm Password</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="new-pass-confirm" class="form-input"
+                            placeholder="Confirm your password" required>
+                        <i class="fa-solid fa-shield-halved input-icon"></i>
+                        <i class="fa-solid fa-eye password-toggle"
+                            onclick="togglePasswordVisibility('new-pass-confirm', this)"></i>
+                    </div>
+                </div>
+
+                <button class="btn-primary" id="register-btn" onclick="secureSignUp()">Register Now</button>
+
+                <div id="msg-box" class="error-box"></div>
+
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign In</a>
+                </div>
+            </div>
+
+            <!-- Success State UI -->
+            <div class="auth-success-state" id="auth-success-state">
+                <div class="success-icon-wrapper">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2>Account Created!</h2>
+                <p>Welcome to the Abyssinia Coffee community.</p>
+            </div>
+        </div>
+
+        <!-- Correctly Repositioned Copyright -->
+        <span class="auth-copyright">&copy; 2025 Abyssinia Coffee. All rights reserved.</span>
+    </div>
+
+    <script src="auth.js"></script>
+    <script>
+        function secureSignUp() {
+            const name = document.getElementById('new-user').value.trim();
+            const email = document.getElementById('new-email').value.trim();
+            const pass = document.getElementById('new-pass').value;
+            const confirmPass = document.getElementById('new-pass-confirm').value;
+            const btn = document.getElementById('register-btn');
+
+            if (!name || !email || !pass || confirmPass === undefined) return showAuthMessage('msg-box', "All fields required.");
+            if (!isValidEmail(email)) return showAuthMessage('msg-box', "Invalid email. Must contain @ and a dot (.)");
+            if (pass !== confirmPass) return showAuthMessage('msg-box', "Passwords do not match.");
+            if (!isPasswordStrong(pass)) return showAuthMessage('msg-box', "Password too weak. Use 8+ chars, uppercase, number, symbol.");
+
+            btn.disabled = true;
+            btn.textContent = "Processing...";
+
+            setTimeout(() => {
+                let localUsers = JSON.parse(localStorage.getItem('extraUsers')) || [];
+                if (localUsers.find(u => u.email === email)) {
+                    showAuthMessage('msg-box', "Email already exists.");
+                    btn.disabled = false;
+                    btn.textContent = "Register Now";
+                    return;
+                }
+
+                localUsers.push({ id: Date.now(), username: name, email: email, password: pass, role: "user" });
+                localStorage.setItem('extraUsers', JSON.stringify(localUsers));
+
+                // Trigger Success State UI
+                document.querySelector('.auth-card').classList.add('is-success');
+
+                setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>

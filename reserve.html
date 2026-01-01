@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abyssinia Coffee - Reserve Table</title>
+  <link rel="icon" href="img/coffeelogo.png" />
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="site-nav">
+      <!-- Left: Brand -->
+      <a class="site-brand" href="index.html">
+        <img src="img/coffeelogo.png" alt="Logo" />
+        Abyssinia Coffee
+      </a>
+
+      <!-- Center: Links -->
+      <!-- Center: Links -->
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="reserve.html" class="active">Reserve</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="story.html">Story</a>
+        <a href="services.html">Services</a>
+      </nav>
+
+      <!-- Right: User & CTA -->
+      <div class="nav-extras">
+        <a href="login.html" class="user-link" aria-label="Login">
+          <i class="fa-regular fa-user"></i>
+        </a>
+        <a href="shopnow.html" class="header-cta">GET YOUR COFFEE</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="reserve-section reveal" style="margin-top: 80px;">
+    <h2>Reserve Your Table</h2>
+    <p>
+      Book ahead and enjoy the cozy coffee experience with friends and family.
+    </p>
+
+    <form class="reserve-form" action="#" method="post">
+      <div class="coffee-image">
+        <img src="img/flyingcup.png" alt="Coffee cup" />
+      </div>
+
+      <div class="form-group">
+        <label for="name" class="required-label">Full Name</label>
+        <input type="text" id="name" placeholder="Your full name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="phone" class="required-label">Phone Number</label>
+        <input type="tel" id="phone" placeholder="e.g., +251 9XXXXXXXX" required />
+      </div>
+
+      <div class="form-group">
+        <label for="date" class="required-label">Reservation Date</label>
+        <input type="date" id="date" required />
+      </div>
+
+      <div class="form-group">
+        <label for="time" class="required-label">Reservation Time</label>
+        <input type="time" id="time" required />
+      </div>
+
+      <div class="form-group">
+        <label for="guests" class="required-label">Number of Guests</label>
+        <input type="number" id="guests" min="1" max="20" placeholder="e.g., 2" required />
+      </div>
+
+      <button type="submit" class="reserve-btn">Reserve Now</button>
+    </form>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="container footer-grid">
+        <div class="footer-section">
+          <a href="index.html" class="footer-brand">
+            <img src="img/coffeelogo.png" alt="Abyssinia Coffee">
+          </a>
+          <p>
+            Welcome to Abyssinia Coffee! Your perfect spot for fresh coffee, delicious pastries, and good vibes.
+          </p>
+          <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <a href="index.html">Home</a><br>
+          <a href="menu.html">Menu</a><br>
+          <a href="reserve.html">Reservations</a><br>
+          <a href="gallery.html">Gallery</a><br>
+          <a href="shopnow.html">Shop</a>
+        </div>
+
+        <div class="footer-section">
+          <h3>Opening Hours</h3>
+          <p>Mon – Fri: 8:00 AM – 9:00 PM</p>
+          <p>Sat – Sun: 9:00 AM – 10:00 PM</p>
+          <p>Holidays: 10:00 AM – 8:00 PM</p>
+        </div>
+
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <p><i class="fas fa-location-dot"></i> Bole, Addis Ababa, Ethiopia</p>
+          <p><i class="fas fa-phone"></i> +251 911 234 567</p>
+          <p><i class="fas fa-envelope"></i> hello@abyssiniacoffee.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2025 Abyssinia Coffee. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="auth.js"></script>
+  <script src="scroll-animations.js"></script>
+  <script>
+    // Header Scroll Effect
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('.site-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Form Validation & Submission
+    document.querySelector('.reserve-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const date = document.getElementById('date').value;
+      const guests = document.getElementById('guests').value;
+      const btn = document.querySelector('.reserve-btn');
+
+      // Simple OWASP-style frontend validation
+      if (!isValidPhone(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return;
+      }
+
+      const selectedDate = new Date(date);
+      const now = new Date();
+      if (selectedDate < now.setHours(0, 0, 0, 0)) {
+        alert("Please select a future date.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "Processing...";
+
+      // Mock successful reservation
+      setTimeout(() => {
+        // Success Feedback (Secure textContent)
+        const section = document.querySelector('.reserve-section');
+        section.innerHTML = `
+            <div style="text-align: center; padding: 60px 20px;">
+                <div style="font-size: 4rem; color: #c6a87c; margin-bottom: 20px;">
+                    <i class="fas fa-circle-check"></i>
+                </div>
+                <h2 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #c6a87c; margin-bottom: 15px;">Reservation Confirmed!</h2>
+                <p style="font-size: 1.2rem; color: #888; max-width: 500px; margin: 0 auto 30px;">
+                    Thank you, ${name}. We've reserved a table for ${guests} guests on ${date}. A confirmation has been sent to ${phone}.
+                </p>
+                <a href="index.html" class="reserve-btn" style="text-decoration: none; display: inline-block; width: auto; padding: 15px 40px;">Back to Home</a>
+            </div>
+          `;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }, 1500);
+    });
+  </script>
+</body>
+
+</html>
