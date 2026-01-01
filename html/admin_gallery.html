@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Gallery Management</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f1ee; padding: 30px; }
+    h2 { text-align: center; color: #5a3e2c; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; }
+    th, td { border: 1px solid #5a3e2c; padding: 10px; text-align: center; }
+    th { background: #5a3e2c; color: white; }
+    .preview-img { width: 50px; height: 50px; object-fit: cover; border-radius: 5px; }
+    .delete-btn { background: #e74c3c; color: white; border: none; padding: 8px 12px; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .delete-btn:hover { background: #c0392b; }
+    .back-btn { background: #6b4f2a; color: white; text-decoration: none; padding: 10px; border-radius: 5px; display: inline-block; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <a href="Admin.html" class="back-btn">← Back to Dashboard</a>
+  <h2>Admin – Gallery Management</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Preview</th>
+        <th>Caption</th>
+        <th>Type</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="gallery-table"></tbody>
+  </table>
+  <script src="../js/admin_gallery.js" defer></script>
+</body>
+</html>
