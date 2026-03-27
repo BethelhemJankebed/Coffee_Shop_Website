@@ -7,11 +7,7 @@
     <style>
         /* COFFEE SHOP THEME */
         body {
-<<<<<<< HEAD
             background-color: #1e1814; 
-=======
-            background-color: #1e1814; /* Dark Coffee Bean */
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
             color: #e6c9ad;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -24,10 +20,7 @@
             padding: 40px 20px;
         }
 
-<<<<<<< HEAD
-=======
         /* HEADER */
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         header {
             background: #2b1f18;
             padding: 20px;
@@ -41,10 +34,7 @@
         .nav-links a { color: #e6c9ad; text-decoration: none; margin: 0 15px; font-weight: bold; }
         .nav-links a:hover { color: #fff; }
 
-<<<<<<< HEAD
-=======
         /* UPLOAD BOX */
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         .upload-card {
             background: #2b1f18;
             padding: 30px;
@@ -84,10 +74,7 @@
 
         .btn-post:hover { background: #8d6e63; transform: scale(1.05); }
 
-<<<<<<< HEAD
-=======
         /* GALLERY GRID */
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -100,7 +87,6 @@
             overflow: hidden;
             border: 1px solid #5a4336;
             transition: 0.3s;
-<<<<<<< HEAD
             display: flex;
             flex-direction: column;
         }
@@ -124,25 +110,12 @@
 
         audio { width: 90%; margin-top: 10px; }
 
-=======
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-        }
-
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         .gallery-info {
             padding: 15px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-<<<<<<< HEAD
             background: #2b1f18;
-=======
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         }
 
         .del-btn {
@@ -156,11 +129,7 @@
         
         .del-btn:hover { background: #e74c3c; }
 
-<<<<<<< HEAD
         /* MODAL STYLES */
-=======
-        /* CUSTOM CONFIRMATION MODAL STYLES */
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
         .confirm-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -197,14 +166,9 @@
     <div class="container">
         <div class="upload-card">
             <h3>Add to our Coffee Wall</h3>
-<<<<<<< HEAD
             <p style="font-size: 0.8em; color: #d9a46d;">Upload Images, Audio (MP3), or Video (MP4)</p>
             <div class="upload-controls">
                 <input type="file" id="media-file" accept="image/*,video/*,audio/*">
-=======
-            <div class="upload-controls">
-                <input type="file" id="media-file" accept="image/*">
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
                 <input type="text" id="media-title" placeholder="Enter a caption...">
                 <button onclick="handleUpload()" class="btn-post">Upload & Post</button>
             </div>
@@ -213,13 +177,10 @@
         <div id="gallery-grid" class="gallery-grid"></div>
     </div>
 
-<<<<<<< HEAD
-=======
-    <script src="js/alerts.js"></script>
+    <script src="../js/alerts.js"></script>
 
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
     <script>
-const API_URL = "http://localhost:4000/gallery";
+const API_URL = "../backend/gallery.php";
 
 const getBase64 = (file) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -231,57 +192,47 @@ const getBase64 = (file) => new Promise((resolve, reject) => {
 async function fetchGallery() {
     const grid = document.getElementById('gallery-grid');
     try {
-        const res = await fetch(API_URL);
-<<<<<<< HEAD
-=======
-        if (!res.ok) throw new Error();
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
-        const items = await res.json();
+        const res = await fetch(API_URL + "?action=list");
+        const data = await res.json();
+        const items = data.items || [];
         grid.innerHTML = "";
 
         if (items.length === 0) {
-<<<<<<< HEAD
             grid.innerHTML = "<p style='text-align:center;'>No media yet. Be the first to upload!</p>";
-=======
-            grid.innerHTML = "<p style='text-align:center;'>No photos yet. Be the first to upload!</p>";
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
             return;
         }
 
-        items.reverse().forEach(item => {
+        items.forEach(item => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
-<<<<<<< HEAD
 
-            // Check what kind of file it is by looking at the Base64 header
+            const url = item.image_url || item.url;
+            const title = item.caption || item.title || "";
+
             let mediaTag = '';
-            if (item.url.includes("data:video")) {
-                mediaTag = `<video src="${item.url}" controls class="gallery-media"></video>`;
-            } else if (item.url.includes("data:audio")) {
+            if (url.includes("data:video")) {
+                mediaTag = `<video src="${url}" controls class="gallery-media"></video>`;
+            } else if (url.includes("data:audio")) {
                 mediaTag = `
                     <div class="audio-wrapper">
                         <span>🎵 Audio Note</span>
-                        <audio src="${item.url}" controls></audio>
+                        <audio src="${url}" controls></audio>
                     </div>`;
             } else {
-                mediaTag = `<img src="${item.url}" class="gallery-media" onerror="this.src='../img/coffeelogo.png'">`;
+                mediaTag = `<img src="${url}" class="gallery-media" onerror="this.src='../img/coffeelogo.png'">`;
             }
 
             div.innerHTML = `
                 ${mediaTag}
-=======
-            div.innerHTML = `
-                <img src="${item.url}" onerror="this.src='../img/coffeelogo.png'">
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
                 <div class="gallery-info">
-                    <span>${item.title}</span>
+                    <span>${title}</span>
                     <button class="del-btn" onclick="deleteItem('${item.id}')">Delete</button>
                 </div>
             `;
             grid.appendChild(div);
         });
     } catch (err) {
-        grid.innerHTML = "<p style='color:#ff6b6b;'>Server Error: Is json-server running?</p>";
+        grid.innerHTML = "<p style='color:#ff6b6b;'>Server Error: Is database connected?</p>";
     }
 }
 
@@ -301,23 +252,24 @@ async function handleUpload() {
         const base64String = await getBase64(fileBox.files[0]);
         
         const newPost = {
-            id: Date.now().toString(),
-            url: base64String,
-            title: titleBox.value
+            image_url: base64String,
+            caption: titleBox.value
         };
 
-        const response = await fetch(API_URL, {
+        const response = await fetch(API_URL + "?action=add", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(newPost)
         });
 
-        if (response.ok) {
+        const result = await response.json();
+
+        if (result.success) {
             titleBox.value = "";
             fileBox.value = "";
             fetchGallery();
         } else {
-            alert("Upload failed. The file might be too large for json-server!");
+            alert("Upload failed: " + result.error);
         }
     } catch (err) {
         alert("Connection error.");
@@ -343,9 +295,17 @@ async function deleteItem(id) {
     document.body.appendChild(overlay);
 
     document.getElementById('confirm-yes').onclick = async () => {
-        await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-        document.body.removeChild(overlay);
-        fetchGallery();
+        try {
+            await fetch(API_URL + "?action=delete", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: id })
+            });
+            document.body.removeChild(overlay);
+            fetchGallery();
+        } catch(e) {
+            alert("Error deleting item.");
+        }
     };
 
     document.getElementById('confirm-no').onclick = () => {
