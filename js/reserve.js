@@ -1,4 +1,3 @@
-
   const form = document.querySelector(".reserve-form");
   const MAX_SEATS = 10;
 
@@ -9,12 +8,13 @@
     const phone = document.getElementById("phone").value;
     const reservation_date = document.getElementById("date").value;
     const reservation_time = document.getElementById("time").value;
-    const guests = Number(document.getElementById("guests").value); // IMPORTANT
+    const guests = Number(document.getElementById("guests").value);
 
-    // 1️⃣ GET existing reservations
-    fetch("http://localhost:4000/reservations")
+    // 1️⃣ GET existing reservations to check capacity
+    fetch("../backend/reservations.php?action=list")
       .then(res => res.json())
-      .then(reservations => {
+      .then(data => {
+        const reservations = data.reservations || [];
 
         // 2️⃣ Filter same date & time
         const sameSlot = reservations.filter(r =>
@@ -31,11 +31,11 @@
         // 4️⃣ Check capacity
         if (reservedSeats + guests > MAX_SEATS) {
           alert("❌ Sorry, all seats are reserved for this time.");
-          return; // STOP here
+          return;
         }
 
         // 5️⃣ POST reservation
-        const data = {
+        const reserveData = {
           full_name,
           phone,
           reservation_date,
@@ -43,22 +43,29 @@
           guests
         };
 
-        return fetch("http://localhost:4000/reservations", {
+        return fetch("../backend/reservations.php?action=create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(reserveData)
         });
       })
      .then(response => {
-  if (!response) return; 
-  alert("✅ Reservation successful! See you soon at Abyssinia Coffee.");
-  form.reset();
-})
+        if (!response) return; 
+        return response.json();
+      })
+      .then(result => {
+        if (result && result.success) {
+          alert("✅ Reservation successful! See you soon at Abyssinia Coffee.");
+          form.reset();
+        } else if (result && result.error) {
+          alert("❌ " + result.error);
+        }
+      })
       .catch(err => {
         console.error(err);
-        alert("❌ Error saving reservation");
+        alert("❌ Error saving reservation. Please try again.");
       });
   });
 

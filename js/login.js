@@ -7,36 +7,30 @@ async function performLogin() {
     errorMsg.innerText = "";
 
     try {
-        // 1. Fetch from the server on port 4000
-        const res = await fetch('http://localhost:4000/users');
+        const res = await fetch('../backend/auth.php?action=login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: u, password: p })
+        });
         
-        if (!res.ok) {
-            throw new Error("Server not responding");
-        }
-
-        const users = await res.json();
+        const data = await res.json();
         
-        // 2. Find the user in the array returned by the server
-        const foundUser = users.find(
-            user => user.username === u && user.password === p
-        );
-
-        if (foundUser) {
+        if (data.success) {
             // Store session
-            localStorage.setItem('currentUser', JSON.stringify(foundUser));
+            localStorage.setItem('currentUser', JSON.stringify(data.user));
             
-            // 3. Redirect based on role
-            if (foundUser.role === 'admin') {
+            // Redirect based on role
+            if (data.user.role === 'admin') {
                 window.location.href = 'Admin.html';
             } else {
                 window.location.href = 'index.html';
             }
         } else {
             errorMsg.innerHTML = 
-                "Invalid credentials. <a href='signup.html' style='color:#f39c12;'>Sign up here</a>";
+                (data.error || "Invalid credentials") + ". <a href='signup.html' style='color:#f39c12;'>Sign up here</a>";
         }
     } catch (err) {
         console.error("Login Error:", err);
-        errorMsg.innerText = "Error: Make sure json-server is running on port 4000.";
+        errorMsg.innerText = "Error connecting to backend.";
     }
 }
