@@ -1,5 +1,5 @@
 //admin_reserve js
-   currentUser = JSON.parse(localStorage.getItem("currentUser"));
+   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser || currentUser.role !== "admin") {
     alert("Access denied");
     window.location.href = "login.html";
@@ -9,31 +9,28 @@
     const refreshBtn = document.querySelector(".refresh-btn");
 
     function loadReservations() {
-      fetch("http://localhost:4000/reservations")
- // we will create this endpoint in backend
+      fetch("../backend/reservations.php?action=list")
         .then(res => res.json())
         .then(data => {
-          tableBody.innerHTML = ""; // clear table
-          data.forEach(reservation => {
-  const row = document.createElement("tr");
-  row.innerHTML = `
-  <td>${reservation.id}</td>
-  <td>${reservation.full_name}</td>
-  <td>${reservation.phone}</td>
-  <td>${reservation.reservation_date}</td>
-  <td>${reservation.reservation_time}</td>
-  <td>${reservation.guests}</td>
-  <td>
-    <button class="delete-btn" onclick="deleteReservation('${reservation.id}')"
->
-      Delete
-    </button>
-  </td>
-`;
-
-  tableBody.appendChild(row);
-});
-
+          const reservations = data.reservations || [];
+          tableBody.innerHTML = ""; 
+          reservations.forEach(reservation => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${reservation.id}</td>
+              <td>${reservation.full_name}</td>
+              <td>${reservation.phone}</td>
+              <td>${reservation.reservation_date}</td>
+              <td>${reservation.reservation_time}</td>
+              <td>${reservation.guests}</td>
+              <td>
+                <button class="delete-btn" onclick="deleteReservation('${reservation.id}')">
+                  Delete
+                </button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
         })
         .catch(err => {
           console.error(err);
@@ -41,20 +38,24 @@
         });
     }
 
-    refreshBtn.addEventListener("click", loadReservations);
+    refreshBtn?.addEventListener("click", loadReservations);
 
-
-function deleteReservation(id) {
+window.deleteReservation = function(id) {
   if (!confirm("Are you sure you want to delete this reservation?")) return;
 
- fetch(`http://localhost:4000/reservations/${id}`, {
-    method: "DELETE"
+  fetch(`../backend/reservations.php?action=delete`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: id })
   })
-  .then(res => res.text())
-.then(() => {
-  loadReservations(); 
-})
-
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      loadReservations(); 
+    } else {
+      alert("Error: " + data.error);
+    }
+  })
   .catch(err => {
     console.error(err);
     alert("Error deleting reservation");
