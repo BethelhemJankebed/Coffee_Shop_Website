@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abyssinia Coffee - Admin Reservations</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f4f1ee;
+      color: #3a2e1e;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #6b4f2a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 1px solid #6b4f2a;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background: #6b4f2a;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background: #f8f5f2;
+    }
+
+    .refresh-btn {
+      display: block;
+      margin: 20px auto;
+      padding: 10px 20px;
+      background: #5a3e2c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .refresh-btn:hover {
+      background: #2b1a0f;
+    }
+    /* Delete button style */
+
+  /* Existing general button style (for Refresh List) */
+  #refresh-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #5a3e2c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  /* Delete button style */
+  .delete-btn {
+    padding: 6px 12px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .delete-btn:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+  }
+
+
+
+  </style>
+</head>
+<body>
+  <h1>Reserved Tables</h1>
+
+  <button class="refresh-btn">Refresh List</button>
+
+  <table >
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Phone</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Guests</th>
+      </tr>
+    </thead>
+    <tbody id="reservations-table">
+      <!-- Reservations will appear here -->
+    </tbody>
+  </table>
+
+  
+  <script src="../js/admin_reserve.js" defer></script>
+</body>
+</html>
