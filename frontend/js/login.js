@@ -1,4 +1,4 @@
-async function performLogin() {
+﻿async function performLogin() {
     const u = document.getElementById('username').value;
     const p = document.getElementById('password').value;
     const errorMsg = document.getElementById('error');
@@ -7,7 +7,7 @@ async function performLogin() {
     errorMsg.innerText = "";
 
     try {
-        const res = await fetch('../backend/auth.php?action=login', {
+        const res = await fetch('../../backend/auth.php?action=login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: u, password: p })

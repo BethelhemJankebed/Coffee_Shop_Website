@@ -1,4 +1,4 @@
-//admin_reserve js
+﻿//admin_reserve js
    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser || currentUser.role !== "admin") {
     alert("Access denied");
@@ -9,7 +9,7 @@
     const refreshBtn = document.querySelector(".refresh-btn");
 
     function loadReservations() {
-      fetch("../backend/reservations.php?action=list")
+      fetch("../../backend/reservations.php?action=list")
         .then(res => res.json())
         .then(data => {
           const reservations = data.reservations || [];
@@ -43,7 +43,7 @@
 window.deleteReservation = function(id) {
   if (!confirm("Are you sure you want to delete this reservation?")) return;
 
-  fetch(`../backend/reservations.php?action=delete`, {
+  fetch(`../../backend/reservations.php?action=delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: id })

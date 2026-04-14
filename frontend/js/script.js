@@ -1,4 +1,4 @@
-//  Reviews Section 
+﻿//  Reviews Section 
 const reviewsContainer = document.querySelector('.reviews-container');
 const nextBtn = document.getElementById('next');
 const prevBtn = document.getElementById('prev');

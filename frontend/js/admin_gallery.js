@@ -1,4 +1,4 @@
-// Protection: Only admins allowed
+﻿// Protection: Only admins allowed
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser || currentUser.role !== "admin") {
     alert("Access denied");
@@ -8,7 +8,7 @@ if (!currentUser || currentUser.role !== "admin") {
 const table = document.getElementById("gallery-table");
 
 function loadGalleryItems() {
-    fetch("../backend/gallery.php?action=list")
+    fetch("../../backend/gallery.php?action=list")
         .then(res => res.json())
         .then(data => {
             const items = data.items || [];
@@ -22,7 +22,7 @@ function loadGalleryItems() {
                 
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${isVideo ? '🎥 Video' : isAudio ? '🎵 Audio' : `<img src="${url}" class="preview-img" style="width:50px;height:50px;object-fit:cover;">`}</td>
+                    <td>${isVideo ? 'ðŸŽ¥ Video' : isAudio ? 'ðŸŽµ Audio' : `<img src="${url}" class="preview-img" style="width:50px;height:50px;object-fit:cover;">`}</td>
                     <td>${title}</td>
                     <td>${isVideo ? 'Video' : isAudio ? 'Audio' : 'Image'}</td>
                     <td>
@@ -37,7 +37,7 @@ function loadGalleryItems() {
 window.deleteGalleryItem = function(id) {
     if (!confirm("Remove this post from the public gallery?")) return;
 
-    fetch(`../backend/gallery.php?action=delete`, {
+    fetch(`../../backend/gallery.php?action=delete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: id })

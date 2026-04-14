@@ -1,7 +1,7 @@
-"use strict";
+﻿"use strict";
 
 
-// 🔐 LOGIN CHECK
+// ðŸ” LOGIN CHECK
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
   alert("Please login first");
@@ -32,7 +32,7 @@ function buyNow(product) {
     source: "BUY_NOW"   
   };
 
-  fetch("../backend/orders.php?action=create", {
+  fetch("../../backend/orders.php?action=create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order)
@@ -40,24 +40,24 @@ function buyNow(product) {
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        alert("✅ Purchased!");
+        alert("âœ… Purchased!");
         renderTransactions();
       } else {
-        alert("❌ " + data.error);
+        alert("âŒ " + data.error);
       }
     })
     .catch(err => {
       console.error(err);
-      alert("❌ Failed to send order");
+      alert("âŒ Failed to send order");
     });
 }
 
   const productsGrid = $("#products-grid");
 
-  // 🔹 LOAD PRODUCTS
+  // ðŸ”¹ LOAD PRODUCTS
   async function init() {
     try {
-      const res = await fetch("../backend/products.php?action=list");
+      const res = await fetch("../../backend/products.php?action=list");
       const data = await res.json();
       catalog = data.products || [];
       renderCatalog();
@@ -70,7 +70,7 @@ function buyNow(product) {
     }
   }
 
-  // 🔹 RENDER PRODUCTS
+  // ðŸ”¹ RENDER PRODUCTS
   function renderCatalog() {
     if (!productsGrid) return;
     productsGrid.innerHTML = "";
@@ -95,7 +95,7 @@ function buyNow(product) {
     });
   }
 
-  // 🔹 RENDER CART
+  // ðŸ”¹ RENDER CART
   function renderCart() {
     const cartContainer = document.getElementById("cart-items");
     const cartEmpty = document.getElementById("cart-empty");
@@ -138,7 +138,7 @@ function buyNow(product) {
     updateCartBadge();
 }
 
-  // 🔹 CART CLICK EVENTS
+  // ðŸ”¹ CART CLICK EVENTS
   productsGrid?.addEventListener("click", (e) => {
     const buyId = e.target.dataset.buy;
     const addId = e.target.dataset.add;
@@ -158,7 +158,7 @@ function buyNow(product) {
     }
   });
 
-  // 🔹 REMOVE ITEM FROM CART
+  // ðŸ”¹ REMOVE ITEM FROM CART
   document.getElementById("cart-items")?.addEventListener("click", (e) => {
     const removeId = e.target.dataset.remove;
     if (!removeId) return;
@@ -172,7 +172,7 @@ function buyNow(product) {
     }
   });
 
-  // 🔹 CHECKOUT
+  // ðŸ”¹ CHECKOUT
 document.getElementById("checkout-btn")?.addEventListener("click", () => {
   const userCart = cart.filter((i) => i.user === currentUser.username);
   if (userCart.length === 0) return alert("Your cart is empty");
@@ -185,7 +185,7 @@ document.getElementById("checkout-btn")?.addEventListener("click", () => {
     source: "SHOP_NOW"
   };
 
-  fetch("../backend/orders.php?action=create", {
+  fetch("../../backend/orders.php?action=create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order),
@@ -193,26 +193,26 @@ document.getElementById("checkout-btn")?.addEventListener("click", () => {
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        alert("✅ Order placed successfully!");
+        alert("âœ… Order placed successfully!");
         // Remove purchased items from cart
         cart = cart.filter((i) => i.user !== currentUser.username);
         localStorage.setItem(STORAGE.CART, JSON.stringify(cart));
         renderCart();
         renderTransactions();
       } else {
-        alert("❌ " + data.error);
+        alert("âŒ " + data.error);
       }
     })
     .catch((err) => console.error(err));
 });
 
 
-  // 🔹 RENDER USER TRANSACTIONS
+  // ðŸ”¹ RENDER USER TRANSACTIONS
   function renderTransactions() {
     const container = document.getElementById("transactions-list");
     if (!container) return;
 
-    fetch("../backend/orders.php?action=user_orders&user_id=" + currentUser.id)
+    fetch("../../backend/orders.php?action=user_orders&user_id=" + currentUser.id)
       .then((res) => res.json())
       .then((data) => {
         const userOrders = data.orders || [];

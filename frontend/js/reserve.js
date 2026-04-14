@@ -1,4 +1,4 @@
-  const form = document.querySelector(".reserve-form");
+﻿  const form = document.querySelector(".reserve-form");
   const MAX_SEATS = 10;
 
   form.addEventListener("submit", function (e) {
@@ -10,31 +10,31 @@
     const reservation_time = document.getElementById("time").value;
     const guests = Number(document.getElementById("guests").value);
 
-    // 1️⃣ GET existing reservations to check capacity
-    fetch("../backend/reservations.php?action=list")
+    // 1ï¸âƒ£ GET existing reservations to check capacity
+    fetch("../../backend/reservations.php?action=list")
       .then(res => res.json())
       .then(data => {
         const reservations = data.reservations || [];
 
-        // 2️⃣ Filter same date & time
+        // 2ï¸âƒ£ Filter same date & time
         const sameSlot = reservations.filter(r =>
           r.reservation_date === reservation_date &&
           r.reservation_time === reservation_time
         );
 
-        // 3️⃣ Count reserved seats
+        // 3ï¸âƒ£ Count reserved seats
         let reservedSeats = 0;
         sameSlot.forEach(r => {
           reservedSeats += Number(r.guests);
         });
 
-        // 4️⃣ Check capacity
+        // 4ï¸âƒ£ Check capacity
         if (reservedSeats + guests > MAX_SEATS) {
-          alert("❌ Sorry, all seats are reserved for this time.");
+          alert("âŒ Sorry, all seats are reserved for this time.");
           return;
         }
 
-        // 5️⃣ POST reservation
+        // 5ï¸âƒ£ POST reservation
         const reserveData = {
           full_name,
           phone,
@@ -43,7 +43,7 @@
           guests
         };
 
-        return fetch("../backend/reservations.php?action=create", {
+        return fetch("../../backend/reservations.php?action=create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -57,15 +57,15 @@
       })
       .then(result => {
         if (result && result.success) {
-          alert("✅ Reservation successful! See you soon at Abyssinia Coffee.");
+          alert("âœ… Reservation successful! See you soon at Abyssinia Coffee.");
           form.reset();
         } else if (result && result.error) {
-          alert("❌ " + result.error);
+          alert("âŒ " + result.error);
         }
       })
       .catch(err => {
         console.error(err);
-        alert("❌ Error saving reservation. Please try again.");
+        alert("âŒ Error saving reservation. Please try again.");
       });
   });
 

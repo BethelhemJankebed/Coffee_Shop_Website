@@ -1,4 +1,4 @@
- async function handleSignUp() {
+﻿ async function handleSignUp() {
     const user = document.getElementById('new-user').value.trim();
     const pass = document.getElementById('new-pass').value.trim();
     const msg = document.getElementById('msg');
@@ -10,7 +10,7 @@
     }
 
     try {
-        const res = await fetch("../backend/auth.php?action=signup", {
+        const res = await fetch("../../backend/auth.php?action=signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: user, password: pass })

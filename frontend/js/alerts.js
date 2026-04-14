@@ -1,4 +1,4 @@
-/* Abyssinia Coffee - Modern Notification System */
+﻿/* Abyssinia Coffee - Modern Notification System */
 
 const styleAlerts = () => {
     const css = `
@@ -55,7 +55,7 @@ function showAbAlert(message) {
     }
 
     const toast = document.createElement('div');
-    const isError = message.includes('❌') || message.toLowerCase().includes('error') || message.toLowerCase().includes('fail');
+    const isError = message.includes('âŒ') || message.toLowerCase().includes('error') || message.toLowerCase().includes('fail');
     
     toast.className = `ab-toast ${isError ? 'error' : 'success'}`;
     toast.innerHTML = `<span>${message}</span>`;

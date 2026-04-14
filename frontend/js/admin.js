@@ -1,4 +1,4 @@
-// admin js
+﻿// admin js
 // Admin protection
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser || currentUser.role !== "admin") {
@@ -7,7 +7,7 @@ if (!currentUser || currentUser.role !== "admin") {
 }
 
 // Load counts
-fetch("../backend/users.php?action=list")
+fetch("../../backend/users.php?action=list")
   .then(res => res.json())
   .then(data => {
     const count = data.users ? data.users.length : 0;
@@ -15,7 +15,7 @@ fetch("../backend/users.php?action=list")
     if (el) el.innerText = count;
   });
 
-fetch("../backend/reservations.php?action=list")
+fetch("../../backend/reservations.php?action=list")
   .then(res => res.json())
   .then(data => {
     const count = data.reservations ? data.reservations.length : 0;

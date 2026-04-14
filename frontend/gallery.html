@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -177,7 +177,7 @@
         <div id="gallery-grid" class="gallery-grid"></div>
     </div>
 
-    <script src="../js/alerts.js"></script>
+    <script src="js/alerts.js"></script>
 
     <script>
 const API_URL = "../backend/gallery.php";
@@ -215,11 +215,11 @@ async function fetchGallery() {
             } else if (url.includes("data:audio")) {
                 mediaTag = `
                     <div class="audio-wrapper">
-                        <span>🎵 Audio Note</span>
+                        <span>ðŸŽµ Audio Note</span>
                         <audio src="${url}" controls></audio>
                     </div>`;
             } else {
-                mediaTag = `<img src="${url}" class="gallery-media" onerror="this.src='../img/coffeelogo.png'">`;
+                mediaTag = `<img src="${url}" class="gallery-media" onerror="this.src='img/coffeelogo.png'">`;
             }
 
             div.innerHTML = `
