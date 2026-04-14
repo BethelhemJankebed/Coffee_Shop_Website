@@ -7,7 +7,7 @@ if (!currentUser || currentUser.role !== "admin") {
 const table = document.getElementById("users-table");
 
 function loadUsers() {
-  fetch("../../backend/users.php?action=list")
+  fetch("../backend/users.php?action=list")
     .then(res => res.json())
     .then(data => {
       const users = data.users || [];
@@ -32,7 +32,7 @@ function loadUsers() {
 window.deleteUser = function(id) {
   if (!confirm("Delete this user?")) return;
 
-  fetch(`../../backend/users.php?action=delete`, {
+  fetch(`../backend/users.php?action=delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: id })

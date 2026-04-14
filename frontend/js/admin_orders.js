@@ -8,7 +8,7 @@ if (!currentUser || currentUser.role !== "admin") {
 const table = document.getElementById("orders-table");
 
 function loadOrders() {
-  fetch("../../backend/orders.php?action=list")
+  fetch("../backend/orders.php?action=list")
     .then(res => res.json())
     .then(data => {
       const orders = data.orders || [];
@@ -30,7 +30,7 @@ function loadOrders() {
 
 window.deleteOrder = function(id) {
   if (!confirm("Delete this order?")) return;
-  fetch(`../../backend/orders.php?action=delete`, { 
+  fetch(`../backend/orders.php?action=delete`, { 
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: id })

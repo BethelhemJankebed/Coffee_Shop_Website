@@ -8,7 +8,7 @@ if (!currentUser || currentUser.role !== "admin") {
 const table = document.getElementById("gallery-table");
 
 function loadGalleryItems() {
-    fetch("../../backend/gallery.php?action=list")
+    fetch("../backend/gallery.php?action=list")
         .then(res => res.json())
         .then(data => {
             const items = data.items || [];
@@ -37,7 +37,7 @@ function loadGalleryItems() {
 window.deleteGalleryItem = function(id) {
     if (!confirm("Remove this post from the public gallery?")) return;
 
-    fetch(`../../backend/gallery.php?action=delete`, {
+    fetch(`../backend/gallery.php?action=delete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: id })

@@ -32,7 +32,7 @@ function buyNow(product) {
     source: "BUY_NOW"   
   };
 
-  fetch("../../backend/orders.php?action=create", {
+  fetch("../backend/orders.php?action=create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order)
@@ -57,7 +57,7 @@ function buyNow(product) {
   // ðŸ”¹ LOAD PRODUCTS
   async function init() {
     try {
-      const res = await fetch("../../backend/products.php?action=list");
+      const res = await fetch("../backend/products.php?action=list");
       const data = await res.json();
       catalog = data.products || [];
       renderCatalog();
@@ -185,7 +185,7 @@ document.getElementById("checkout-btn")?.addEventListener("click", () => {
     source: "SHOP_NOW"
   };
 
-  fetch("../../backend/orders.php?action=create", {
+  fetch("../backend/orders.php?action=create", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(order),
@@ -212,7 +212,7 @@ document.getElementById("checkout-btn")?.addEventListener("click", () => {
     const container = document.getElementById("transactions-list");
     if (!container) return;
 
-    fetch("../../backend/orders.php?action=user_orders&user_id=" + currentUser.id)
+    fetch("../backend/orders.php?action=user_orders&user_id=" + currentUser.id)
       .then((res) => res.json())
       .then((data) => {
         const userOrders = data.orders || [];

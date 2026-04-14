@@ -11,7 +11,7 @@
     const guests = Number(document.getElementById("guests").value);
 
     // 1ï¸âƒ£ GET existing reservations to check capacity
-    fetch("../../backend/reservations.php?action=list")
+    fetch("../backend/reservations.php?action=list")
       .then(res => res.json())
       .then(data => {
         const reservations = data.reservations || [];
@@ -43,7 +43,7 @@
           guests
         };
 
-        return fetch("../../backend/reservations.php?action=create", {
+        return fetch("../backend/reservations.php?action=create", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

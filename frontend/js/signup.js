@@ -10,7 +10,7 @@
     }
 
     try {
-        const res = await fetch("../../backend/auth.php?action=signup", {
+        const res = await fetch("../backend/auth.php?action=signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: user, password: pass })
