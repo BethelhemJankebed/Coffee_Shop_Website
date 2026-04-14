@@ -3,97 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard - Abyssinia Coffee</title>
+  <link rel="stylesheet" href="css/global.css">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f1ee;
-      padding: 30px;
+      padding: 80px 10%;
+      background: var(--bg-main);
+      color: var(--text-main);
     }
-    h1 {
+
+    .admin-header {
       text-align: center;
-      color: #5a3e2c;
+      margin-bottom: 60px;
     }
+
+    .admin-header h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 10px;
+    }
+
+    .admin-header p {
+      color: var(--primary);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
     .cards {
       display: flex;
-      gap: 20px;
+      gap: 30px;
       justify-content: center;
-      margin-top: 30px;
+      margin-bottom: 60px;
       flex-wrap: wrap;
     }
+
     .card {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      width: 220px;
+      background: #fff;
+      padding: 40px;
+      border-radius: 24px;
+      width: 280px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+      box-shadow: 0 10px 40px var(--shadow);
+      border: 1px solid var(--border);
+      transition: transform 0.3s;
     }
+
+    .card:hover { transform: translateY(-10px); }
+
     .card h2 {
       margin: 0;
-      font-size: 32px;
-      color: #6b4f2a;
+      font-size: 3.5rem;
+      color: var(--primary);
+      font-weight: 900;
     }
+
     .card p {
-      margin-top: 8px;
-      font-weight: bold;
+      margin-top: 15px;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
     }
-    .actions {
-      text-align: center;
-      margin-top: 40px;
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 0 auto;
     }
-    .actions button {
-      margin: 10px;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 8px;
+
+    .admin-btn {
+      padding: 30px 20px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
       cursor: pointer;
-      font-weight: bold;
-      background: #5a3e2c;
-      color: white;
-<<<<<<< HEAD
-      transition: background 0.3s;
-=======
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38
+      font-weight: 800;
+      background: #fff;
+      color: var(--text-main);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 15px var(--shadow);
+      font-size: 1rem;
     }
-    .actions button:hover {
-      background: #2b1a0f;
+
+    .admin-btn:hover {
+      background: #d8b89d;
+      border-color: #d8b89d;
+      color: #3e2723;
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(62, 39, 35, 0.15);
+    }
+
+    .logout-btn {
+        background: #fff5f5 !important;
+        color: #c62828 !important;
+        border: 1px solid #ffcdd2 !important;
+    }
+
+    .logout-btn:hover {
+        background: #fee2e2 !important;
+        border-color: #ef9a9a !important;
+    }
+
+    .stats-icon {
+        font-size: 2rem;
+        margin-bottom: 15px;
+        color: #d7ccc8;
     }
   </style>
 </head>
 <body>
 
-<h1>Admin Dashboard</h1>
+<div class="admin-header">
+    <p>MANAGEMENT PORTAL</p>
+    <h1>Control Panel</h1>
+</div>
 
 <div class="cards">
   <div class="card">
+    <div class="stats-icon"><i class="fas fa-users"></i></div>
     <h2 id="userCount">0</h2>
-    <p>Total Users</p>
+    <p>Total Members</p>
   </div>
   <div class="card">
+    <div class="stats-icon"><i class="fas fa-calendar-check"></i></div>
     <h2 id="reservationCount">0</h2>
-    <p>Total Reservations</p>
+    <p>Open Bookings</p>
   </div>
 </div>
 
-<div class="actions">
-<<<<<<< HEAD
-  <button onclick="location.href='admin_orders.html'">View Orders</button>
-  <button onclick="location.href='admin_users.html'">Manage Users</button>
-  <button onclick="location.href='admin_gallery.html'">Manage Gallery</button> 
-  <button onclick="location.href='admin_reserve.html'">View Reservations</button>
-  <button onclick="logout()">Logout</button>
+<div class="actions-grid">
+  <button class="admin-btn" onclick="location.href='admin_orders.html'"><i class="fas fa-shopping-bag"></i><br><br>Retail Orders</button>
+  <button class="admin-btn" onclick="location.href='admin_users.html'"><i class="fas fa-user-gear"></i><br><br>Member Accounts</button>
+  <button class="admin-btn" onclick="location.href='admin_gallery.html'"><i class="fas fa-images"></i><br><br>Gallery Moderation</button> 
+  <button class="admin-btn" onclick="location.href='admin_reserve.html'"><i class="fas fa-chair"></i><br><br>Table Management</button>
+  <button class="admin-btn logout-btn" onclick="logout()"><i class="fas fa-power-off"></i><br><br>System Logout</button>
 </div>
 
 <script src="js/admin.js" defer></script>
 </body>
 </html>
-=======
-  <button onclick="location.href='admin-orders.html'">View Orders</button>
-  <button onclick="location.href='admin-users.html'">Manage Users</button>
-  <button onclick="location.href='Admin_reserve.html'">View Reservations</button>
-  <button onclick="logout()">Logout</button>
-</div>
-<script src="js/admin.js" defer></script>
-</body>
-</html>
->>>>>>> d4f5f58ca68e38134cacb19caa9ea0188ff03c38

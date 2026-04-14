@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Abyssinia Coffee | Shop</title>
   <link rel="icon" href="img/coffeelogo.png" />
-  <link rel="stylesheet" href="css/shopnow.css" />
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/shopnow.css?v=2" />
 </head>
 <body>
 
-  <header class="site-header">
-    <div class="site-nav">
-      <div class="site-brand-row">
-        <img src="img/coffeelogo.png" alt="Abissina Coffee logo" class="site-logo" />
-        <a class="site-brand" href="index.html#hero">Abyssinia Coffee</a>
+    <header>
+      <div class="logo-row">
+        <img src="img/coffeelogo.png" alt="Logo" class="logo-img" />
+        <a class="brand-name" href="index.html">Abyssinia Coffee</a>
       </div>
       <nav class="nav-links">
-        <a href="index.html#hero">Home</a>
-        <a href="#shop">Shop</a>
+        <a href="index.html">Home</a>
+        <a href="shopnow.html">Shop</a>
+        <a href="reserve.html">Reserve</a>
+        <a href="gallery.html">Gallery</a>
         <a href="#cart" class="cart-link">Cart <span id="cart-count" class="badge">0</span></a>
-        <a href="#transactions">Previous Transactions</a>
       </nav>
-    </div>
-  </header>
+    </header>
 
   <main class="container">
     <section id="shop" class="section">
@@ -43,12 +43,69 @@
     </section>
 
     <section id="transactions" class="section">
-      <h2>Previous Transactions</h2>
-      <div id="transactions-list"></div>
+      <h2 class="section-title">Order History & Receipts</h2>
+      <div id="transactions-list" class="transactions-grid"></div>
     </section>
   </main>
 
-  <script src="js/alerts.js"></script>
+  <!-- Professional Checkout Modal -->
+  <div id="checkout-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Secure Checkout</h3>
+        <button class="icon-btn" onclick="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="muted">Enter your details to finalize your order.</p>
+        
+        <label class="label">Delivery Address</label>
+        <input type="text" id="ship-address" class="input" placeholder="123 Coffee St, Addis Ababa">
+        
+        <label class="label">Card Information</label>
+        <div style="display: flex; gap: 10px;">
+          <input type="text" id="card-num" class="input" style="flex: 2;" placeholder="Card Number (XXXX-XXXX-XXXX-XXXX)">
+          <input type="text" id="card-cvv" class="input" style="flex: 1;" placeholder="CVV">
+        </div>
+
+        <div class="checkout-summary" style="background: #f7f3f0; padding: 15px; border-radius: 10px; margin-top: 10px;">
+          <span style="font-weight: bold;">Final Total: </span>
+          <span id="modal-total" style="color: #388e3c; font-weight: bold; font-size: 1.2rem;">$0.00</span>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn secondary" onclick="closeModal()">Cancel</button>
+        <button id="confirm-purchase-btn" class="btn primary">Complete Purchase</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Professional Receipt Modal -->
+  <div id="receipt-modal" class="modal hidden">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content receipt-paper">
+      <div class="receipt-header">
+        <img src="img/coffeelogo.png" style="height: 40px; filter: grayscale(1);">
+        <h3>Abyssinia Coffee</h3>
+        <p class="muted">Order Successfully Placed!</p>
+      </div>
+      <div class="receipt-body">
+        <div class="receipt-divider"></div>
+        <div id="receipt-details">
+          <!-- Populated by JS -->
+        </div>
+        <div class="receipt-divider"></div>
+        <div class="barcode" style="text-align: center; margin-top: 25px;">
+           <img id="receipt-barcode" src="" style="max-width: 100%;">
+           <p style="font-family: monospace; font-size: 10px; margin-top: 5px;">ABY-ORDER-CONFIRMED</p>
+        </div>
+      </div>
+      <div class="modal-actions" style="justify-content: center;">
+        <button class="btn primary" onclick="closeReceipt()">Done</button>
+      </div>
+    </div>
+  </div>
+
   <script src="js/shopnow.js"></script>
 
 </body>

@@ -5,84 +5,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abyssinia Coffee</title>
+    <link rel="stylesheet" href="css/global.css" />
     <link rel="stylesheet" href="css/index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-
     <link rel="icon" href="img/coffeelogo.png" />
 
     
   </head>
   <body>
-    <header class="site-header">
-      <div class="site-nav">
-        <a class="site-brand" href="index.html#hero">
-          <img src="img/coffeelogo.png" alt="Logo" />
-          Abyssinia Coffee
-        </a>
-        <nav class="nav-links">
-          <a href="index.html#hero">Home</a>
-          <a href="index.html#popular-menu">Popular Menu</a>
-          <a href="reserve.html">Reserve Table</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="index.html#story">Our Story</a>
-          <a href="index.html#services">Services</a>
-        </nav>
+    <header>
+      <div class="logo-row">
+        <img src="img/coffeelogo.png" alt="Logo" class="logo-img" />
+        <a class="brand-name" href="index.html">Abyssinia Coffee</a>
       </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shopnow.html">Shop</a>
+        <a href="reserve.html">Reserve</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
     </header>
-    <!--abyssinia section-->
+    <!--hero section-->
     <section id="hero">
-      <div class="hero-content">
-        <h1 class="logo">Abyssinia Coffee</h1>
-        <p class="tagline">
-          Today's good mood is sponsored by coffee. Search for your coffee now.
-        </p>
-
-        <div class="hero-buttons">
-          <a class="hero-cta" href="shopnow.html">Shop Now</a>
-        </div>
+      <div class="hero-box">
+        <p class="hero-tagline">ABYSSINIA PREMIUM</p>
+        <h1>Exceptional Coffee for Exceptional People.</h1>
+        <p>Today's good mood is sponsored by coffee. Discover your perfect blend now.</p>
+        <a class="hero-btn" href="shopnow.html">Shop Now</a>
       </div>
-
-      <div class="hero-image">
-        <img src="" alt="Coffee ceremony" />
+      <div class="hero-img-container">
+         <img src="img/Coffeehero.jpg" alt="Abyssinia Premium Coffee">
       </div>
     </section>
     <!--ourstory section-->
     <section id="story">
-      <h2>Our Story</h2>
-      <div class="story-content">
-        <div class="story-img">
-          <img src="img/bunchofcoffee.png" alt="Story Image" />
-        </div>
-        <div class="story-text">
-          <input
-            type="checkbox"
-            id="story-toggle"
-            class="read-more-checkbox"
-            style="display: none"
-          />
-
-          <p>
-            Abyssinia Coffee is a modern coffee house that offers the finest
-            selection of specialty coffees.
-            <span class="more-text">
-              We pride ourselves on sourcing the best beans from Ethiopia. Our
-              atmosphere is designed for relaxation and productivity, making us
-              the perfect spot for your daily brew.Abyssinia coffee is a
-              national level recognised for its amazing services. Our atmosphere
-              is designed for relaxation and productivity, making us the perfect
-              spot for your daily brew.
-            </span>
-          </p>
-          <label for="story-toggle" class="more-btn">More</label>
-        </div>
+      <div class="story-img">
+        <img src="img/bunchofcoffee.png" alt="Pure Ethiopian Coffee Beans" />
+      </div>
+      <div class="story-text">
+        <p class="tagline" style="color:var(--primary); font-weight:700; letter-spacing:1px;">OUR LEGACY</p>
+        <h2>A Story in Every Sip</h2>
+        <p>
+          Abyssinia Coffee is a modern tribute to the birthplace of coffee. We source the finest specialty beans directly from the high-altitude forests of Ethiopia, ensuring a cup that is as rich in history as it is in flavor.
+        </p>
+        <p>
+          Our boutique roasting process preserves the delicate floral and fruity notes that define true Abyssinian coffee, bringing the authentic coffee ceremony into a modern setting.
+        </p>
+        <a href="shopnow.html" class="btn btn-primary">Our Full Collection</a>
       </div>
     </section>
     <!--services section-->
     <section id="services">
-      <h2><center>Services</center></h2>
+      <div class="section-head">
+          <p>Bespoke Experience</p>
+          <h2>Our Services</h2>
+      </div>
       <div class="slider-container">
         <div class="slider-track">
           <div class="card">
@@ -408,51 +388,32 @@
         </div>
       </div>
     </section>
-    <!--footer section-->
     <footer class="footer">
       <div class="footer-section">
-        <h3>About Us</h3>
+        <h3>Abyssinia Coffee</h3>
         <p>
-          Welcome to JustCoffee! Your perfect spot for fresh coffee and good
-          vibes.
+          The authentic Ethiopian coffee experience, modernized for the global connoisseur.
         </p>
       </div>
 
       <div class="footer-section">
-        <h3>Opening Hours</h3>
-        <p>Mon â€“ Fri: 8 AM â€“ 9 PM</p>
-        <p>Sat â€“ Sun: 9 AM â€“ 10 PM</p>
+        <h3>Brewing Hours</h3>
+        <p>Mon – Fri: 7 AM – 9 PM</p>
+        <p>Sat – Sun: 8 AM – 10 PM</p>
       </div>
 
       <div class="footer-section">
-        <h3>Quick Links</h3>
-        <p><a href="#">Home</a></p>
-        <p><a href="#">Menu</a></p>
-        <p><a href="#">Services</a></p>
-        <p><a href="#">Contact</a></p>
+        <h3>Navigation</h3>
+        <p><a href="index.html" style="color:#fff;">Home</a></p>
+        <p><a href="shopnow.html" style="color:#fff;">Shop</a></p>
+        <p><a href="reserve.html" style="color:#fff;">Reservations</a></p>
       </div>
 
       <div class="footer-section">
         <h3>Contact Us</h3>
         <p><i class="fas fa-location-dot"></i> Addis Ababa, Ethiopia</p>
-        <p><i class="fas fa-phone"></i> +251 912 345 678</p>
-        <p><i class="fas fa-envelope"></i> info@justcoffee.com</p>
-        <p><i class="fab fa-telegram"></i> @JustCoffee</p>
-      </div>
-
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="https://facebook.com/YourPage" target="_blank">
-            <i class="fab fa-facebook-f"></i>
-          </a>
-          <a href="https://instagram.com/YourProfile" target="_blank">
-            <i class="fab fa-instagram"></i>
-          </a>
-          <a href="https://twitter.com/YourProfile" target="_blank">
-            <i class="fab fa-twitter"></i>
-          </a>
-        </div>
+        <p><i class="fas fa-envelope"></i> hello@abyssinia.coffee</p>
+        <p><i class="fab fa-instagram"></i> @AbyssiniaCoffee</p>
       </div>
     </footer>
    <script>

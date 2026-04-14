@@ -1,266 +1,196 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abyssinia Coffee - Reserve Table</title>
     <link rel="icon" href="img/coffeelogo.png" />
+    <link rel="stylesheet" href="css/global.css" />
     <style>
-      body {
-        margin: 0;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: #2b1a14;
-        color: #3a2e1e;
-      }
-
-      header {
-        background: #6b4f2a;
-        color: #fff;
-        padding: 20px;
-        text-align: center;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      }
-
-      header h1 {
-        margin: 0;
-        font-size: 28px;
-        letter-spacing: 1px;
-      }
-
       .hero {
         width: 100%;
-        height: 300px;
-        background: url("img/reservebackg.jpg") center/cover no-repeat;
+        height: 350px;
+        background: linear-gradient(rgba(35, 21, 16, 0.4), rgba(35, 21, 16, 0.4)), url("img/reservebackg.jpg") center/cover no-repeat;
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         color: #fff;
-        font-size: 36px;
-        font-weight: 700;
-        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
-      }
-
-      .reserve-section {
-        padding: 60px 20px;
         text-align: center;
       }
 
-      .reserve-section h2 {
-        font-size: 36px;
-        margin-bottom: 10px;
-        color: #936f40;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-      }
-      .reserve-section p {
-        font-size: 16px;
-        color: #936f40;
-        margin-bottom: 40px;
-        opacity: 0.9;
+      .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; }
+      .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+      .reserve-section {
+        padding: 100px 20px;
+        background: var(--bg-main);
       }
 
-      .custom-select {
-        position: relative;
+      .reserve-container {
+        max-width: 1100px;
+        margin: auto;
+        display: flex;
+        gap: 60px;
+        align-items: center;
+        flex-wrap: wrap;
       }
 
-      .custom-select select {
-        width: 100%;
-        padding: 12px 40px 12px 12px;
-        border-radius: 8px;
-        border: 1px solid #ccc;
-        font-size: 14px;
-        background: #fff;
-        cursor: pointer;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        transition: border-color 0.3s, box-shadow 0.3s;
-      }
-
-      .custom-select::after {
-        content: "â–¾";
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: none;
-        font-size: 16px;
-        color: #5a3e2c;
-      }
-
-      .custom-select select:focus {
-        border-color: #d35400;
-        box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.2);
-        outline: none;
-      }
-
-      .custom-select select option[value=""] {
-        color: #999;
-      }
+      .reserve-info { flex: 1; min-width: 300px; }
+      .reserve-info h2 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; color: var(--text-main); }
+      .reserve-info p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 30px; }
 
       .reserve-form {
-        max-width: 500px;
-        margin: auto;
-        background: rgba(255, 255, 255, 0.95);
-        padding: 30px;
-        border-radius: 15px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        transition: transform 0.3s ease;
-        position: relative;
-      }
-
-      .reserve-form:hover {
-        transform: translateY(-5px);
+        flex: 1;
+        min-width: 300px;
+        background: #fff;
+        padding: 40px;
+        border-radius: 24px;
+        box-shadow: 0 10px 40px var(--shadow);
+        border: 1px solid var(--border);
       }
 
       .form-group {
         margin-bottom: 20px;
-        text-align: left;
       }
 
       .form-group label {
         display: block;
-        font-size: 14px;
-        margin-bottom: 5px;
-        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        font-weight: 700;
+        color: var(--text-main);
       }
 
-      .form-group input {
+      .form-group input, .form-group select {
         width: 100%;
-        padding: 12px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        font-size: 14px;
-        transition: border-color 0.3s;
-      }
-
-      .form-group input:focus {
-        border-color: #d35400;
-        outline: none;
+        padding: 14px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        font-size: 1rem;
+        background: var(--bg-main);
+        color: var(--text-main);
       }
 
       .reserve-btn {
         width: 100%;
-        background: #5a3e2c;
-        color: white;
-        padding: 15px;
+        background: #d8b89d; /* Warm Bisque */
+        color: #3e2723;
+        padding: 18px;
         border: none;
-        font-size: 16px;
-        border-radius: 10px;
+        font-size: 1.1rem;
+        border-radius: 12px;
         cursor: pointer;
-        font-weight: 700;
-        transition: background 0.3s, transform 0.2s;
+        font-weight: 800;
+        transition: 0.3s;
+        margin-top: 10px;
       }
 
       .reserve-btn:hover {
-        background: #2b1a0f;
-        transform: scale(1.05);
-      }
-
-      .coffee-image {
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        top: -25px;
-        right: -25px;
-        border-radius: 50%;
-        border: 2px solid #5a3e2c;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      }
-
-      .coffee-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-      footer {
-        text-align: center;
-        padding: 20px;
-        background: #6b4f2a;
-        color: #fff;
-        margin-top: 40px;
+        background: #c5a68d;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(161, 136, 127, 0.2);
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <header>
-      <h1>Abyssinia Coffee</h1>
+      <div class="logo-row">
+        <img src="img/coffeelogo.png" alt="Logo" class="logo-img" />
+        <a class="brand-name" href="index.html">Abyssinia Coffee</a>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="shopnow.html">Shop</a>
+        <a href="reserve.html">Reserve</a>
+        <a href="gallery.html">Gallery</a>
+      </nav>
     </header>
 
-    <div class="hero">Reserve Your Table</div>
+    <div class="hero">
+        <h1>Reserve a Table</h1>
+        <p>Your sanctuary in the heart of the city.</p>
+    </div>
 
     <section class="reserve-section">
-      <h2>Plan Your Visit</h2>
-      <p>
-        Book ahead and enjoy the cozy coffee experience with friends and family.
-      </p>
-
-      <form class="reserve-form" action="#" method="post">
-        <div class="coffee-image">
-          <img src="img/flyingcup.png" alt="Coffee cup" />
+      <div class="reserve-container">
+        <div class="reserve-info">
+            <h2>Experience the Ceremony</h2>
+            <p>Whether it's a quiet morning brew or a lively gathering with friends, our boutique seating is designed for ultimate comfort and connection.</p>
+            <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
+                <i class="fas fa-clock" style="color: var(--primary); font-size: 1.5rem;"></i>
+                <div>
+                    <strong>Daily Service</strong><br>
+                    7:00 AM - 10:00 PM
+                </div>
+            </div>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <i class="fas fa-location-dot" style="color: var(--primary); font-size: 1.5rem;"></i>
+                <div>
+                    <strong>Prime Location</strong><br>
+                    Bole, Addis Ababa
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-          <label for="name">Full Name</label>
-          <input type="text" id="name" placeholder="Your full name" required />
-        </div>
+        <form class="reserve-form" action="#" method="post">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" placeholder="Your full name" required />
+            </div>
 
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="e.g., +251 9XXXXXXXX"
-            required
-          />
-        </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" placeholder="+251 9..." required />
+            </div>
 
-        <div class="form-group">
-          <label for="date">Reservation Date</label>
-          <input type="date" id="date" required />
-        </div>
+            <div style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 2;">
+                  <label for="date">Date</label>
+                  <input type="date" id="date" required />
+                </div>
+                <div class="form-group" style="flex: 1;">
+                  <label for="guests">Guests</label>
+                  <input type="number" id="guests" min="1" max="20" placeholder="2" required />
+                </div>
+            </div>
 
-        <div class="form-group">
-          <label for="time">Reservation Time</label>
-          <div class="custom-select">
-            <select id="time" required>
-              <option value="">Select time</option>
-              <option value="09:00">9 AM</option>
-              <option value="10:00">10 AM</option>
-              <option value="11:00">11 AM</option>
-              <option value="12:00">12 PM</option>
-              <option value="13:00">1 PM</option>
-              <option value="14:00">2 PM</option>
-              <option value="15:00">3 PM</option>
-              <option value="16:00">4 PM</option>
-              <option value="17:00">5 PM</option>
-              <option value="18:00">6 PM</option>
-              <option value="19:00">7 PM</option>
-              <option value="20:00">8 PM</option>
-              <option value="21:00">9 PM</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="guests">Number of Guests</label>
-          <input
-            type="number"
-            id="guests"
-            min="1"
-            max="20"
-            placeholder="e.g., 2"
-            required
-          />
-        </div>
+            <div class="form-group">
+              <label for="time">Preferred Time</label>
+              <select id="time" required>
+                  <option value="">Select time</option>
+                  <option value="09:00">9:00 AM</option>
+                  <option value="12:00">12:00 PM</option>
+                  <option value="15:00">3:00 PM</option>
+                  <option value="18:00">6:00 PM</option>
+                  <option value="20:00">8:00 PM</option>
+              </select>
+            </div>
 
-        <button type="submit" class="reserve-btn">Reserve Now</button>
-      </form>
+            <button type="submit" class="reserve-btn">Secure Your Table</button>
+        </form>
+      </div>
     </section>
 
-    <footer>&copy; 2025 Abyssinia Coffee. All rights reserved.</footer>
+    <footer>
+      <div class="footer-section">
+        <h3>Abyssinia Coffee</h3>
+        <p>The authentic Ethiopian coffee experience, modernized for the global connoisseur.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <p><a href="index.html" style="color:#fff;">Home</a></p>
+        <p><a href="shopnow.html" style="color:#fff;">Shop</a></p>
+        <p><a href="reserve.html" style="color:#fff;">Reservations</a></p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><i class="fas fa-envelope"></i> hello@abyssinia.coffee</p>
+        <p><i class="fab fa-instagram"></i> @AbyssiniaCoffee</p>
+      </div>
+    </footer>
 
     <script src="js/alerts.js"></script>
     <script src="js/reserve.js" defer></script>
-  </body>
+</body>
 </html>

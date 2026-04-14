@@ -78,14 +78,14 @@ try {
         {"username": "kidus", "password": "123", "role": "user"}
       ],
       "products": [
-        {"id": "espresso", "name": "Espresso", "price": 3, "desc": "Rich single shot", "image": "../img/esspresso.png"},
-        {"id": "americano", "name": "Americano", "price": 3.5, "desc": "Espresso + hot water", "image": "../img/moca.png"},
-        {"id": "latte", "name": "Latte", "price": 4.5, "desc": "Espresso + steamed milk", "image": "../img/c1.jpg"},
-        {"id": "cappuccino", "name": "Cappuccino", "price": 4.5, "desc": "Espresso + foam", "image": "../img/c2.jpg"},
-        {"id": "mocha", "name": "Mocha", "price": 5, "desc": "Chocolate + espresso", "image": "../img/c3.jpg"},
-        {"id": "macchiato", "name": "Macchiato", "price": 4, "desc": "Espresso marked with foam", "image": "../img/c4.jpg"},
-        {"id": "croissant", "name": "Butter Croissant", "price": 3.25, "desc": "Flaky, buttery pastry", "image": "../img/butter.jpg"},
-        {"id": "muffin", "name": "Chocolate Muffin", "price": 3, "desc": "Freshly baked daily", "image": "../img/cupcake.jpg"}
+        {"id": "espresso", "name": "Espresso", "price": 3, "desc": "Rich single shot", "image": "img/p_espresso.png"},
+        {"id": "americano", "name": "Americano", "price": 3.5, "desc": "Espresso + hot water", "image": "img/p_americano.png"},
+        {"id": "latte", "name": "Latte", "price": 4.5, "desc": "Espresso + steamed milk", "image": "img/p_latte.png"},
+        {"id": "cappuccino", "name": "Cappuccino", "price": 4.5, "desc": "Espresso + foam", "image": "img/p_cappuccino.png"},
+        {"id": "mocha", "name": "Mocha", "price": 5, "desc": "Chocolate + espresso", "image": "img/p_maca.png"},
+        {"id": "macchiato", "name": "Macchiato", "price": 4, "desc": "Espresso marked with foam", "image": "img/p_maca.png"},
+        {"id": "croissant", "name": "Butter Croissant", "price": 3.25, "desc": "Flaky, buttery pastry", "image": "img/butter.jpg"},
+        {"id": "muffin", "name": "Chocolate Muffin", "price": 3, "desc": "Freshly baked daily", "image": "img/cupcake.jpg"}
       ]
     }';
 
@@ -106,7 +106,8 @@ try {
 
     // Populate products
     if (!empty($json_data['products'])) {
-        $stmt = $pdo_setup->prepare("INSERT IGNORE INTO products (id, name, price, description, image_url) VALUES (?, ?, ?, ?, ?)");
+        $stmt = $pdo_setup->prepare("INSERT INTO products (id, name, price, description, image_url) VALUES (?, ?, ?, ?, ?) 
+                                     ON DUPLICATE KEY UPDATE name=VALUES(name), price=VALUES(price), description=VALUES(description), image_url=VALUES(image_url)");
         foreach ($json_data['products'] as $product) {
             $stmt->execute([
                 $product['id'], 
