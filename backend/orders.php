@@ -39,20 +39,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'create') {
         $user_id = $data['user_id'] ?? null;
         $username = $data['username'] ?? 'Guest';
-        $items = json_encode($data['items'] ?? []);
+        $items_array = $data['items'] ?? [];
+        $items_json = json_encode($items_array);
         $total = $data['total'] ?? 0;
         $source = $data['source'] ?? 'UNKNOWN';
 
-        if (empty($data['items'])) {
+        if (empty($items_array)) {
             echo json_encode(['error' => 'Order must contain items.']);
             exit;
         }
 
         try {
+            $pdo->beginTransaction();
+
+            // 1. Insert Order
             $stmt = $pdo->prepare("INSERT INTO orders (user_id, username, items, total, source) VALUES (?, ?, ?, ?, ?)");
-            $stmt->execute([$user_id, $username, $items, $total, $source]);
+            $stmt->execute([$user_id, $username, $items_json, $total, $source]);
+
+            // 2. Update Stock for each product
+            $update_stmt = $pdo->prepare("UPDATE products SET stock = stock - 1 WHERE id = ? AND stock > 0");
+            foreach ($items_array as $item) {
+                // Assuming each item in the array is a unit purchase
+                // If the item itself has a quantity, we'd adjust accordingly
+                $update_stmt->execute([$item['id']]);
+                if ($update_stmt->rowCount() == 0) {
+                     // Optionally handle out of stock situation here mid-transaction
+                }
+            }
+
+            $pdo->commit();
             echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
         } catch (PDOException $e) {
+            $pdo->rollBack();
             echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
         }
     } elseif ($action === 'delete') {

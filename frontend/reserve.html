@@ -1,196 +1,110 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abyssinia Coffee - Reserve Table</title>
-    <link rel="icon" href="img/coffeelogo.png" />
-    <link rel="stylesheet" href="css/global.css" />
-    <style>
-      .hero {
-        width: 100%;
-        height: 350px;
-        background: linear-gradient(rgba(35, 21, 16, 0.4), rgba(35, 21, 16, 0.4)), url("img/reservebackg.jpg") center/cover no-repeat;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #fff;
-        text-align: center;
-      }
-
-      .hero h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 10px; }
-      .hero p { font-size: 1.2rem; opacity: 0.9; }
-
-      .reserve-section {
-        padding: 100px 20px;
-        background: var(--bg-main);
-      }
-
-      .reserve-container {
-        max-width: 1100px;
-        margin: auto;
-        display: flex;
-        gap: 60px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-
-      .reserve-info { flex: 1; min-width: 300px; }
-      .reserve-info h2 { font-size: 2.5rem; margin-bottom: 20px; font-weight: 800; color: var(--text-main); }
-      .reserve-info p { font-size: 1.1rem; opacity: 0.8; margin-bottom: 30px; }
-
-      .reserve-form {
-        flex: 1;
-        min-width: 300px;
-        background: #fff;
-        padding: 40px;
-        border-radius: 24px;
-        box-shadow: 0 10px 40px var(--shadow);
-        border: 1px solid var(--border);
-      }
-
-      .form-group {
-        margin-bottom: 20px;
-      }
-
-      .form-group label {
-        display: block;
-        font-size: 0.9rem;
-        margin-bottom: 8px;
-        font-weight: 700;
-        color: var(--text-main);
-      }
-
-      .form-group input, .form-group select {
-        width: 100%;
-        padding: 14px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        font-size: 1rem;
-        background: var(--bg-main);
-        color: var(--text-main);
-      }
-
-      .reserve-btn {
-        width: 100%;
-        background: #d8b89d; /* Warm Bisque */
-        color: #3e2723;
-        padding: 18px;
-        border: none;
-        font-size: 1.1rem;
-        border-radius: 12px;
-        cursor: pointer;
-        font-weight: 800;
-        transition: 0.3s;
-        margin-top: 10px;
-      }
-
-      .reserve-btn:hover {
-        background: #c5a68d;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(161, 136, 127, 0.2);
-      }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reserve | Abyssinia Coffee</title>
+  <link rel="icon" href="img/coffeelogo.png" />
+  <link rel="stylesheet" href="css/global.css?v=601" />
+  <style>
+    .reserve-hero {
+      height: 400px;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('img/reservebackg.jpg') center/cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-family: 'Unna', serif;
+      font-size: 3rem;
+    }
+    .reserve-box {
+      max-width: 600px;
+      margin: -100px auto 100px;
+      background: #fff;
+      padding: 50px;
+      border-radius: 12px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+    .form-row.full { grid-template-columns: 1fr; }
+    label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.85rem; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+  </style>
 </head>
 <body>
-    <header>
-      <div class="logo-row">
-        <img src="img/coffeelogo.png" alt="Logo" class="logo-img" />
-        <a class="brand-name" href="index.html">Abyssinia Coffee</a>
-      </div>
-      <nav class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="shopnow.html">Shop</a>
-        <a href="reserve.html">Reserve</a>
-        <a href="gallery.html">Gallery</a>
-      </nav>
-    </header>
 
-    <div class="hero">
-        <h1>Reserve a Table</h1>
-        <p>Your sanctuary in the heart of the city.</p>
+  <header>
+    <div class="logo-row">
+      <img src="img/coffeelogo.png" alt="Logo">
+      <a href="index.html" class="brand-name">Abyssinia Coffee</a>
     </div>
+    <nav class="nav-links" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shopnow.html">Shop</a>
+      <a href="reserve.html" style="color:var(--accent)">Reserve</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
 
-    <section class="reserve-section">
-      <div class="reserve-container">
-        <div class="reserve-info">
-            <h2>Experience the Ceremony</h2>
-            <p>Whether it's a quiet morning brew or a lively gathering with friends, our boutique seating is designed for ultimate comfort and connection.</p>
-            <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 20px;">
-                <i class="fas fa-clock" style="color: var(--primary); font-size: 1.5rem;"></i>
-                <div>
-                    <strong>Daily Service</strong><br>
-                    7:00 AM - 10:00 PM
-                </div>
-            </div>
-            <div style="display: flex; gap: 20px; align-items: center;">
-                <i class="fas fa-location-dot" style="color: var(--primary); font-size: 1.5rem;"></i>
-                <div>
-                    <strong>Prime Location</strong><br>
-                    Bole, Addis Ababa
-                </div>
-            </div>
+  <div class="reserve-hero">Secure A Table</div>
+
+  <section style="padding-top:0">
+    <div class="reserve-box">
+      <h2 style="margin-top:0">Private Reservation</h2>
+      <p style="text-align:center; color:#666; margin-bottom:40px;">Experience the ritual of Ethiopian coffee in a setting of unmatched elegance.</p>
+      
+      <form onsubmit="alert('Reservation received. We will contact you shortly.'); return false;">
+        <div class="form-row full" style="margin-bottom:20px;">
+          <label>Full Name</label>
+          <input type="text" placeholder="Your Name" required>
         </div>
+        <div class="form-row" style="margin-bottom:20px;">
+          <div>
+            <label>Date</label>
+            <input type="date" required>
+          </div>
+          <div>
+            <label>Guests</label>
+            <select>
+              <option>1 Connoisseur</option>
+              <option>2 People</option>
+              <option>Private Party (4+)</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="btn-boutique accent" style="width:100%">Confirm Reservation</button>
+      </form>
+    </div>
+  </section>
 
-        <form class="reserve-form" action="#" method="post">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" placeholder="Your full name" required />
-            </div>
+  <footer class="standard-footer">
+    <div class="footer-col">
+        <h3>Quick Reservation</h3>
+        <p>Book directly at our heritage location for the freshest grind.</p>
+    </div>
+    <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique.</div>
+  </footer>
 
-            <div class="form-group">
-              <label for="phone">Phone Number</label>
-              <input type="tel" id="phone" placeholder="+251 9..." required />
-            </div>
-
-            <div style="display: flex; gap: 20px;">
-                <div class="form-group" style="flex: 2;">
-                  <label for="date">Date</label>
-                  <input type="date" id="date" required />
-                </div>
-                <div class="form-group" style="flex: 1;">
-                  <label for="guests">Guests</label>
-                  <input type="number" id="guests" min="1" max="20" placeholder="2" required />
-                </div>
-            </div>
-
-            <div class="form-group">
-              <label for="time">Preferred Time</label>
-              <select id="time" required>
-                  <option value="">Select time</option>
-                  <option value="09:00">9:00 AM</option>
-                  <option value="12:00">12:00 PM</option>
-                  <option value="15:00">3:00 PM</option>
-                  <option value="18:00">6:00 PM</option>
-                  <option value="20:00">8:00 PM</option>
-              </select>
-            </div>
-
-            <button type="submit" class="reserve-btn">Secure Your Table</button>
-        </form>
-      </div>
-    </section>
-
-    <footer>
-      <div class="footer-section">
-        <h3>Abyssinia Coffee</h3>
-        <p>The authentic Ethiopian coffee experience, modernized for the global connoisseur.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <p><a href="index.html" style="color:#fff;">Home</a></p>
-        <p><a href="shopnow.html" style="color:#fff;">Shop</a></p>
-        <p><a href="reserve.html" style="color:#fff;">Reservations</a></p>
-      </div>
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p><i class="fas fa-envelope"></i> hello@abyssinia.coffee</p>
-        <p><i class="fab fa-instagram"></i> @AbyssiniaCoffee</p>
-      </div>
-    </footer>
-
-    <script src="js/alerts.js"></script>
-    <script src="js/reserve.js" defer></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('currentUser'));
+    if (user) {
+        const nav = document.getElementById('main-nav');
+        const logout = document.createElement('a');
+        logout.href = "#";
+        logout.innerHTML = `LOGOUT (${user.username})`;
+        logout.onclick = () => { localStorage.clear(); location.reload(); };
+        nav.appendChild(logout);
+        if(user.role === 'admin') {
+            const adminL = document.createElement('a');
+            adminL.href = "Admin.html";
+            adminL.innerText = "ADMIN";
+            adminL.style.color = "var(--accent)";
+            nav.appendChild(adminL);
+        }
+    }
+  </script>
 </body>
 </html>

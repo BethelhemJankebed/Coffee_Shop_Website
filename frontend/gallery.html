@@ -9,10 +9,8 @@
         .container {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 80px 20px;
+            padding: 40px 20px;
         }
-
-        .section-head { margin-bottom: 40px; }
 
         /* UPLOAD BOX */
         .upload-card {
@@ -20,68 +18,51 @@
             padding: 40px;
             border-radius: 24px;
             box-shadow: 0 10px 40px var(--shadow);
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             text-align: center;
             border: 1px solid var(--border);
         }
 
-        .upload-controls {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
         input[type="text"], input[type="file"] {
-            padding: 14px;
+            padding: 12px;
             border-radius: 12px;
             border: 1px solid var(--border);
             background: var(--bg-main);
             color: var(--text-main);
-            font-size: 0.9rem;
         }
-
-        input[type="text"] { flex: 1; min-width: 250px; }
 
         .btn-post {
-            background: #d8b89d; /* Warm Bisque */
-            color: #3e2723;
+            background: var(--primary);
+            color: white;
             border: none;
-            padding: 14px 35px;
-            border-radius: 12px;
+            padding: 12px 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: 800;
+            font-weight: bold;
             transition: 0.3s;
-        }
-
-        .btn-post:hover {
-            background: #c5a68d;
-            transform: translateY(-2px);
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .gallery-item {
             background: #fff;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px var(--shadow);
+            box-shadow: 0 4px 20px var(--shadow);
             transition: 0.3s;
             border: 1px solid var(--border);
         }
 
-        .gallery-item:hover { transform: translateY(-10px); border-color: #d8b89d; }
+        .gallery-item:hover { transform: translateY(-8px); }
 
         .gallery-media {
             width: 100%;
-            height: 280px;
+            height: 250px;
             object-fit: cover;
-            background: var(--bg-soft);
         }
 
         .gallery-info {
@@ -89,50 +70,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 600;
         }
 
-        .gallery-info span { font-weight: 700; color: var(--text-main); }
-
         .del-btn {
-            background: #fff5f5;
-            color: #c62828;
-            border: 1px solid #ffcdd2;
+            background: #ffecf0;
+            color: #d63031;
+            border: none;
             padding: 8px 15px;
             border-radius: 10px;
             cursor: pointer;
             font-size: 0.8rem;
-            font-weight: 700;
-        }
-
-        .del-btn:hover { background: #fee2e2; }
-
-        .audio-wrapper {
-            padding: 20px;
-            background: #fdfaf7;
-            text-align: center;
-        }
-        
-        .audio-wrapper audio { width: 100%; }
-
-        /* Confirm Overlay */
-        .confirm-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(35, 21, 16, 0.6);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-        }
-
-        .confirm-box {
-            background: #fff;
-            padding: 40px;
-            border-radius: 24px;
-            width: min(400px, 90%);
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
         }
     </style>
 </head>
@@ -152,41 +100,18 @@
     </header>
 
     <div class="container">
-        <div class="section-head">
-            <p style="color: var(--primary); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: 0.9rem;">Community Coffee</p>
-            <h2>The Coffee Wall</h2>
-        </div>
-
         <div class="upload-card">
-            <h3 style="margin-top: 0; font-size: 1.5rem;">Share Your Experience</h3>
-            <p style="color: var(--text-muted); margin-bottom: 25px;">Upload images, audio, or video moments from your visit.</p>
+            <h3>Add to our Coffee Wall</h3>
+            <p style="font-size: 0.8em; color: #d9a46d;">Upload Images, Audio (MP3), or Video (MP4)</p>
             <div class="upload-controls">
                 <input type="file" id="media-file" accept="image/*,video/*,audio/*">
-                <input type="text" id="media-title" placeholder="Write a short caption...">
-                <button onclick="handleUpload()" class="btn-post">Post to Wall</button>
+                <input type="text" id="media-title" placeholder="Enter a caption...">
+                <button onclick="handleUpload()" class="btn-post">Upload & Post</button>
             </div>
         </div>
 
         <div id="gallery-grid" class="gallery-grid"></div>
     </div>
-
-    <footer>
-      <div class="footer-section">
-        <h3>Abyssinia Coffee</h3>
-        <p>The authentic Ethiopian coffee experience, modernized for the global connoisseur.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <p><a href="index.html" style="color:#fff;">Home</a></p>
-        <p><a href="shopnow.html" style="color:#fff;">Shop</a></p>
-        <p><a href="gallery.html" style="color:#fff;">Gallery</a></p>
-      </div>
-      <div class="footer-section">
-        <h3>Follow Our Wall</h3>
-        <p><i class="fab fa-instagram"></i> @AbyssiniaCoffee</p>
-        <p><i class="fas fa-envelope"></i> hello@abyssinia.coffee</p>
-      </div>
-    </footer>
 
     <script src="js/alerts.js"></script>
 
@@ -209,7 +134,7 @@ async function fetchGallery() {
         grid.innerHTML = "";
 
         if (items.length === 0) {
-            grid.innerHTML = "<div style='grid-column: 1/-1; text-align:center; padding: 40px; background: #fff; border-radius: 20px; border: 1px dashed var(--border);'><p>Our wall is quiet... for now. Be the first to share a moment!</p></div>";
+            grid.innerHTML = "<p style='text-align:center;'>No media yet. Be the first to upload!</p>";
             return;
         }
 
@@ -226,7 +151,7 @@ async function fetchGallery() {
             } else if (url.includes("data:audio")) {
                 mediaTag = `
                     <div class="audio-wrapper">
-                        <div style="margin-bottom: 10px; font-size: 1.2rem;">ðŸŽµ Audio Note</div>
+                        <span>ðŸŽµ Audio Note</span>
                         <audio src="${url}" controls></audio>
                     </div>`;
             } else {
@@ -237,13 +162,13 @@ async function fetchGallery() {
                 ${mediaTag}
                 <div class="gallery-info">
                     <span>${title}</span>
-                    <button class="del-btn" onclick="deleteItem('${item.id}')">Remove</button>
+                    <button class="del-btn" onclick="deleteItem('${item.id}')">Delete</button>
                 </div>
             `;
             grid.appendChild(div);
         });
     } catch (err) {
-        grid.innerHTML = "<p style='color:#c62828;'>Server Error: Unable to load gallery. Please try again later.</p>";
+        grid.innerHTML = "<p style='color:#ff6b6b;'>Server Error: Is database connected?</p>";
     }
 }
 
@@ -285,7 +210,7 @@ async function handleUpload() {
     } catch (err) {
         alert("Connection error.");
     } finally {
-        btn.innerText = "Post to Wall";
+        btn.innerText = "Upload & Post";
         btn.disabled = false;
     }
 }
@@ -295,11 +220,11 @@ async function deleteItem(id) {
     overlay.className = 'confirm-overlay';
     overlay.innerHTML = `
         <div class="confirm-box">
-            <h3 style="color: var(--primary); margin-top: 0;">Remove Post?</h3>
-            <p>This will permanently remove your contribution to the Coffee Wall.</p>
-            <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: center;">
-                <button id="confirm-yes" class="del-btn" style="padding: 12px 25px;">Yes, Remove</button>
-                <button id="confirm-no" class="btn-post" style="padding: 12px 25px;">Stay on Wall</button>
+            <h3 style="color: #d9a46d; margin-top: 0;">Remove Item?</h3>
+            <p>Delete this from the gallery?</p>
+            <div class="confirm-btns">
+                <button id="confirm-yes" class="del-btn" style="padding: 10px 20px;">Yes, Delete</button>
+                <button id="confirm-no" class="btn-post" style="padding: 10px 20px;">Cancel</button>
             </div>
         </div>
     `;

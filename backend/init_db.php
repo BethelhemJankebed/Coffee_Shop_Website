@@ -31,6 +31,7 @@ try {
         id VARCHAR(50) PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
         price DECIMAL(10,2) NOT NULL,
+        stock INT DEFAULT 50,
         description TEXT,
         image_url VARCHAR(255),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -57,11 +58,12 @@ try {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
-    CREATE TABLE IF NOT EXISTS gallery (
+    CREATE TABLE IF NOT EXISTS reviews (
         id INT AUTO_INCREMENT PRIMARY KEY,
-        url VARCHAR(255) NOT NULL,
-        title VARCHAR(100),
-        type VARCHAR(20) DEFAULT 'image',
+        user_id INT,
+        username VARCHAR(50),
+        rating INT DEFAULT 5,
+        comment TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     ";
@@ -106,13 +108,14 @@ try {
 
     // Populate products
     if (!empty($json_data['products'])) {
-        $stmt = $pdo_setup->prepare("INSERT INTO products (id, name, price, description, image_url) VALUES (?, ?, ?, ?, ?) 
-                                     ON DUPLICATE KEY UPDATE name=VALUES(name), price=VALUES(price), description=VALUES(description), image_url=VALUES(image_url)");
+        $stmt = $pdo_setup->prepare("INSERT INTO products (id, name, price, stock, description, image_url) VALUES (?, ?, ?, ?, ?, ?) 
+                                     ON DUPLICATE KEY UPDATE name=VALUES(name), price=VALUES(price), stock=VALUES(stock), description=VALUES(description), image_url=VALUES(image_url)");
         foreach ($json_data['products'] as $product) {
             $stmt->execute([
                 $product['id'], 
                 $product['name'], 
                 $product['price'], 
+                $product['stock'] ?? 50,
                 $product['desc'] ?? '', 
                 $product['image'] ?? ''
             ]);

@@ -9,7 +9,7 @@ $action = $_GET['action'] ?? 'list';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'list') {
         try {
-            $stmt = $pdo->query("SELECT id, name, price, description, image_url FROM products ORDER BY created_at DESC");
+            $stmt = $pdo->query("SELECT id, name, price, stock, description, image_url FROM products ORDER BY created_at DESC");
             $products = $stmt->fetchAll();
             echo json_encode(['success' => true, 'products' => $products]);
         } catch (PDOException $e) {
@@ -54,6 +54,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $stmt = $pdo->prepare("UPDATE products SET name = ?, price = ?, description = ?, image_url = ? WHERE id = ?");
             $stmt->execute([$name, $price, $description, $image_url, $id]);
             echo json_encode(['success' => true, 'message' => 'Product updated successfully']);
+        } catch (PDOException $e) {
+            echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
+        }
+    } elseif ($action === 'update_stock') {
+        $id = $data['id'] ?? '';
+        $stock = $data['stock'] ?? 0;
+
+        if (!$id) {
+            echo json_encode(['error' => 'Product ID is required.']);
+            exit;
+        }
+
+        try {
+            $stmt = $pdo->prepare("UPDATE products SET stock = ? WHERE id = ?");
+            $stmt->execute([$stock, $id]);
+            echo json_encode(['success' => true, 'message' => 'Stock updated successfully']);
         } catch (PDOException $e) {
             echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
         }
