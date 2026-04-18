@@ -25,7 +25,7 @@
     .signature-orbit {
       background: #fdf6f0;
       position: relative;
-      height: 700px;
+      height: 900px;
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -34,11 +34,12 @@
     }
     .orbit-stage {
       position: relative;
-      width: 600px;
-      height: 500px;
+      width: 900px;
+      height: 650px;
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-top: 40px;
     }
     .cup-float {
       width: 320px;
@@ -62,8 +63,9 @@
     }
     .glow-link:hover {
       color: var(--accent);
-      text-shadow: 0 0 15px rgba(243, 156, 18, 0.5);
-      transform: scale(1.15);
+      text-shadow: 0 0 20px var(--accent), 0 0 30px rgba(243, 156, 18, 0.3);
+      transform: scale(1.2);
+      letter-spacing: 2px;
     }
 
     /* Review Wall */
@@ -113,11 +115,11 @@
   <section class="signature-orbit">
     <h2>Signature Selection</h2>
     <div class="orbit-stage">
-      <img src="img/cupp.png" class="cup-float" alt="Signature Cup">
-      <a href="shopnow.html" class="glow-link" style="top:5%; left:50%; transform:translateX(-50%)">Ethiopian Gold</a>
-      <a href="glow-link" class="glow-link" style="bottom:5%; left:50%; transform:translateX(-50%)">Creamy Velvet</a>
-      <a href="shopnow.html" class="glow-link" style="top:50%; left:5%; transform:translateY(-50%)">Boutique Breve</a>
-      <a href="shopnow.html" class="glow-link" style="top:50%; right:5%; transform:translateY(-50%)">Pure Espresso</a>
+      <img src="img/flyingcup.png" class="cup-float" alt="Signature Cup">
+      <a href="shopnow.html" class="glow-link" style="top:2%; left:50%; transform:translateX(-50%) translateY(0)">Ethiopian Gold</a>
+      <a href="shopnow.html" class="glow-link" style="bottom:2%; left:50%; transform:translateX(-50%) translateY(0)">Creamy Velvet</a>
+      <a href="shopnow.html" class="glow-link" style="top:45%; left:0%; transform:translateY(-50%)">Boutique Breve</a>
+      <a href="shopnow.html" class="glow-link" style="top:45%; right:0%; transform:translateY(-50%)">Pure Espresso</a>
     </div>
   </section>
 
@@ -156,6 +158,7 @@
     <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique. All rights reserved.</div>
   </footer>
 
+  <script src="js/ui_core.js"></script>
   <script>
     // Auth & Reviews Integration
     const user = JSON.parse(localStorage.getItem('currentUser'));

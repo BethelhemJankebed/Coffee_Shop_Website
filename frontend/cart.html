@@ -214,6 +214,25 @@
         </div>
     </div>
 
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:5000; place-items:center;">
+        <div class="modal-content" style="max-width:400px; padding:40px; border-top:10px solid var(--accent); position:relative;">
+            <div style="text-align:center; margin-bottom:20px;">
+                <img src="img/coffeelogo.png" height="50">
+                <h3 style="margin-top:10px; font-family:'Unna', serif; font-size:1.8rem;">BOUTIQUE RECEIPT</h3>
+            </div>
+            <div id="receipt-details" style="font-size:0.9rem; line-height:1.6;">
+                <!-- Injected via JS -->
+            </div>
+            <div style="text-align:center; margin-top:30px;">
+                <div id="receipt-barcode" class="barcode" style="font-size:3rem; margin-bottom:10px;">00000000</div>
+                <p style="font-size:0.7rem; letter-spacing:2px; opacity:0.6;">TRANSACTION VERIFIED</p>
+            </div>
+            <button class="btn-checkout" style="width:100%; margin-top:20px;" onclick="location.reload()">Done</button>
+        </div>
+    </div>
+
+    <script src="js/ui_core.js"></script>
     <script src="js/cart.js"></script>
 </body>
 </html>

@@ -76,3 +76,47 @@ h2 { font-family: 'Unna', serif; font-size: 2.5rem; text-align: center; margin-b
 }
 .btn-boutique:hover { background: var(--accent); transform: translateY(-3px); }
 .btn-boutique.accent { background: var(--accent); }
+
+/* Boutique Popup System */
+#boutique-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    place-items: center;
+}
+.popup-content {
+    background: #fff;
+    padding: 40px;
+    border-radius: 2px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
+    position: relative;
+    border-top: 5px solid var(--accent);
+}
+.popup-icon { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
+.popup-title { font-family: 'Unna', serif; font-size: 2rem; margin-bottom: 10px; }
+.popup-msg { color: #666; line-height: 1.6; margin-bottom: 30px; }
+
+/* Toast Notifications */
+#boutique-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--primary);
+    color: #fff;
+    padding: 15px 30px;
+    border-radius: 4px;
+    z-index: 10000;
+    transform: translateY(150%);
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+#boutique-toast.show { transform: translateY(0); }

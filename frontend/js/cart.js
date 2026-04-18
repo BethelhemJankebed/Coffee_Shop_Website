@@ -70,18 +70,29 @@ const cartManager = {
 
             const result = await response.json();
             if (result.success) {
-                alert('Thank you for your order! Your boutique selection has been processed.');
+                this.showReceipt(orderData);
                 localStorage.removeItem('cart');
                 this.items = [];
-                this.renderCart();
-                this.loadHistory();
             } else {
-                alert('Error: ' + result.error);
+                UI.popup('Transaction Error', result.error);
             }
         } catch (err) {
             console.error(err);
-            alert('Something went wrong during checkout.');
+            UI.toast('Something went wrong during checkout.', '❌');
         }
+    },
+
+    showReceipt(order) {
+        document.getElementById('receipt-details').innerHTML = `
+            <p><strong>Customer:</strong> ${order.username}</p>
+            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+            <hr>
+            ${order.items.map(i => `<p>${i.name} - $${i.price}</p>`).join('')}
+            <hr>
+            <p style="font-size:1.2rem;"><strong>Total: $${order.total.toFixed(2)}</strong></p>
+        `;
+        document.getElementById('receipt-barcode').innerText = Math.floor(Math.random() * 9999999).toString().padStart(8, '0');
+        document.getElementById('receipt-modal').style.display = 'grid';
     },
 
     async loadHistory() {
@@ -133,8 +144,13 @@ function closeReview() {
 }
 
 async function submitReview() {
-    const comment = document.getElementById('review-comment').value;
+    const comment = document.getElementById('review-comment').value.trim();
     const user = JSON.parse(localStorage.getItem('currentUser'));
+
+    if (!comment) {
+        UI.popup('Empty Review', 'Please write something before submitting.', '✏️');
+        return;
+    }
 
     try {
         const res = await fetch('../backend/reviews.php?action=add', {
@@ -149,11 +165,15 @@ async function submitReview() {
         });
         const result = await res.json();
         if (result.status === 'success') {
-            alert('Your review has been shared with the community!');
             closeReview();
+            document.getElementById('review-comment').value = '';
+            UI.popup('Thank You!', 'Your review has been shared with the Abyssinia community.', '⭐');
+        } else {
+            UI.popup('Error', result.message || 'Could not submit review. Please try again.', '❌');
         }
     } catch (err) {
         console.error(err);
+        UI.popup('Connection Error', 'Could not reach the server.', '❌');
     }
 }
 
