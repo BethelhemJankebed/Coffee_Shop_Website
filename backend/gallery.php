@@ -38,6 +38,110 @@ function buildGalleryUrl(string $fileName): string
     return 'img/gallery_uploads/' . $fileName;
 }
 
+function validateUploadedImage(array $file): array
+{
+    if (!isset($file['error']) || $file['error'] !== UPLOAD_ERR_OK) {
+        return [false, 'Upload failed.'];
+    }
+
+    if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+        return [false, 'Invalid upload source.'];
+    }
+
+    $maxSize = 5 * 1024 * 1024;
+    if (($file['size'] ?? 0) > $maxSize) {
+        return [false, 'File too large (max 5MB).'];
+    }
+
+    $allowed = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/gif' => 'gif',
+        'image/webp' => 'webp',
+    ];
+
+    $imageInfo = @getimagesize($file['tmp_name']);
+    if (!$imageInfo || empty($imageInfo['mime'])) {
+        return [false, 'File is not a valid image.'];
+    }
+
+    $mime = $imageInfo['mime'];
+    if (!isset($allowed[$mime])) {
+        return [false, 'Unsupported image type.'];
+    }
+
+    return [true, $allowed[$mime]];
+}
+
+function reencodeImage(string $destination, string $extension): void
+{
+    if (!function_exists('imagecreatefromstring')) {
+        return;
+    }
+
+    $raw = @file_get_contents($destination);
+    if ($raw === false) {
+        return;
+    }
+
+    $image = @imagecreatefromstring($raw);
+    if (!$image) {
+        return;
+    }
+
+    switch ($extension) {
+        case 'jpg':
+        case 'jpeg':
+            if (function_exists('imagejpeg')) {
+                imagejpeg($image, $destination, 85);
+            }
+            break;
+        case 'png':
+            if (function_exists('imagepng')) {
+                imagepng($image, $destination, 6);
+            }
+            break;
+        case 'gif':
+            if (function_exists('imagegif')) {
+                imagegif($image, $destination);
+            }
+            break;
+        case 'webp':
+            if (function_exists('imagewebp')) {
+                imagewebp($image, $destination, 85);
+            }
+            break;
+    }
+
+    imagedestroy($image);
+}
+
+function uploadImage(array $file, string $uploadDir = 'uploads/'): array
+{
+    [$isValid, $result] = validateUploadedImage($file);
+
+    if (!$isValid) {
+        return [false, $result];
+    }
+
+    $extension = $result;
+
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
+
+    $newFileName = uniqid('img_', true) . '.' . $extension;
+    $destination = rtrim($uploadDir, '/') . '/' . $newFileName;
+
+    if (!move_uploaded_file($file['tmp_name'], $destination)) {
+        return [false, 'Failed to store uploaded file.'];
+    }
+
+    reencodeImage($destination, $extension);
+
+    return [true, $newFileName];
+}
+
 ensureGalleryTable($pdo);
 ensureGalleryUploadDir();
 
@@ -61,31 +165,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $type = $data['type'] ?? 'image';
         $url = $data['url'] ?? $data['image_url'] ?? '';
 
-        if ($isMultipart && isset($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
-            $file = $_FILES['image_file'];
-            $mime = mime_content_type($file['tmp_name']);
-            $allowedMimes = [
-                'image/jpeg' => 'jpg',
-                'image/png' => 'png',
-                'image/gif' => 'gif',
-                'image/webp' => 'webp',
-            ];
+        if ($isMultipart && isset($_FILES['image_file'])) {
+            [$ok, $result] = uploadImage($_FILES['image_file'], ensureGalleryUploadDir());
 
-            if (!isset($allowedMimes[$mime])) {
-                echo json_encode(['error' => 'Please upload a valid image file.']);
+            if (!$ok) {
+                echo json_encode(['error' => $result]);
                 exit;
             }
 
-            $uploadDir = ensureGalleryUploadDir();
-            $fileName = 'gallery_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $allowedMimes[$mime];
-            $targetPath = $uploadDir . DIRECTORY_SEPARATOR . $fileName;
-
-            if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
-                echo json_encode(['error' => 'Could not save uploaded image.']);
-                exit;
-            }
-
-            $url = buildGalleryUrl($fileName);
+            $url = buildGalleryUrl($result);
             $type = 'image';
         }
 

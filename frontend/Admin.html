@@ -683,7 +683,11 @@
         <h2>Add Gallery Image</h2>
         <div class="fld">
           <label>Choose Image File</label
-          ><input id="g-file" type="file" accept="image/*" />
+          ><input
+            id="g-file"
+            type="file"
+            accept="image/jpeg,image/png,image/gif,image/webp"
+          />
         </div>
         <div class="fld">
           <label>Caption / Title</label
@@ -1109,13 +1113,51 @@
         document.getElementById("modal-gallery").style.display = "grid";
       }
 
+      function validateGalleryFile(file) {
+        if (!file) {
+          return [false, "Please choose an image file."];
+        }
+
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) {
+          return [false, "File too large (max 5MB)."];
+        }
+
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/gif",
+          "image/webp",
+        ];
+        const allowedExt = ["jpg", "jpeg", "png", "gif", "webp"];
+        const ext = (file.name.split(".").pop() || "").toLowerCase();
+
+        if (!allowedExt.includes(ext)) {
+          return [
+            false,
+            "Unsupported image type. Please upload JPG, PNG, GIF, or WEBP only.",
+          ];
+        }
+
+        if (file.type && !allowedTypes.includes(file.type)) {
+          return [
+            false,
+            "Unsupported image type. Please upload JPG, PNG, GIF, or WEBP only.",
+          ];
+        }
+
+        return [true, ""];
+      }
+
       async function saveGallery() {
         const fileInput = document.getElementById("g-file");
         const title = document.getElementById("g-title").value.trim();
         const file = fileInput.files && fileInput.files[0];
 
-        if (!file) {
-          UI.popup("Missing", "Please choose an image file.", "⚠️");
+        const [isValid, errorMessage] = validateGalleryFile(file);
+        if (!isValid) {
+          UI.popup("Invalid Image", errorMessage, "⚠️");
+          fileInput.value = "";
           return;
         }
 
