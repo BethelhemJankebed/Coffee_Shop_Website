@@ -10,6 +10,7 @@ function ensureOrderDeliveryColumns(PDO $pdo): void
         'delivery_name' => "ALTER TABLE orders ADD COLUMN delivery_name VARCHAR(100) NULL AFTER source",
         'delivery_phone' => "ALTER TABLE orders ADD COLUMN delivery_phone VARCHAR(20) NULL AFTER delivery_name",
         'delivery_address' => "ALTER TABLE orders ADD COLUMN delivery_address VARCHAR(255) NULL AFTER delivery_phone",
+        'receipt_barcode' => "ALTER TABLE orders ADD COLUMN receipt_barcode VARCHAR(40) NULL AFTER delivery_address",
     ];
 
     foreach ($columns as $column => $statement) {
@@ -22,6 +23,18 @@ function ensureOrderDeliveryColumns(PDO $pdo): void
     }
 }
 
+function generateReceiptBarcode(PDO $pdo): string
+{
+    do {
+        $barcode = 'ORD' . date('Ymd') . str_pad((string) random_int(0, 99999), 5, '0', STR_PAD_LEFT);
+        $stmt = $pdo->prepare("SELECT 1 FROM orders WHERE receipt_barcode = ? LIMIT 1");
+        $stmt->execute([$barcode]);
+        $exists = (bool) $stmt->fetchColumn();
+    } while ($exists);
+
+    return $barcode;
+}
+
 ensureOrderDeliveryColumns($pdo);
 
 $action = $_GET['action'] ?? '';
@@ -29,7 +42,7 @@ $action = $_GET['action'] ?? '';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'list') {
         try {
-            $stmt = $pdo->query("SELECT id, user_id, username, items, total as total_amount, source, delivery_name, delivery_phone, delivery_address, order_date FROM orders ORDER BY order_date DESC");
+            $stmt = $pdo->query("SELECT id, user_id, username, items, total as total_amount, source, delivery_name, delivery_phone, delivery_address, receipt_barcode, order_date FROM orders ORDER BY order_date DESC");
             $orders = $stmt->fetchAll();
             // Decode JSON items for frontend
             foreach ($orders as &$order) {
@@ -42,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     } elseif ($action === 'user_orders') {
         $user_id = $_GET['user_id'] ?? 0;
         try {
-            $stmt = $pdo->prepare("SELECT id, user_id, username, items, total as total_amount, source, delivery_name, delivery_phone, delivery_address, order_date FROM orders WHERE user_id = ? ORDER BY order_date DESC");
+            $stmt = $pdo->prepare("SELECT id, user_id, username, items, total as total_amount, source, delivery_name, delivery_phone, delivery_address, receipt_barcode, order_date FROM orders WHERE user_id = ? ORDER BY order_date DESC");
             $stmt->execute([$user_id]);
             $orders = $stmt->fetchAll();
             foreach ($orders as &$order) {
@@ -66,6 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $d_name   = $data['delivery_name']    ?? '';
         $d_phone  = $data['delivery_phone']   ?? '';
         $d_addr   = $data['delivery_address'] ?? '';
+        $receipt_barcode = trim($data['receipt_barcode'] ?? '');
+
+        if ($receipt_barcode === '') {
+            $receipt_barcode = generateReceiptBarcode($pdo);
+        }
 
         if (empty($items_array)) {
             echo json_encode(['error' => 'Order must contain items.']);
@@ -75,9 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         try {
             $pdo->beginTransaction();
 
-            $stmt = $pdo->prepare("INSERT INTO orders (user_id, username, items, total, source, delivery_name, delivery_phone, delivery_address)
-                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$user_id, $username, $items_json, $total, $source, $d_name, $d_phone, $d_addr]);
+            $stmt = $pdo->prepare("INSERT INTO orders (user_id, username, items, total, source, delivery_name, delivery_phone, delivery_address, receipt_barcode)
+                                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$user_id, $username, $items_json, $total, $source, $d_name, $d_phone, $d_addr, $receipt_barcode]);
+
+            $order_id = (int) $pdo->lastInsertId();
 
             // Decrement stock
             $update_stmt = $pdo->prepare("UPDATE products SET stock = stock - 1 WHERE id = ? AND stock > 0");
@@ -86,7 +106,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             }
 
             $pdo->commit();
-            echo json_encode(['success' => true, 'message' => 'Order placed successfully.']);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Order placed successfully.',
+                'order_id' => $order_id,
+                'receipt_barcode' => $receipt_barcode,
+                'customer' => [
+                    'username' => $username,
+                    'delivery_name' => $d_name,
+                    'delivery_phone' => $d_phone,
+                    'delivery_address' => $d_addr,
+                ],
+            ]);
         } catch (PDOException $e) {
             $pdo->rollBack();
             echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);

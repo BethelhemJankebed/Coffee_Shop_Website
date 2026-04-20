@@ -69,7 +69,7 @@ const cartManager = {
         const total = this.items.reduce((sum, item) => sum + parseFloat(item.price), 0);
 
         const orderData = {
-            user_id: this.user.id ?? null,
+            user_id: null,          // pass null to avoid FK mismatch between sessions
             username: this.user.username,
             items: this.items,
             total: total,
@@ -88,6 +88,8 @@ const cartManager = {
 
             const result = await response.json();
             if (result.success) {
+                orderData.order_id = result.order_id || null;
+                orderData.receipt_barcode = result.receipt_barcode || null;
                 this.showReceipt(orderData);
                 localStorage.removeItem('cart');
                 this.items = [];
@@ -111,7 +113,8 @@ const cartManager = {
             <hr>
             <p style="font-size:1.1rem;"><strong>Total: $${order.total.toFixed(2)}</strong></p>
         `;
-        document.getElementById('receipt-barcode').innerText = 'ORD' + Math.floor(Math.random() * 9999999).toString().padStart(7, '0');
+        const fallbackBarcode = 'ORD' + Math.floor(Math.random() * 9999999).toString().padStart(7, '0');
+        document.getElementById('receipt-barcode').innerText = order.receipt_barcode || fallbackBarcode;
         document.getElementById('receipt-modal').style.display = 'grid';
     },
 
