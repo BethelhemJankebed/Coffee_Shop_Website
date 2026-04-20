@@ -44,6 +44,9 @@ try {
         items JSON,
         total DECIMAL(10,2),
         source VARCHAR(50),
+        delivery_name VARCHAR(100),
+        delivery_phone VARCHAR(20),
+        delivery_address VARCHAR(255),
         order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
     );
@@ -70,6 +73,20 @@ try {
 
     $pdo_setup->exec($sql);
     echo "Tables created successfully.<br>\n";
+
+    $orderColumns = [
+        'delivery_name' => "ALTER TABLE orders ADD COLUMN delivery_name VARCHAR(100) NULL AFTER source",
+        'delivery_phone' => "ALTER TABLE orders ADD COLUMN delivery_phone VARCHAR(20) NULL AFTER delivery_name",
+        'delivery_address' => "ALTER TABLE orders ADD COLUMN delivery_address VARCHAR(255) NULL AFTER delivery_phone",
+    ];
+
+    foreach ($orderColumns as $column => $statement) {
+        $check = $pdo_setup->prepare("SHOW COLUMNS FROM orders LIKE ?");
+        $check->execute([$column]);
+        if (!$check->fetch()) {
+            $pdo_setup->exec($statement);
+        }
+    }
 
     // Hardcoded initial data so db.json is no longer needed
     $json_string = '{

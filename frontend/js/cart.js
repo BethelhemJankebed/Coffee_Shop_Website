@@ -12,6 +12,9 @@ const cartManager = {
             window.location.href = 'login.html';
             return;
         }
+        // Pre-fill name from logged-in user
+        const nameEl = document.getElementById('co-name');
+        if (nameEl && this.user.username) nameEl.value = this.user.username;
         this.renderCart();
         this.loadHistory();
     },
@@ -51,14 +54,29 @@ const cartManager = {
     },
 
     async checkout() {
+        const deliveryName    = document.getElementById('co-name')?.value.trim();
+        const deliveryPhone   = document.getElementById('co-phone')?.value.trim();
+        const deliveryAddress = document.getElementById('co-address')?.value.trim();
+
+        if (!deliveryPhone || !deliveryAddress) {
+            UI.popup('Missing Info', 'Please enter your phone number and delivery address.', '⚠️');
+            return;
+        }
+
+        // Close the modal
+        document.getElementById('checkout-modal').style.display = 'none';
+
         const total = this.items.reduce((sum, item) => sum + parseFloat(item.price), 0);
-        
+
         const orderData = {
-            user_id: this.user.id,
+            user_id: this.user.id ?? null,
             username: this.user.username,
             items: this.items,
             total: total,
-            source: 'BOUTIQUE_WEB'
+            source: 'BOUTIQUE_WEB',
+            delivery_name: deliveryName,
+            delivery_phone: deliveryPhone,
+            delivery_address: deliveryAddress
         };
 
         try {
@@ -74,24 +92,26 @@ const cartManager = {
                 localStorage.removeItem('cart');
                 this.items = [];
             } else {
-                UI.popup('Transaction Error', result.error);
+                UI.popup('Transaction Error', result.error || 'Could not place order.', '❌');
             }
         } catch (err) {
             console.error(err);
-            UI.toast('Something went wrong during checkout.', '❌');
+            UI.popup('Connection Error', 'Could not reach the server. Please try again.', '❌');
         }
     },
 
     showReceipt(order) {
         document.getElementById('receipt-details').innerHTML = `
-            <p><strong>Customer:</strong> ${order.username}</p>
+            <p><strong>Customer:</strong> ${order.delivery_name || order.username}</p>
+            <p><strong>Phone:</strong> ${order.delivery_phone || '—'}</p>
+            <p><strong>Delivery To:</strong> ${order.delivery_address || '—'}</p>
             <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
             <hr>
-            ${order.items.map(i => `<p>${i.name} - $${i.price}</p>`).join('')}
+            ${order.items.map(i => `<p>${i.name} — $${i.price}</p>`).join('')}
             <hr>
-            <p style="font-size:1.2rem;"><strong>Total: $${order.total.toFixed(2)}</strong></p>
+            <p style="font-size:1.1rem;"><strong>Total: $${order.total.toFixed(2)}</strong></p>
         `;
-        document.getElementById('receipt-barcode').innerText = Math.floor(Math.random() * 9999999).toString().padStart(8, '0');
+        document.getElementById('receipt-barcode').innerText = 'ORD' + Math.floor(Math.random() * 9999999).toString().padStart(7, '0');
         document.getElementById('receipt-modal').style.display = 'grid';
     },
 
@@ -178,3 +198,12 @@ async function submitReview() {
 }
 
 cartManager.init();
+
+function openCheckoutModal() {
+    if (!cartManager.items || cartManager.items.length === 0) {
+        UI.popup('Cart Empty', 'Please add items to your cart before checking out.', '🛒');
+        return;
+    }
+    document.getElementById('checkout-modal').style.display = 'grid';
+}
+

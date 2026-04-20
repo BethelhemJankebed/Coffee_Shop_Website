@@ -7,6 +7,18 @@ if (!currentUser || currentUser.role !== "admin") {
 
 const table = document.getElementById("orders-table");
 
+function renderText(value) {
+  return value && String(value).trim() ? value : "—";
+}
+
+function renderItems(items) {
+  if (!Array.isArray(items) || items.length === 0) {
+    return "—";
+  }
+
+  return items.map(i => i.product_name || i.name || "Item").join(", ");
+}
+
 function loadOrders() {
   fetch("../backend/orders.php?action=list")
     .then(res => res.json())
@@ -18,7 +30,10 @@ function loadOrders() {
         row.innerHTML = `
           <td>${order.id}</td>
           <td>${order.username}</td>
-          <td>${order.items.map(i => i.product_name || i.name).join(", ")}</td>
+          <td>${renderText(order.delivery_name)}</td>
+          <td>${renderText(order.delivery_phone)}</td>
+          <td>${renderText(order.delivery_address)}</td>
+          <td>${renderItems(order.items)}</td>
           <td>$${Number(order.total_amount || order.total).toFixed(2)}</td>
           <td>${order.order_date || order.date}</td>
           <td><button class="delete-btn" onclick="deleteOrder('${order.id}')">Delete</button></td>
