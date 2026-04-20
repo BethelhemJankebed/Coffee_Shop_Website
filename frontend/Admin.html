@@ -682,8 +682,8 @@
       <div class="modal-box">
         <h2>Add Gallery Image</h2>
         <div class="fld">
-          <label>Image URL</label
-          ><input id="g-url" placeholder="img/photo.jpg" />
+          <label>Choose Image File</label
+          ><input id="g-file" type="file" accept="image/*" />
         </div>
         <div class="fld">
           <label>Caption / Title</label
@@ -1104,28 +1104,42 @@
       }
 
       function openGalleryModal() {
-        document.getElementById("g-url").value = "";
+        document.getElementById("g-file").value = "";
         document.getElementById("g-title").value = "";
         document.getElementById("modal-gallery").style.display = "grid";
       }
 
       async function saveGallery() {
-        const url = document.getElementById("g-url").value.trim();
+        const fileInput = document.getElementById("g-file");
         const title = document.getElementById("g-title").value.trim();
-        if (!url) {
-          UI.popup("Missing", "Please enter an image URL or path.", "⚠️");
+        const file = fileInput.files && fileInput.files[0];
+
+        if (!file) {
+          UI.popup("Missing", "Please choose an image file.", "⚠️");
           return;
         }
-        const r = await api("gallery.php?action=create", "POST", {
-          url,
-          title,
-        });
-        if (r.success || r.message) {
-          closeModal("modal-gallery");
-          loadGallery();
-          UI.toast("Added to gallery!", "✅");
-        } else {
-          UI.popup("Error", r.error || "Could not add image.", "❌");
+
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("image_file", file);
+
+        try {
+          const response = await fetch(`${BASE}gallery.php?action=create`, {
+            method: "POST",
+            body: formData,
+          });
+          const r = await response.json();
+
+          if (r.success || r.message) {
+            closeModal("modal-gallery");
+            loadGallery();
+            UI.toast("Added to gallery!", "✅");
+          } else {
+            UI.popup("Error", r.error || "Could not add image.", "❌");
+          }
+        } catch (err) {
+          console.error(err);
+          UI.popup("Connection Error", "Could not upload the image.", "❌");
         }
       }
 

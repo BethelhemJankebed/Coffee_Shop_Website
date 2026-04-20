@@ -70,6 +70,14 @@ try {
         comment TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
+
+    CREATE TABLE IF NOT EXISTS gallery (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        url LONGTEXT NOT NULL,
+        title VARCHAR(255) DEFAULT '',
+        type VARCHAR(20) DEFAULT 'image',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
     ";
 
     $pdo_setup->exec($sql);
