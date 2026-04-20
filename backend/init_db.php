@@ -65,6 +65,8 @@ try {
     CREATE TABLE IF NOT EXISTS reviews (
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT,
+        owner_user_id INT,
+        owner_username VARCHAR(50),
         username VARCHAR(50),
         rating INT DEFAULT 5,
         comment TEXT,

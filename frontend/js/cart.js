@@ -84,7 +84,7 @@ const cartManager = {
     );
 
     const orderData = {
-      user_id: null, // pass null to avoid FK mismatch between sessions
+      user_id: this.user.id,
       username: this.user.username,
       items: this.items,
       total: total,
@@ -105,6 +105,7 @@ const cartManager = {
       if (result.success) {
         orderData.order_id = result.order_id || null;
         orderData.receipt_barcode = result.receipt_barcode || null;
+        this.loadHistory();
         this.showReceipt(orderData);
         localStorage.removeItem("cart");
         this.items = [];
@@ -150,6 +151,11 @@ const cartManager = {
     document.getElementById("receipt-barcode").innerText =
       order.receipt_barcode || fallbackBarcode;
     document.getElementById("receipt-modal").style.display = "grid";
+
+    const historySection = document.getElementById("order-history");
+    if (historySection) {
+      historySection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   },
 
   async loadHistory() {
@@ -241,6 +247,14 @@ async function submitReview() {
         "Your review has been shared with the Abyssinia community.",
         "⭐"
       );
+
+      if (window.location.pathname.toLowerCase().includes("index.html")) {
+        try {
+          window.loadReviews?.();
+        } catch (e) {
+          console.error(e);
+        }
+      }
     } else {
       UI.popup(
         "Error",

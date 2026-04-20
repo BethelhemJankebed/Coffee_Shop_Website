@@ -1071,9 +1071,20 @@
 
       async function deleteReview(id) {
         if (!confirm("Remove this review?")) return;
-        await api("reviews.php?action=delete", "POST", { id });
-        loadReviews();
-        UI.toast("Review removed.", "🗑");
+        const result = await api("reviews.php?action=delete", "POST", {
+          id,
+          requester_user_id: currentUser ? currentUser.id : null,
+        });
+        if (result.status === "success") {
+          loadReviews();
+          UI.toast("Review removed.", "🗑");
+        } else {
+          UI.popup(
+            "Permission denied",
+            result.message || "You can only delete your own review.",
+            "⚠️"
+          );
+        }
       }
 
       // === GALLERY ===
