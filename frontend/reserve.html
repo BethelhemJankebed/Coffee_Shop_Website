@@ -178,36 +178,16 @@
         <h3>Hours</h3>
         <p>Mon – Fri: 08:00 – 21:00<br />Sat – Sun: 09:00 – 22:00</p>
       </div>
-      <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique.</div>
+      <div class="footer-bottom">&copy; 2024 Abyssinia Coffee.</div>
     </footer>
 
     <script src="js/ui_core.js"></script>
+    <script src="js/nav.js"></script>
     <script>
       function getLocalDateString() {
         const now = new Date();
         const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
         return local.toISOString().split("T")[0];
-      }
-
-      // Nav auth
-      const user = JSON.parse(localStorage.getItem("currentUser"));
-      if (user) {
-        const nav = document.getElementById("main-nav");
-        const lo = document.createElement("a");
-        lo.href = "#";
-        lo.innerText = `LOGOUT (${user.username})`;
-        lo.onclick = () => {
-          localStorage.clear();
-          location.reload();
-        };
-        nav.appendChild(lo);
-        if (user.role === "admin") {
-          const al = document.createElement("a");
-          al.href = "Admin.html";
-          al.innerText = "ADMIN";
-          al.style.color = "var(--accent)";
-          nav.appendChild(al);
-        }
       }
 
       const dateInput = document.getElementById("res-date");

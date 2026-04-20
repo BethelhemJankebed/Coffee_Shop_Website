@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Abyssinia Coffee | Pure Heritage</title>
+    <title>Abyssinia Coffee | Fresh Heritage</title>
     <link rel="icon" href="img/coffeelogo.png" />
     <link rel="stylesheet" href="css/global.css?v=601" />
     <style>
@@ -242,7 +242,7 @@
     <section class="hero" style="padding: 0">
       <div class="hero-content">
         <p>Heritage in every drop</p>
-        <h1>Abyssinia Boutique</h1>
+        <h1>Abyssinia Coffee</h1>
         <a
           href="shopnow.html"
           class="btn-boutique accent"
@@ -276,7 +276,7 @@
           href="shopnow.html"
           class="glow-link"
           style="top: 45%; left: 0%; transform: translateY(-50%)"
-          >Boutique Breve</a
+          >House Breve</a
         >
         <a
           href="shopnow.html"
@@ -288,7 +288,7 @@
     </section>
 
     <section class="services">
-      <h2>Our Boutique Services</h2>
+      <h2>Our Coffee Shop Services</h2>
       <div class="services-grid">
         <div class="service-card">
           <i class="fas fa-mug-hot"></i>
@@ -303,7 +303,7 @@
         <div class="service-card">
           <i class="fas fa-calendar-check"></i>
           <h3>Private Events</h3>
-          <p>Host your boutique gatherings with us.</p>
+          <p>Host your coffee gatherings with us.</p>
         </div>
         <div class="service-card">
           <i class="fas fa-graduation-cap"></i>
@@ -314,14 +314,14 @@
     </section>
 
     <section class="review-wall">
-      <h2>The Connoisseur Wall</h2>
+      <h2>The Review Wall</h2>
       <p class="wall-subtitle">
         Fresh notes from guests and coffee lovers, displayed as polished cards
-        so every experience feels like part of the boutique story.
+        so every experience feels like part of our coffee story.
       </p>
       <div class="review-track" id="review-track">
         <p style="text-align: center; width: 100%; opacity: 0.5">
-          Gathering connoisseur feedback...
+          Gathering customer feedback...
         </p>
       </div>
     </section>
@@ -363,32 +363,15 @@
         <p>Bole District, Addis Ababa<br />Ethiopia<br />+251 912 345 678</p>
       </div>
       <div class="footer-bottom">
-        &copy; 2024 Abyssinia Coffee Boutique. All rights reserved.
+        &copy; 2024 Abyssinia Coffee. All rights reserved.
       </div>
     </footer>
 
     <script src="js/ui_core.js"></script>
+    <script src="js/nav.js"></script>
     <script>
       // Auth & Reviews Integration
       const user = JSON.parse(localStorage.getItem("currentUser"));
-      if (user) {
-        const nav = document.getElementById("main-nav");
-        const logout = document.createElement("a");
-        logout.href = "#";
-        logout.innerHTML = `LOGOUT (${user.username})`;
-        logout.onclick = () => {
-          localStorage.clear();
-          location.reload();
-        };
-        nav.appendChild(logout);
-        if (user.role === "admin") {
-          const adminL = document.createElement("a");
-          adminL.href = "Admin.html";
-          adminL.innerText = "ADMIN";
-          adminL.style.color = "var(--accent)";
-          nav.appendChild(adminL);
-        }
-      }
 
       async function loadReviews() {
         try {

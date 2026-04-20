@@ -2,35 +2,56 @@
    ABYSSINIA COFFEE - BOUTIQUE DESIGN SYSTEM
    ========================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Unna:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Unna:wght@400;700&family=Inter:wght@300;400;600&display=swap");
 
 :root {
   --primary: #2c1810;
+  --primary-dark: #1f110b;
   --accent: #f39c12;
   --cream: #fefaf7;
   --dark-bg: #1a0f0a;
-  --shadow: rgba(0,0,0,0.1);
+  --shadow: rgba(0, 0, 0, 0.1);
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; font-family: 'Inter', sans-serif; background: var(--cream); color: var(--primary); }
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: var(--cream);
+  color: var(--primary);
+}
 
 /* Global Navigation */
 header {
   position: fixed;
-  top: 0; width: 100%;
+  top: 0;
+  width: 100%;
   padding: 15px 8%;
   background: rgba(44, 24, 16, 0.95);
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.logo-row { display: flex; align-items: center; gap: 15px; }
-.logo-row img { height: 45px; }
-.brand-name { color: #fff; font-family: 'Unna', serif; font-size: 1.5rem; text-decoration: none; font-weight: bold; }
+.logo-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.logo-row img {
+  height: 45px;
+}
+.brand-name {
+  color: #fff;
+  font-family: "Unna", serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  font-weight: bold;
+}
 
 .nav-links a {
   color: #fff;
@@ -42,11 +63,33 @@ header {
   transition: 0.3s;
   font-weight: 600;
 }
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover {
+  color: var(--accent);
+}
+
+.nav-links a.auth-link {
+  border: 1px solid rgba(243, 156, 18, 0.55);
+  border-radius: 999px;
+  padding: 8px 14px;
+  margin-left: 14px;
+  color: #fff;
+}
+
+.nav-links a.auth-link:hover {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* Standard Sectioning */
-section { padding: 80px 8%; }
-h2 { font-family: 'Unna', serif; font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+section {
+  padding: 80px 8%;
+}
+h2 {
+  font-family: "Unna", serif;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 50px;
+}
 
 /* Standard Footer */
 .standard-footer {
@@ -57,9 +100,25 @@ h2 { font-family: 'Unna', serif; font-size: 2.5rem; text-align: center; margin-b
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px;
 }
-.footer-col h3 { color: var(--accent); margin-bottom: 25px; font-family: 'Unna', serif; }
-.footer-col p { opacity: 0.7; line-height: 1.8; font-size: 0.9rem; }
-.footer-bottom { grid-column: 1 / -1; text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; margin-top: 40px; font-size: 0.8rem; opacity: 0.5; }
+.footer-col h3 {
+  color: var(--accent);
+  margin-bottom: 25px;
+  font-family: "Unna", serif;
+}
+.footer-col p {
+  opacity: 0.7;
+  line-height: 1.8;
+  font-size: 0.9rem;
+}
+.footer-bottom {
+  grid-column: 1 / -1;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 30px;
+  margin-top: 40px;
+  font-size: 0.8rem;
+  opacity: 0.5;
+}
 
 /* Buttons */
 .btn-boutique {
@@ -74,49 +133,68 @@ h2 { font-family: 'Unna', serif; font-size: 2.5rem; text-align: center; margin-b
   border: none;
   cursor: pointer;
 }
-.btn-boutique:hover { background: var(--accent); transform: translateY(-3px); }
-.btn-boutique.accent { background: var(--accent); }
+.btn-boutique:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+.btn-boutique.accent {
+  background: var(--accent);
+}
 
 /* Boutique Popup System */
 #boutique-popup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    backdrop-filter: blur(5px);
-    z-index: 9999;
-    place-items: center;
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  z-index: 9999;
+  place-items: center;
 }
 .popup-content {
-    background: #fff;
-    padding: 40px;
-    border-radius: 2px;
-    width: 90%;
-    max-width: 500px;
-    text-align: center;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.4);
-    position: relative;
-    border-top: 5px solid var(--accent);
+  background: #fff;
+  padding: 40px;
+  border-radius: 2px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  position: relative;
+  border-top: 5px solid var(--accent);
 }
-.popup-icon { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
-.popup-title { font-family: 'Unna', serif; font-size: 2rem; margin-bottom: 10px; }
-.popup-msg { color: #666; line-height: 1.6; margin-bottom: 30px; }
+.popup-icon {
+  font-size: 3rem;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.popup-title {
+  font-family: "Unna", serif;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.popup-msg {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
 
 /* Toast Notifications */
 #boutique-toast {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    background: var(--primary);
-    color: #fff;
-    padding: 15px 30px;
-    border-radius: 4px;
-    z-index: 10000;
-    transform: translateY(150%);
-    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--primary);
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 4px;
+  z-index: 10000;
+  transform: translateY(150%);
+  transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
-#boutique-toast.show { transform: translateY(0); }
+#boutique-toast.show {
+  transform: translateY(0);
+}

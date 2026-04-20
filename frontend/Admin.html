@@ -268,6 +268,16 @@
         color: #fff;
       }
 
+      .product-thumb {
+        width: 56px;
+        height: 56px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 1px solid #eee;
+        background: #f7f4f2;
+        display: block;
+      }
+
       .orders-card {
         overflow: hidden;
       }
@@ -492,7 +502,7 @@
         </div>
         <div class="card">
           <p style="text-align: center; color: #999">
-            Click a section from the sidebar to manage your boutique data.
+            Click a section from the sidebar to manage your coffee shop data.
           </p>
         </div>
       </div>
@@ -662,8 +672,13 @@
           ><input id="p-stock" type="number" min="0" value="50" />
         </div>
         <div class="fld">
-          <label>Image URL (relative, e.g. img/espresso.png)</label
-          ><input id="p-img" placeholder="img/espresso.png" />
+          <label>Product Image (Browse from file)</label
+          ><input
+            id="p-file"
+            type="file"
+            accept="image/jpeg,image/png,image/gif,image/webp"
+          />
+          <input type="hidden" id="p-img" />
         </div>
         <div class="fld">
           <label>Description</label><textarea id="p-desc" rows="3"></textarea>
@@ -793,6 +808,16 @@
       }
 
       // === PRODUCTS ===
+      function resolveProductImage(imageUrl) {
+        const value = String(imageUrl || "").trim();
+        if (!value) return "img/coffeelogo.png";
+        if (value.startsWith("data:image/")) return value;
+        if (value.startsWith("http://") || value.startsWith("https://"))
+          return value;
+        if (value.includes("/")) return value;
+        return `img/${value}`;
+      }
+
       async function loadProducts() {
         const d = await api("products.php?action=list");
         const tb = document.getElementById("tbody-products");
@@ -805,9 +830,9 @@
           .map(
             (p) => `
         <tr>
-          <td><img src="${
+          <td><img class="product-thumb" src="${resolveProductImage(
             p.image_url
-          }" onerror="this.src='img/coffeelogo.png'"></td>
+          )}" onerror="this.src='img/coffeelogo.png'"></td>
           <td>${p.name}</td>
           <td>$${p.price}</td>
           <td>${p.stock}</td>
@@ -833,6 +858,7 @@
         document.getElementById("p-price").value = p ? p.price : "";
         document.getElementById("p-stock").value = p ? p.stock : 50;
         document.getElementById("p-img").value = p ? p.image_url : "";
+        document.getElementById("p-file").value = "";
         document.getElementById("p-desc").value = p ? p.description || "" : "";
         document.getElementById("modal-product").style.display = "grid";
       }
@@ -841,18 +867,57 @@
         openProductModal(p);
       }
 
+      async function uploadProductImage(file) {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const response = await fetch(
+          BASE + "products.php?action=upload_image",
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        return response.json();
+      }
+
       async function saveProduct() {
         const id = document.getElementById("p-id").value;
         const name = document.getElementById("p-name").value.trim();
         const price = document.getElementById("p-price").value;
         const stock = document.getElementById("p-stock").value;
-        const img = document.getElementById("p-img").value.trim();
+        const fileInput = document.getElementById("p-file");
+        const selectedFile = fileInput.files && fileInput.files[0];
+        let img = document.getElementById("p-img").value.trim();
         const desc = document.getElementById("p-desc").value.trim();
 
         if (!name || !price) {
           UI.popup(
             "Missing Fields",
             "Please fill in at least Name and Price.",
+            "⚠️"
+          );
+          return;
+        }
+
+        if (selectedFile) {
+          const uploadResult = await uploadProductImage(selectedFile);
+          if (!uploadResult.success) {
+            UI.popup(
+              "Upload Error",
+              uploadResult.error || "Could not upload image.",
+              "❌"
+            );
+            return;
+          }
+          img = uploadResult.image_url;
+        }
+
+        if (!img) {
+          UI.popup(
+            "Missing Image",
+            "Please browse and choose a product image.",
             "⚠️"
           );
           return;

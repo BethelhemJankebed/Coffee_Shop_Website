@@ -1,93 +1,124 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abyssinia Coffee | Welcome</title>
     <link rel="icon" href="img/coffeelogo.png" />
     <link rel="stylesheet" href="css/global.css" />
     <style>
-        body {
-            background: var(--bg-main);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+      body {
+        background: var(--bg-main);
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-        .welcome-box {
-            text-align: center;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(12px);
-            padding: 80px 60px;
-            border-radius: 40px;
-            box-shadow: 0 40px 100px rgba(62, 39, 35, 0.15);
-            border: 1px solid var(--border);
-            max-width: 600px;
-        }
+      .welcome-box {
+        text-align: center;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(12px);
+        padding: 80px 60px;
+        border-radius: 40px;
+        box-shadow: 0 40px 100px rgba(62, 39, 35, 0.15);
+        border: 1px solid var(--border);
+        max-width: 600px;
+      }
 
-        .welcome-box h1 {
-            font-size: 3.5rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            font-weight: 900;
-        }
+      .welcome-box h1 {
+        font-size: 3.5rem;
+        color: var(--text-main);
+        margin-bottom: 10px;
+        font-weight: 900;
+      }
 
-        .welcome-box p {
-            font-size: 1.3rem;
-            color: var(--primary);
-            margin-bottom: 40px;
-            font-weight: 700;
-        }
+      .welcome-box p {
+        font-size: 1.3rem;
+        color: var(--primary);
+        margin-bottom: 40px;
+        font-weight: 700;
+      }
 
-        /* Floating Bean Animation */
-        .bittersweet-overlay {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 1;
-            background: radial-gradient(circle at center, transparent 0%, rgba(35, 21, 16, 0.05) 100%);
-        }
+      /* Floating Bean Animation */
+      .bittersweet-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+        background: radial-gradient(
+          circle at center,
+          transparent 0%,
+          rgba(35, 21, 16, 0.05) 100%
+        );
+      }
 
-        .floating-beans {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2;
-        }
+      .floating-beans {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2;
+      }
 
-        .bean {
-            position: absolute;
-            width: 30px;
-            opacity: 0.15;
-            animation: float 12s linear infinite;
-        }
+      .bean {
+        position: absolute;
+        width: 30px;
+        opacity: 0.15;
+        animation: float 12s linear infinite;
+      }
 
-        @keyframes float {
-            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 0.3; }
-            80% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+      @keyframes float {
+        0% {
+          transform: translateY(110vh) rotate(0deg);
+          opacity: 0;
         }
+        20% {
+          opacity: 0.3;
+        }
+        80% {
+          opacity: 0.3;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
 
-        .bean:nth-child(1) { left: 10%; animation-duration: 9s; }
-        .bean:nth-child(2) { left: 30%; animation-duration: 15s; animation-delay: 2s; }
-        .bean:nth-child(3) { left: 50%; animation-duration: 11s; animation-delay: 4s; }
-        .bean:nth-child(4) { left: 70%; animation-duration: 14s; animation-delay: 1s; }
-        .bean:nth-child(5) { left: 90%; animation-duration: 13s; animation-delay: 5s; }
-        
+      .bean:nth-child(1) {
+        left: 10%;
+        animation-duration: 9s;
+      }
+      .bean:nth-child(2) {
+        left: 30%;
+        animation-duration: 15s;
+        animation-delay: 2s;
+      }
+      .bean:nth-child(3) {
+        left: 50%;
+        animation-duration: 11s;
+        animation-delay: 4s;
+      }
+      .bean:nth-child(4) {
+        left: 70%;
+        animation-duration: 14s;
+        animation-delay: 1s;
+      }
+      .bean:nth-child(5) {
+        left: 90%;
+        animation-duration: 13s;
+        animation-delay: 5s;
+      }
     </style>
-</head>
-<body>
-
-    <header style="position: fixed; top:0; left:0; right:0;">
+  </head>
+  <body>
+    <header style="position: fixed; top: 0; left: 0; right: 0">
       <div class="logo-row">
         <img src="img/coffeelogo.png" alt="Logo" class="logo-img" />
         <a class="brand-name" href="index.html">Abyssinia Coffee</a>
       </div>
-      <nav class="nav-links">
+      <nav class="nav-links" id="main-nav">
         <a href="index.html">Home</a>
         <a href="shopnow.html">Shop</a>
         <a href="reserve.html">Reserve</a>
@@ -98,19 +129,33 @@
     <div class="bittersweet-overlay"></div>
 
     <div class="welcome-box">
-        <img src="img/coffeelogo.png" style="height: 120px; margin-bottom: 25px;">
-        <h1>Welcome Home.</h1>
-        <p>The authentic ceremony begins here.</p>
-        <a href="index.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 20px 50px; border-radius: 12px; font-weight: 800;">Step Into the Shop</a>
+      <img
+        src="img/coffeelogo.png"
+        style="height: 120px; margin-bottom: 25px"
+      />
+      <h1>Welcome Home.</h1>
+      <p>The authentic ceremony begins here.</p>
+      <a
+        href="index.html"
+        class="btn btn-primary"
+        style="
+          font-size: 1.1rem;
+          padding: 20px 50px;
+          border-radius: 12px;
+          font-weight: 800;
+        "
+        >Step Into the Shop</a
+      >
     </div>
 
     <div class="floating-beans">
-        <img src="img/coffeebean.png" class="bean">
-        <img src="img/coffeebean.png" class="bean">
-        <img src="img/coffeebean.png" class="bean">
-        <img src="img/coffeebean.png" class="bean">
-        <img src="img/coffeebean.png" class="bean">
+      <img src="img/coffeebean.png" class="bean" />
+      <img src="img/coffeebean.png" class="bean" />
+      <img src="img/coffeebean.png" class="bean" />
+      <img src="img/coffeebean.png" class="bean" />
+      <img src="img/coffeebean.png" class="bean" />
     </div>
 
-</body>
+    <script src="js/nav.js"></script>
+  </body>
 </html>

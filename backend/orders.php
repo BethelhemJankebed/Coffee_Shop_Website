@@ -90,8 +90,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             exit;
         }
 
+        $itemCounts = [];
+        foreach ($items_array as $item) {
+            $itemId = $item['id'] ?? '';
+            if ($itemId === '') {
+                echo json_encode(['error' => 'Each order item must have a product ID.']);
+                exit;
+            }
+            $itemCounts[$itemId] = ($itemCounts[$itemId] ?? 0) + 1;
+        }
+
         try {
             $pdo->beginTransaction();
+
+            $stockStmt = $pdo->prepare("SELECT id, name, stock FROM products WHERE id = ? FOR UPDATE");
+            $updateStmt = $pdo->prepare("UPDATE products SET stock = stock - ? WHERE id = ? AND stock >= ?");
+
+            foreach ($itemCounts as $itemId => $quantity) {
+                $stockStmt->execute([$itemId]);
+                $product = $stockStmt->fetch(PDO::FETCH_ASSOC);
+
+                if (!$product) {
+                    $pdo->rollBack();
+                    echo json_encode(['error' => 'One of the selected products no longer exists.']);
+                    exit;
+                }
+
+                if ((int) $product['stock'] < $quantity) {
+                    $pdo->rollBack();
+                    echo json_encode([
+                        'error' => sprintf(
+                            'Sorry, "%s" is out of stock or does not have enough stock for your order.',
+                            $product['name']
+                        ),
+                        'product_id' => $itemId,
+                        'available_stock' => (int) $product['stock'],
+                    ]);
+                    exit;
+                }
+            }
 
             $stmt = $pdo->prepare("INSERT INTO orders (user_id, username, items, total, source, delivery_name, delivery_phone, delivery_address, receipt_barcode)
                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -100,9 +137,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $order_id = (int) $pdo->lastInsertId();
 
             // Decrement stock
-            $update_stmt = $pdo->prepare("UPDATE products SET stock = stock - 1 WHERE id = ? AND stock > 0");
-            foreach ($items_array as $item) {
-                $update_stmt->execute([$item['id']]);
+            foreach ($itemCounts as $itemId => $quantity) {
+                $updateStmt->execute([$quantity, $itemId, $quantity]);
             }
 
             $pdo->commit();

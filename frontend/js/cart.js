@@ -75,8 +75,22 @@ const cartManager = {
       return;
     }
 
-    // Close the modal
-    document.getElementById("checkout-modal").style.display = "none";
+    const stockCheck = await this.verifyStock();
+    if (!stockCheck.ok) {
+      UI.popup(
+        "Out of Stock",
+        stockCheck.message || "One or more items are no longer available.",
+        "⚠️"
+      );
+      if (stockCheck.unavailableItems && stockCheck.unavailableItems.length) {
+        this.items = this.items.filter(
+          (item) => !stockCheck.unavailableItems.includes(item.id)
+        );
+        localStorage.setItem("cart", JSON.stringify(this.items));
+        this.renderCart();
+      }
+      return;
+    }
 
     const total = this.items.reduce(
       (sum, item) => sum + parseFloat(item.price),
@@ -103,6 +117,7 @@ const cartManager = {
 
       const result = await response.json();
       if (result.success) {
+        document.getElementById("checkout-modal").style.display = "none";
         orderData.order_id = result.order_id || null;
         orderData.receipt_barcode = result.receipt_barcode || null;
         this.loadHistory();
@@ -123,6 +138,56 @@ const cartManager = {
         "Could not reach the server. Please try again.",
         "❌"
       );
+    }
+  },
+
+  async verifyStock() {
+    const counts = this.items.reduce((map, item) => {
+      map[item.id] = (map[item.id] || 0) + 1;
+      return map;
+    }, {});
+
+    try {
+      const response = await fetch("../backend/products.php?action=list");
+      const data = await response.json();
+      const products = Array.isArray(data.products) ? data.products : [];
+      const productMap = products.reduce((map, product) => {
+        map[product.id] = product;
+        return map;
+      }, {});
+
+      const unavailableItems = [];
+      const messages = [];
+
+      Object.entries(counts).forEach(([id, quantity]) => {
+        const product = productMap[id];
+        if (!product) {
+          unavailableItems.push(id);
+          messages.push("An item in your cart is no longer available.");
+          return;
+        }
+
+        if ((Number(product.stock) || 0) < quantity) {
+          unavailableItems.push(id);
+          messages.push(`${product.name} only has ${product.stock} left.`);
+        }
+      });
+
+      if (unavailableItems.length > 0) {
+        return {
+          ok: false,
+          unavailableItems,
+          message: messages.join(" "),
+        };
+      }
+
+      return { ok: true };
+    } catch (err) {
+      console.error(err);
+      return {
+        ok: false,
+        message: "Could not verify stock right now. Please try again.",
+      };
     }
   },
 
