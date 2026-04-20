@@ -76,6 +76,8 @@ try {
         url LONGTEXT NOT NULL,
         title VARCHAR(255) DEFAULT '',
         type VARCHAR(20) DEFAULT 'image',
+        owner_user_id INT NULL,
+        owner_username VARCHAR(50) DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     ";

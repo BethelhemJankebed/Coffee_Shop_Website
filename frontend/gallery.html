@@ -187,6 +187,7 @@
 
     <script>
       const API_URL = "../backend/gallery.php";
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
       const getBase64 = (file) =>
         new Promise((resolve, reject) => {
@@ -221,7 +222,11 @@
               await fetch(API_URL + "?action=delete", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: pendingDeleteId }),
+                body: JSON.stringify({
+                  id: pendingDeleteId,
+                  requester_user_id: currentUser ? currentUser.id : null,
+                  requester_role: currentUser ? currentUser.role : null,
+                }),
               });
               closeDeleteConfirm();
               fetchGallery();
@@ -252,6 +257,10 @@
 
             const url = item.image_url || item.url;
             const title = item.caption || item.title || "";
+            const canDelete =
+              currentUser &&
+              (currentUser.role === "admin" ||
+                String(currentUser.id) === String(item.owner_user_id));
 
             let mediaTag = "";
             if (url.includes("data:video")) {
@@ -270,7 +279,11 @@
                 ${mediaTag}
                 <div class="gallery-info">
                     <span>${title}</span>
-                    <button class="del-btn" onclick="openDeleteConfirm('${item.id}')">Delete</button>
+                  ${
+                    canDelete
+                      ? `<button class="del-btn" onclick="openDeleteConfirm('${item.id}')">Delete</button>`
+                      : ""
+                  }
                 </div>
             `;
             grid.appendChild(div);
@@ -299,6 +312,9 @@
           const newPost = {
             image_url: base64String,
             caption: titleBox.value,
+            owner_user_id: currentUser ? currentUser.id : null,
+            owner_username: currentUser ? currentUser.username : null,
+            owner_role: currentUser ? currentUser.role : null,
           };
 
           const response = await fetch(API_URL + "?action=add", {

@@ -13,6 +13,8 @@ function ensureGalleryTable(PDO $pdo): void
         url LONGTEXT NOT NULL,
         title VARCHAR(255) DEFAULT '',
         type VARCHAR(20) DEFAULT 'image',
+        owner_user_id INT NULL,
+        owner_username VARCHAR(50) DEFAULT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )");
 
@@ -20,6 +22,18 @@ function ensureGalleryTable(PDO $pdo): void
         $pdo->exec("ALTER TABLE gallery MODIFY url LONGTEXT NOT NULL");
     } catch (PDOException $e) {
         // Ignore if the column is already LONGTEXT or the engine doesn't support MODIFY here.
+    }
+
+    try {
+        $pdo->exec("ALTER TABLE gallery ADD COLUMN owner_user_id INT NULL AFTER type");
+    } catch (PDOException $e) {
+        // Ignore if the column already exists.
+    }
+
+    try {
+        $pdo->exec("ALTER TABLE gallery ADD COLUMN owner_username VARCHAR(50) DEFAULT NULL AFTER owner_user_id");
+    } catch (PDOException $e) {
+        // Ignore if the column already exists.
     }
 }
 
@@ -142,13 +156,52 @@ function uploadImage(array $file, string $uploadDir = 'uploads/'): array
     return [true, $newFileName];
 }
 
+function resolveOwner(PDO $pdo, $ownerUserId, string $ownerUsername): array
+{
+    $ownerUserId = is_numeric($ownerUserId) ? (int) $ownerUserId : null;
+    $ownerUsername = trim($ownerUsername);
+
+    if ($ownerUserId !== null && $ownerUsername === '') {
+        $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ? LIMIT 1");
+        $stmt->execute([$ownerUserId]);
+        $ownerUsername = (string) ($stmt->fetchColumn() ?: '');
+    }
+
+    return [$ownerUserId, $ownerUsername !== '' ? $ownerUsername : null];
+}
+
+function canDeleteGalleryItem(PDO $pdo, int $galleryId, ?int $requesterUserId): bool
+{
+    if ($requesterUserId === null) {
+        return false;
+    }
+
+    $galleryStmt = $pdo->prepare("SELECT owner_user_id FROM gallery WHERE id = ? LIMIT 1");
+    $galleryStmt->execute([$galleryId]);
+    $ownerUserId = $galleryStmt->fetchColumn();
+
+    if ($ownerUserId === false) {
+        return false;
+    }
+
+    $roleStmt = $pdo->prepare("SELECT role FROM users WHERE id = ? LIMIT 1");
+    $roleStmt->execute([$requesterUserId]);
+    $requesterRole = $roleStmt->fetchColumn();
+
+    if ($requesterRole === 'admin') {
+        return true;
+    }
+
+    return (string) $ownerUserId === (string) $requesterUserId;
+}
+
 ensureGalleryTable($pdo);
 ensureGalleryUploadDir();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if ($action === 'list') {
         try {
-            $stmt = $pdo->query("SELECT id, url as image_url, title as caption, type, created_at FROM gallery ORDER BY created_at DESC");
+            $stmt = $pdo->query("SELECT id, url as image_url, title as caption, type, owner_user_id, owner_username, created_at FROM gallery ORDER BY created_at DESC");
             $items = $stmt->fetchAll();
             echo json_encode(['success' => true, 'items' => $items]);
         } catch (PDOException $e) {
@@ -164,6 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $title = $data['title'] ?? $data['caption'] ?? '';
         $type = $data['type'] ?? 'image';
         $url = $data['url'] ?? $data['image_url'] ?? '';
+        [$ownerUserId, $ownerUsername] = resolveOwner($pdo, $data['owner_user_id'] ?? null, (string) ($data['owner_username'] ?? ''));
 
         if ($isMultipart && isset($_FILES['image_file'])) {
             [$ok, $result] = uploadImage($_FILES['image_file'], ensureGalleryUploadDir());
@@ -187,16 +241,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         try {
-            $stmt = $pdo->prepare("INSERT INTO gallery (url, title, type) VALUES (?, ?, ?)");
-            $stmt->execute([$url, $title, $type]);
-            echo json_encode(['success' => true, 'message' => 'Gallery item added successfully.']);
+            $stmt = $pdo->prepare("INSERT INTO gallery (url, title, type, owner_user_id, owner_username) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([$url, $title, $type, $ownerUserId, $ownerUsername]);
+            echo json_encode([
+                'success' => true,
+                'message' => 'Gallery item added successfully.',
+                'owner_user_id' => $ownerUserId,
+                'owner_username' => $ownerUsername,
+            ]);
         } catch (PDOException $e) {
             echo json_encode(['error' => 'Database error: ' . $e->getMessage()]);
         }
     } elseif ($action === 'delete') {
         $id = $data['id'] ?? '';
+        $requesterUserId = isset($data['requester_user_id']) ? (int) $data['requester_user_id'] : null;
         if (!$id) {
             echo json_encode(['error' => 'Item ID is required.']);
+            exit;
+        }
+
+        if (!canDeleteGalleryItem($pdo, (int) $id, $requesterUserId)) {
+            echo json_encode(['error' => 'You can only delete your own post.']);
             exit;
         }
 

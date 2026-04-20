@@ -38,7 +38,11 @@ if (confirmYes) {
       const response = await fetch(`../backend/gallery.php?action=delete`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: pendingDeleteId }),
+        body: JSON.stringify({
+          id: pendingDeleteId,
+          requester_user_id: currentUser ? currentUser.id : null,
+          requester_role: currentUser ? currentUser.role : null,
+        }),
       });
       const data = await response.json();
       if (data.success) {

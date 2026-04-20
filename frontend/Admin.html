@@ -706,6 +706,7 @@
 
     <script src="js/ui_core.js"></script>
     <script>
+      const currentUser = JSON.parse(localStorage.getItem("currentUser"));
       const BASE = "../backend/";
 
       function switchTab(name, el) {
@@ -1164,6 +1165,11 @@
         const formData = new FormData();
         formData.append("title", title);
         formData.append("image_file", file);
+        if (currentUser) {
+          formData.append("owner_user_id", currentUser.id || "");
+          formData.append("owner_username", currentUser.username || "");
+          formData.append("owner_role", currentUser.role || "");
+        }
 
         try {
           const response = await fetch(`${BASE}gallery.php?action=create`, {
@@ -1187,7 +1193,11 @@
 
       async function deleteGallery(id) {
         if (!confirm("Remove this image?")) return;
-        await api("gallery.php?action=delete", "POST", { id });
+        await api("gallery.php?action=delete", "POST", {
+          id,
+          requester_user_id: currentUser ? currentUser.id : null,
+          requester_role: currentUser ? currentUser.role : null,
+        });
         loadGallery();
         UI.toast("Image removed.", "🗑");
       }
