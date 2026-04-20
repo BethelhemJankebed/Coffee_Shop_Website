@@ -8,6 +8,18 @@ header('Content-Type: application/json');
 $action = $_GET['action'] ?? '';
 $data = json_decode(file_get_contents('php://input'), true);
 
+function isPastReservationDate(string $date): bool
+{
+    $selected = DateTime::createFromFormat('Y-m-d', $date);
+    if (!$selected) {
+        return true;
+    }
+
+    $selected->setTime(0, 0, 0);
+    $today = new DateTime('today');
+    return $selected < $today;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($action === 'create') {
         $name = $data['full_name'] ?? '';
@@ -15,6 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $date = $data['date'] ?? '';
         $time = $data['time'] ?? '';
         $guests = $data['guests'] ?? 1;
+
+        if (!$name || !$date) {
+            echo json_encode(['error' => 'Name and reservation date are required.']);
+            exit;
+        }
+
+        if (isPastReservationDate($date)) {
+            echo json_encode(['error' => 'Reservation date cannot be in the past.']);
+            exit;
+        }
 
         try {
             $stmt = $pdo->prepare("INSERT INTO reservations (full_name, phone, reservation_date, reservation_time, guests) VALUES (?, ?, ?, ?, ?)");
