@@ -752,9 +752,18 @@
           0
         );
         const startOfWeek = new Date(startOfDay);
-        const dayOffset = startOfWeek.getDay() === 0 ? 6 : startOfWeek.getDay() - 1;
+        const dayOffset =
+          startOfWeek.getDay() === 0 ? 6 : startOfWeek.getDay() - 1;
         startOfWeek.setDate(startOfWeek.getDate() - dayOffset);
-        const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+        const startOfMonth = new Date(
+          now.getFullYear(),
+          now.getMonth(),
+          1,
+          0,
+          0,
+          0,
+          0
+        );
         const startOfYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0, 0);
 
         let day = 0,
@@ -948,8 +957,12 @@
         <tr>
           <td class="order-id">#${escapeHtml(o.id)}</td>
           <td>
-            <span class="order-receipt">${escapeHtml(o.receipt_barcode || `ORD${String(o.id).padStart(7, "0")}`)}</span>
-            <span class="order-subtle">User: ${escapeHtml(o.delivery_name || o.username || "Guest")}</span>
+            <span class="order-receipt">${escapeHtml(
+              o.receipt_barcode || `ORD${String(o.id).padStart(7, "0")}`
+            )}</span>
+            <span class="order-subtle">User: ${escapeHtml(
+              o.delivery_name || o.username || "Guest"
+            )}</span>
           </td>
           <td>
             <span class="order-customer">${escapeHtml(
