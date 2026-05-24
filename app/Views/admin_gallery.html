@@ -1,95 +1,33 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Admin - Gallery</title>
-    <link rel="stylesheet" href="css/global.css" />
-    <style>
-      body {
-        padding: 40px 10%;
-        background: var(--bg-main);
-      }
-      .confirm-overlay {
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.65);
-        z-index: 5000;
-        place-items: center;
-        padding: 20px;
-      }
-      .confirm-box {
-        width: min(420px, 100%);
-        background: #fff;
-        border-radius: 22px;
-        padding: 28px;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
-        text-align: center;
-      }
-      .confirm-box h3 {
-        margin: 0 0 14px;
-        color: var(--primary);
-        font-family: "Unna", serif;
-        font-size: 2rem;
-      }
-      .confirm-btns {
-        display: flex;
-        gap: 12px;
-        margin-top: 22px;
-      }
-      .confirm-btns button {
-        flex: 1;
-      }
-    </style>
-  </head>
-  <body>
-    <a href="Admin.html" class="back-admin">← Back to Dashboard</a>
-    <h2 class="section-head">Gallery Moderation</h2>
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Gallery</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+      body { padding: 40px 10%; background: var(--bg-main); }
+  </style>
+</head>
+<body>
 
-    <div class="table-container">
-      <table>
-        <thead>
-          <div id="confirm-overlay" class="confirm-overlay">
-            <div class="confirm-box">
-              <h3>Remove Item?</h3>
-              <p
-                id="confirm-message"
-                style="margin: 0; color: #333; line-height: 1.6"
-              >
-                Delete this from the gallery?
-              </p>
-              <div class="confirm-btns">
-                <button
-                  id="confirm-no"
-                  class="btn-post"
-                  style="background: #f2ebe4; color: var(--primary)"
-                >
-                  Cancel
-                </button>
-                <button
-                  id="confirm-yes"
-                  class="delete-btn"
-                  style="padding: 12px 20px"
-                >
-                  Yes, Delete
-                </button>
-              </div>
-            </div>
-          </div>
+  <a href="Admin.html" class="back-admin">← Back to Dashboard</a>
+  <h2 class="section-head">Gallery Moderation</h2>
 
-          <script src="js/alerts.js"></script>
-          <tr>
-            <th>ID</th>
-            <th>Preview</th>
-            <th>Caption</th>
-            <th>Type</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody id="gallery-table"></tbody>
-      </table>
-    </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Preview</th>
+          <th>Caption</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="gallery-table"></tbody>
+    </table>
+  </div>
 
-    <script src="js/admin_gallery.js" defer></script>
-  </body>
+  <script src="js/admin_gallery.js" defer></script>
+</body>
 </html>

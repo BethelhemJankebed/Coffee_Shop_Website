@@ -17,7 +17,6 @@
 | DANIEL EWNETU AYALEW     | ETS0386/16     |
 | ABEL NEGASH ESTIFANOS    | ETS0040/16     |
 | **BETHELHEM ALEMAYEHU**  | **ETS0274/16** |
-| SEMAHEGN SAMUEL |ETS1227/15|[@semisam98](https://github.com/semisami98/Myworks.git) |
 
 ---
 
