@@ -16,7 +16,7 @@
 | BIRUKTAWIT MELKAMU       | ETS0326/16     |
 | DANIEL EWNETU AYALEW     | ETS0386/16     |
 | ABEL NEGASH ESTIFANOS    | ETS0040/16     | |
-
+| Semahegn Samuel          | ETS1227/15     |
 ---
 
 ## 📌 Project Overview
