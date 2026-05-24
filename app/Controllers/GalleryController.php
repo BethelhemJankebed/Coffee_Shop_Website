@@ -20,7 +20,7 @@ class GalleryController extends Controller {
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $this->getPostData();
 
-            if ($action === 'create') {
+            if ($action === 'create' || $action === 'add') {
                 $this->createItem($data);
             } elseif ($action === 'delete') {
                 $this->deleteItem($data);
@@ -38,8 +38,8 @@ class GalleryController extends Controller {
     }
 
     private function createItem($data) {
-        $url = $data['url'] ?? '';
-        $title = $data['title'] ?? '';
+        $url = $data['url'] ?? $data['image_url'] ?? '';
+        $title = $data['title'] ?? $data['caption'] ?? '';
         $type = $data['type'] ?? 'image';
 
         if (empty($url)) {

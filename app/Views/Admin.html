@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -257,7 +257,7 @@
 
   <script src="js/ui_core.js"></script>
   <script>
-    const BASE = '../backend/';
+    const BASE = '';
 
     function switchTab(name, el) {
       document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
@@ -277,9 +277,23 @@
     function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
     async function api(url, method='GET', body=null) {
+      let cleanUrl = 'api.php?';
+      if (url.includes('.php')) {
+        const parts = url.split('.php');
+        const controller = parts[0]; 
+        const queryParams = parts[1]; 
+        if (queryParams) {
+          cleanUrl += 'controller=' + controller + '&' + queryParams.substring(1);
+        } else {
+          cleanUrl += 'controller=' + controller;
+        }
+      } else {
+        cleanUrl += 'controller=' + url;
+      }
+
       const opts = { method, headers: {'Content-Type':'application/json'} };
       if (body) opts.body = JSON.stringify(body);
-      const r = await fetch(BASE + url, opts);
+      const r = await fetch(cleanUrl, opts);
       return r.json();
     }
 

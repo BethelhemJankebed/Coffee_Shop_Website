@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -161,7 +161,7 @@
       }
 
       try {
-        const res = await fetch('../backend/reservations.php?action=create', {
+        const res = await fetch('api.php?controller=reservations&action=create', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ full_name: name, phone, date, time, guests })

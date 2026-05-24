@@ -3,13 +3,13 @@
  * Main View Router
  */
 $requestUri = $_SERVER['REQUEST_URI'];
-$basePath = '/Users/beka/coffeeShop%20with%20Backend/htdocs/coffeeShop%20with%20Backend/Coffee_Shop_Website/public';
-
-// Get just the path part
 $path = parse_url($requestUri, PHP_URL_PATH);
-// Strip the base path to get the relative view path
-$viewPath = str_replace(urldecode($basePath), '', urldecode($path));
-$viewPath = trim($viewPath, '/');
+$viewPath = trim($path, '/');
+
+// If it's a real file that exists in the public folder (like CSS, JS, images), serve it directly
+if (!empty($viewPath) && file_exists(__DIR__ . '/' . $viewPath) && !is_dir(__DIR__ . '/' . $viewPath)) {
+    return false;
+}
 
 if (empty($viewPath) || $viewPath === 'index.php') {
     $viewPath = 'index.html';
