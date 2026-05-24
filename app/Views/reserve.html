@@ -148,6 +148,9 @@
       }
     }
 
+    // Set minimum date to today
+    document.getElementById('res-date').min = new Date().toISOString().split('T')[0];
+
     async function handleReserve() {
       const name  = document.getElementById('res-name').value.trim();
       const phone = document.getElementById('res-phone').value.trim();
@@ -157,6 +160,12 @@
 
       if (!name || !date) {
         UI.popup('Missing Info', 'Please fill in your name and preferred date.', '⚠️');
+        return;
+      }
+
+      const today = new Date().toISOString().split('T')[0];
+      if (date < today) {
+        UI.popup('Invalid Date', 'Reservations cannot be made for past dates.', '⚠️');
         return;
       }
 

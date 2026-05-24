@@ -36,13 +36,18 @@ class ReservationController extends Controller {
             $this->jsonResponse(['error' => $e->getMessage()], 500);
         }
     }
-
     private function createReservation($data) {
         $name = $data['full_name'] ?? '';
         $phone = $data['phone'] ?? '';
         $date = $data['date'] ?? '';
         $time = $data['time'] ?? '';
         $guests = $data['guests'] ?? 1;
+
+        $today = date('Y-m-d');
+        if ($date < $today) {
+            $this->jsonResponse(['error' => 'Reservations cannot be made for past dates.'], 400);
+            return;
+        }
 
         try {
             $this->resModel->createReservation($name, $phone, $date, $time, $guests);
