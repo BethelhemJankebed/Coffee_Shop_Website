@@ -266,6 +266,8 @@
       document.querySelectorAll('.side-nav li').forEach(l => l.classList.remove('active'));
       document.getElementById('tab-' + name).classList.add('active');
       el.classList.add('active');
+      // Persist active tab in URL hash
+      window.location.hash = name;
       // Lazy-load data
       if (name === 'dashboard')    loadStats();
       if (name === 'products')     loadProducts();
@@ -555,8 +557,19 @@
       });
     }
 
-    // Initial load
+  // Load tab from URL hash on page load
+  const initialTab = window.location.hash ? window.location.hash.substring(1) : 'dashboard';
+  const initialLi = document.querySelector(`.side-nav li[onclick*="${initialTab}"]`);
+  if (initialLi) {
+    initialLi.classList.add('active');
+    document.getElementById('tab-' + initialTab).classList.add('active');
+    // Lazy load corresponding data
+    switchTab(initialTab, initialLi);
+  } else {
+    // default to dashboard
+    const defaultLi = document.querySelector('.side-nav li');
+    defaultLi.classList.add('active');
+    document.getElementById('tab-dashboard').classList.add('active');
     loadStats();
-  </script>
-</body>
-</html>
+  }
+</script>

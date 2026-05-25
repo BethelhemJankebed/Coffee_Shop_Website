@@ -12,9 +12,9 @@ class Product extends Model {
         return $stmt->execute([$id, $name, $price, $description, $image_url]);
     }
 
-    public function updateProduct($id, $name, $price, $description, $image_url) {
-        $stmt = $this->db->prepare("UPDATE products SET name = ?, price = ?, description = ?, image_url = ? WHERE id = ?");
-        return $stmt->execute([$name, $price, $description, $image_url, $id]);
+    public function updateProduct($id, $name, $price, $stock, $description, $image_url) {
+        $stmt = $this->db->prepare("UPDATE products SET name = ?, price = ?, stock = ?, description = ?, image_url = ? WHERE id = ?");
+        return $stmt->execute([$name, $price, $stock, $description, $image_url, $id]);
     }
 
     public function updateStock($id, $stock) {

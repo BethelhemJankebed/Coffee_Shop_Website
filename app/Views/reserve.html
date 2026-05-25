@@ -53,13 +53,7 @@
       <img src="img/coffeelogo.png" alt="Logo">
       <a href="index.html" class="brand-name">Abyssinia Coffee</a>
     </div>
-    <nav class="nav-links" id="main-nav">
-      <a href="index.html">Home</a>
-      <a href="shopnow.html">Shop</a>
-      <a href="reserve.html" style="color:var(--accent)">Reserve</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="cart.html">Cart</a>
-    </nav>
+    <nav class="nav-links" id="main-nav"></nav>
   </header>
 
   <div class="reserve-hero">Secure A Table</div>
@@ -130,24 +124,8 @@
   </footer>
 
   <script src="js/ui_core.js"></script>
+  <script src="js/nav.js"></script>
   <script>
-    // Nav auth
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user) {
-      const nav = document.getElementById('main-nav');
-      const lo = document.createElement('a');
-      lo.href = "#";
-      lo.innerText = `LOGOUT (${user.username})`;
-      lo.onclick = () => { localStorage.clear(); location.reload(); };
-      nav.appendChild(lo);
-      if (user.role === 'admin') {
-        const al = document.createElement('a');
-        al.href = "Admin.html"; al.innerText = "ADMIN";
-        al.style.color = "var(--accent)";
-        nav.appendChild(al);
-      }
-    }
-
     // Set minimum date to today
     document.getElementById('res-date').min = new Date().toISOString().split('T')[0];
 

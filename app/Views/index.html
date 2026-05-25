@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -95,13 +95,7 @@
       <img src="img/coffeelogo.png" alt="Logo">
       <a href="index.html" class="brand-name">Abyssinia Coffee</a>
     </div>
-    <nav class="nav-links" id="main-nav">
-      <a href="index.html">Home</a>
-      <a href="shopnow.html">Shop</a>
-      <a href="reserve.html">Reserve</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="cart.html">Cart</a>
-    </nav>
+    <nav class="nav-links" id="main-nav"></nav>
   </header>
 
   <section class="hero" style="padding:0">
@@ -159,31 +153,16 @@
   </footer>
 
   <script src="js/ui_core.js"></script>
+  <script src="js/nav.js"></script>
   <script>
-    // Auth & Reviews Integration
-    const user = JSON.parse(localStorage.getItem('currentUser'));
-    if (user) {
-        const nav = document.getElementById('main-nav');
-        const logout = document.createElement('a');
-        logout.href = "#";
-        logout.innerHTML = `LOGOUT (${user.username})`;
-        logout.onclick = () => { localStorage.clear(); location.reload(); };
-        nav.appendChild(logout);
-        if(user.role === 'admin') {
-            const adminL = document.createElement('a');
-            adminL.href = "Admin.html";
-            adminL.innerText = "ADMIN";
-            adminL.style.color = "var(--accent)";
-            nav.appendChild(adminL);
-        }
-    }
+    // Auth nav is now handled by nav.js
 
     async function loadReviews() {
         try {
-            const res = await fetch('backend/reviews.php');
+            const res = await fetch('api.php?controller=reviews');
             const data = await res.json();
             const track = document.getElementById('review-track');
-            if (data && data.length > 0) {
+            if (Array.isArray(data) && data.length > 0) {
                 track.innerHTML = data.map(r => `
                     <div class="review-card">
                         <div style="color:var(--accent); margin-bottom:15px;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
@@ -191,6 +170,8 @@
                         <p style="font-weight:bold; margin-top:20px; font-size:0.9rem;">- ${r.username}</p>
                     </div>
                 `).join('');
+            } else {
+                track.innerHTML = '<p style="text-align:center; width:100%; opacity:0.5;">Be the first to share your experience!</p>';
             }
         } catch (err) { console.error(err); }
     }

@@ -78,8 +78,10 @@ class ProductController extends Controller {
             $this->jsonResponse(['error' => 'Product ID is required.'], 400);
         }
 
+        // Extract stock field and pass correct order to model
+        $stock = $data['stock'] ?? 0;
         try {
-            $this->productModel->updateProduct($id, $name, $price, $description, $image_url);
+            $this->productModel->updateProduct($id, $name, $price, $stock, $description, $image_url);
             $this->jsonResponse(['success' => true, 'message' => 'Product updated successfully']);
         } catch (\PDOException $e) {
             $this->jsonResponse(['error' => 'Database error: ' . $e->getMessage()], 500);
