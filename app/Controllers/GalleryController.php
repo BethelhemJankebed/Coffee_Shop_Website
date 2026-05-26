@@ -8,7 +8,7 @@ class GalleryController extends Controller {
     public function __construct() {
         $this->galleryModel = new Gallery();
     }
-
+//Handles all incoming GET and POST requests for the coffee shop gallery
     public function handleRequest() {
         $this->setHeaders();
         $action = $_GET['action'] ?? '';
