@@ -6,7 +6,7 @@ require_once 'config.php';
 
 $action = $_GET['action'] ?? '';
 
-function ensureGalleryTable(PDO $pdo): void
+function ensureGalleryTable(PDO $pdo): void // Creates the gallery table if it doesn't exist and ensures necessary columns are present.
 {
     $pdo->exec("CREATE TABLE IF NOT EXISTS gallery (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -37,7 +37,7 @@ function ensureGalleryTable(PDO $pdo): void
     }
 }
 
-function ensureGalleryUploadDir(): string
+function ensureGalleryUploadDir(): string //Creates folder if not exists:
 {
     $uploadDir = __DIR__ . '/../frontend/img/gallery_uploads';
     if (!is_dir($uploadDir)) {
@@ -47,7 +47,7 @@ function ensureGalleryUploadDir(): string
     return $uploadDir;
 }
 
-function buildGalleryUrl(string $fileName): string
+function buildGalleryUrl(string $fileName): string//It creates the correct path (URL) to access an uploaded image.
 {
     return 'img/gallery_uploads/' . $fileName;
 }
@@ -137,7 +137,7 @@ function uploadImage(array $file, string $uploadDir = 'uploads/'): array
     if (!$isValid) {
         return [false, $result];
     }
-
+++++++++++++++4
     $extension = $result;
 
     if (!is_dir($uploadDir)) {
@@ -219,7 +219,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $url = $data['url'] ?? $data['image_url'] ?? '';
         [$ownerUserId, $ownerUsername] = resolveOwner($pdo, $data['owner_user_id'] ?? null, (string) ($data['owner_username'] ?? ''));
 
-        if ($isMultipart && isset($_FILES['image_file'])) {
+        if ($isMul
+        
+        
+        tipart && isset($_FILES['image_file'])) {
             [$ok, $result] = uploadImage($_FILES['image_file'], ensureGalleryUploadDir());
 
             if (!$ok) {
