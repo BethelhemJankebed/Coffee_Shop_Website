@@ -7,6 +7,12 @@ class Review extends Model {
         return $stmt->fetchAll();
     }
 
+    public function getReviewById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM reviews WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
     public function createReview($user_id, $username, $rating, $comment) {
         $stmt = $this->db->prepare("INSERT INTO reviews (user_id, username, rating, comment) VALUES (?, ?, ?, ?)");
         return $stmt->execute([$user_id, $username, $rating, $comment]);

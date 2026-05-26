@@ -158,23 +158,65 @@
     // Auth nav is now handled by nav.js
 
     async function loadReviews() {
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
         try {
             const res = await fetch('api.php?controller=reviews');
             const data = await res.json();
             const track = document.getElementById('review-track');
             if (Array.isArray(data) && data.length > 0) {
-                track.innerHTML = data.map(r => `
-                    <div class="review-card">
-                        <div style="color:var(--accent); margin-bottom:15px;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
-                        <p style="font-style:italic; line-height:1.6; min-height:80px;">"${r.comment}"</p>
-                        <p style="font-weight:bold; margin-top:20px; font-size:0.9rem;">- ${r.username}</p>
-                    </div>
-                `).join('');
+                track.innerHTML = data.map(r => {
+                    const stars = '★'.repeat(r.rating) + '☆'.repeat(5 - r.rating);
+                    const canDelete = currentUser && (currentUser.role === 'admin' || currentUser.id == r.user_id);
+                    console.log("Review", r.id, "canDelete check:", { currentUser_id: currentUser?.id, r_user_id: r.user_id, role: currentUser?.role, canDelete });
+                    const deleteBtn = canDelete
+                        ? `<button onclick="deleteReview(${r.id})" style="
+                            background:none; border:1px solid #e74c3c; color:#e74c3c;
+                            padding:4px 12px; border-radius:20px; cursor:pointer;
+                            font-size:0.75rem; margin-top:12px; transition:0.2s;"
+                            onmouseover="this.style.background='#e74c3c';this.style.color='#fff'"
+                            onmouseout="this.style.background='none';this.style.color='#e74c3c'"
+                          >Delete</button>`
+                        : '';
+                    return `
+                        <div class="review-card">
+                            <div style="color:var(--accent); margin-bottom:15px;">${stars}</div>
+                            <p style="font-style:italic; line-height:1.6; min-height:80px;">"${r.comment}"</p>
+                            <p style="font-weight:bold; margin-top:20px; font-size:0.9rem;">- ${r.username}</p>
+                            ${deleteBtn}
+                        </div>`;
+                }).join('');
             } else {
                 track.innerHTML = '<p style="text-align:center; width:100%; opacity:0.5;">Be the first to share your experience!</p>';
             }
         } catch (err) { console.error(err); }
     }
+
+    async function deleteReview(id) {
+        console.log("deleteReview called for id:", id);
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+        if (!currentUser) return;
+        
+        UI.confirm('Remove Review', 'Are you sure you want to remove your review?', async () => {
+            try {
+                const res = await fetch('api.php?controller=reviews&action=delete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id, user_id: currentUser.id, role: currentUser.role })
+                });
+                const data = await res.json();
+                if (data.status === 'success') {
+                    loadReviews();
+                    UI.toast('Review removed successfully!', '🗑');
+                } else {
+                    UI.popup('Error', data.message || 'Could not delete review.', '❌');
+                }
+            } catch (err) {
+                console.error(err);
+                UI.popup('Error', 'Connection or server error.', '❌');
+            }
+        });
+    }
+
     loadReviews();
   </script>
 </body>

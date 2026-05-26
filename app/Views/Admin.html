@@ -539,7 +539,11 @@
       const url   = document.getElementById('g-url').value.trim();
       const title = document.getElementById('g-title').value.trim();
       if (!url) { UI.popup('Missing','Please enter an image URL or path.','⚠️'); return; }
-      const r = await api('gallery.php?action=create','POST',{url, title});
+      const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+      const owner_user_id  = currentUser ? currentUser.id       : null;
+      const owner_username = currentUser ? currentUser.username : null;
+      
+      const r = await api('gallery.php?action=create','POST',{url, title, owner_user_id, owner_username});
       if (r.success || r.message) {
         closeModal('modal-gallery');
         loadGallery();
@@ -551,7 +555,11 @@
 
     async function deleteGallery(id) {
       UI.confirm('Remove Gallery Image', 'Are you sure you want to remove this image from the gallery?', async () => {
-        await api('gallery.php?action=delete','POST',{id});
+        const currentUser = JSON.parse(localStorage.getItem("currentUser") || "null");
+        const owner_user_id = currentUser ? currentUser.id   : null;
+        const role          = currentUser ? currentUser.role : '';
+        
+        await api('gallery.php?action=delete','POST',{id, owner_user_id, role});
         loadGallery(); 
         UI.toast('Image removed.','🗑');
       });

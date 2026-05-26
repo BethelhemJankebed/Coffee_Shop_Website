@@ -41,13 +41,15 @@ class GalleryController extends Controller {
         $url = $data['url'] ?? $data['image_url'] ?? '';
         $title = $data['title'] ?? $data['caption'] ?? '';
         $type = $data['type'] ?? 'image';
+        $owner_user_id   = $data['owner_user_id']   ?? $data['uploaded_by'] ?? null;
+        $owner_username  = $data['owner_username']  ?? null;
 
         if (empty($url)) {
             $this->jsonResponse(['error' => 'URL is required.'], 400);
         }
 
         try {
-            $this->galleryModel->createItem($url, $title, $type);
+            $this->galleryModel->createItem($url, $title, $type, $owner_user_id, $owner_username);
             $this->jsonResponse(['success' => true, 'message' => 'Gallery item added successfully.']);
         } catch (\PDOException $e) {
             $this->jsonResponse(['error' => 'Database error: ' . $e->getMessage()], 500);
@@ -56,11 +58,26 @@ class GalleryController extends Controller {
 
     private function deleteItem($data) {
         $id = $data['id'] ?? '';
+        $requestUserId   = $data['owner_user_id'] ?? $data['user_id'] ?? null;
+        $requestUserRole = $data['role'] ?? '';
+
         if (!$id) {
             $this->jsonResponse(['error' => 'Item ID is required.'], 400);
         }
 
         try {
+            $item = $this->galleryModel->getItemById($id);
+            if (!$item) {
+                $this->jsonResponse(['error' => 'Item not found.'], 404);
+            }
+
+           
+            if ($requestUserRole !== 'admin') {
+                if (!$requestUserId || $item['owner_user_id'] != $requestUserId) {
+                    $this->jsonResponse(['error' => 'Unauthorized. You cannot delete this post.'], 403);
+                }
+            }
+
             $this->galleryModel->deleteItem($id);
             $this->jsonResponse(['success' => true, 'message' => 'Gallery item deleted successfully.']);
         } catch (\PDOException $e) {

@@ -53,8 +53,26 @@ class ReviewController extends Controller {
     }
 
     private function deleteReview($data) {
-        $id = $data['id'] ?? '';
+        $id              = $data['id']              ?? '';
+        $requestUserId   = $data['user_id']         ?? null;
+        $requestUserRole = $data['role']             ?? '';
+
+        if (!$id) {
+            $this->jsonResponse(['status' => 'error', 'message' => 'Review ID is required.'], 400);
+        }
+
         try {
+            $review = $this->reviewModel->getReviewById($id);
+            if (!$review) {
+                $this->jsonResponse(['status' => 'error', 'message' => 'Review not found.'], 404);
+            }
+
+            if ($requestUserRole !== 'admin') {
+                if (!$requestUserId || $review['user_id'] != $requestUserId) {
+                    $this->jsonResponse(['status' => 'error', 'message' => 'Unauthorized. You cannot delete this review.'], 403);
+                }
+            }
+
             $this->reviewModel->deleteReview($id);
             $this->jsonResponse(['status' => 'success']);
         } catch (\PDOException $e) {
