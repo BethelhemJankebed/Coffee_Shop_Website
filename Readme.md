@@ -15,10 +15,8 @@
 | BETHELEM JANKEBED MELESE | ETS0277/16     |
 | BIRUKTAWIT MELKAMU       | ETS0326/16     |
 | DANIEL EWNETU AYALEW     | ETS0386/16     |
-| ABEL NEGASH ESTIFANOS    | ETS0040/16     |
-| **BETHELHEM ALEMAYEHU**  | **ETS0274/16** |
-| SEMAHEGN SAMUEL |ETS1227/15|[@semisam98](https://github.com/semisami98/Myworks.git) |
-
+| ABEL NEGASH ESTIFANOS    | ETS0040/16     | |
+| Semahegn Samuel          | ETS1227/15     |
 ---
 
 ## 📌 Project Overview

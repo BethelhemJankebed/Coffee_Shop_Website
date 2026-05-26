@@ -1,0 +1,16 @@
+Options -Indexes
+RewriteEngine On
+
+# Route all .html page requests through the View Router (index.php)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_\-]+\.html)$ index.php [L,QSA]
+
+# Route root to index
+RewriteRule ^$ index.php [L]
+
+# Protect .env from direct access
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>

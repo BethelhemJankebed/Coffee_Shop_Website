@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Orders</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+      body { padding: 40px 10%; background: var(--bg-main); }
+  </style>
+</head>
+<body>
+
+  <a href="Admin.html" class="back-admin">← Back to Dashboard</a>
+  <h2 class="section-head">Manage Customer Orders</h2>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Customer Name</th>
+          <th>Phone</th>
+          <th>Delivery Address</th>
+          <th>Items Ordered</th>
+          <th>Total Amount</th>
+          <th>Order Date</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="orders-table"></tbody>
+    </table>
+  </div>
+
+  <script src="js/admin_orders.js" defer></script>
+</body>
+</html>

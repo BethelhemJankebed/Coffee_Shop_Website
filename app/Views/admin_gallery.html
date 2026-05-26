@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Gallery</title>
+  <link rel="stylesheet" href="css/global.css">
+  <style>
+      body { padding: 40px 10%; background: var(--bg-main); }
+  </style>
+</head>
+<body>
+
+  <a href="Admin.html" class="back-admin">← Back to Dashboard</a>
+  <h2 class="section-head">Gallery Moderation</h2>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Preview</th>
+          <th>Caption</th>
+          <th>Type</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="gallery-table"></tbody>
+    </table>
+  </div>
+
+  <script src="js/admin_gallery.js" defer></script>
+</body>
+</html>

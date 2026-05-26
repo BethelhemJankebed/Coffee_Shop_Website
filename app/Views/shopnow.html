@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Abyssinia Boutique | Collections</title>
+  <link rel="icon" href="img/coffeelogo.png" />
+  <link rel="stylesheet" href="css/global.css?v=601" />
+  <style>
+    .page-title { text-align: center; padding: 120px 0 50px; background: #fff; }
+    .page-title h1 { font-family: 'Unna', serif; font-size: 3rem; margin: 0; }
+
+    .catalog-grid { 
+      padding: 50px 8%; 
+      display: grid; 
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+      gap: 40px; 
+    }
+    .product-card { 
+      background: #fff; 
+      border-radius: 12px; 
+      overflow: hidden; 
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+      transition: 0.3s;
+      border: 1px solid #eee;
+    }
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .product-img { width: 100%; height: 350px; object-fit: cover; }
+    .product-info { padding: 25px; text-align: center; }
+    .product-info h3 { margin: 0 0 10px; font-family: 'Unna', serif; font-size: 1.5rem; }
+    .product-info .price { color: var(--accent); font-weight: bold; font-size: 1.2rem; margin-bottom: 20px; }
+    
+    .stock-badge { 
+      background: red; color: white; padding: 5px 15px; border-radius: 20px; 
+      font-size: 0.7rem; font-weight: bold; display: inline-block; margin-bottom: 15px;
+    }
+    
+    .btn-group { display: flex; gap: 10px; justify-content: center; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-row">
+      <img src="img/coffeelogo.png" alt="Logo">
+      <a href="index.html" class="brand-name">Abyssinia Coffee</a>
+    </div>
+    <nav class="nav-links" id="main-nav">
+      <a href="index.html">Home</a>
+      <a href="shopnow.html" style="color:var(--accent)">Shop</a>
+      <a href="reserve.html">Reserve</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="cart.html">Cart</a>
+    </nav>
+  </header>
+
+  <div class="page-title">
+    <p style="text-transform:uppercase; letter-spacing:3px; opacity:0.6; margin-bottom:10px;">The Boutique Collection</p>
+    <h1>Brewed Perfection</h1>
+  </div>
+
+  <section class="catalog-grid" id="products-grid">
+    <!-- Products injected here -->
+    <p style="text-align:center; width:100%;">Curating the collection...</p>
+  </section>
+
+  <footer class="standard-footer">
+    <div class="footer-col">
+      <h3>About Abyssinia</h3>
+      <p>Providing the quintessential Ethiopian coffee experience since 1984.</p>
+    </div>
+    <div class="footer-col">
+      <h3>Visit Us</h3>
+      <p>Bole, Addis Ababa<br>+251 912 345 678</p>
+    </div>
+    <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique.</div>
+  </footer>
+
+  <script src="js/ui_core.js"></script>
+  <script src="js/shop_v2.js"></script>
+</body>
+</html>
