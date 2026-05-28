@@ -30,6 +30,14 @@ class AuthController extends Controller {
                     $this->jsonResponse(['error' => 'Invalid action'], 400);
             }
         } else {
+            // Support a simple GET action to return current session user
+            if ($action === 'me') {
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+                $user = $_SESSION['user'] ?? null;
+                $this->jsonResponse(['user' => $user]);
+            }
             $this->jsonResponse(['status' => 'Authentication API running.'], 200);
         }
     }

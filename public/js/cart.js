@@ -4,15 +4,23 @@
  */
 
 const cartManager = {
-  user: JSON.parse(localStorage.getItem("currentUser")),
+  user: null,
   items: JSON.parse(localStorage.getItem("cart")) || [],
 
   async init() {
+    // Fetch authoritative session user from server
+    try {
+      const res = await fetch("api.php?controller=auth&action=me");
+      const d = await res.json();
+      this.user = d.user || null;
+    } catch (err) {
+      console.error("Could not fetch session user", err);
+    }
     if (!this.user) {
       window.location.href = "login.html";
       return;
     }
-    // Pre-fill name from logged-in user
+    // Pre-fill name from logged-in user (from session)
     const nameEl = document.getElementById("co-name");
     if (nameEl && this.user.username) nameEl.value = this.user.username;
     this.renderCart();
@@ -209,7 +217,6 @@ function closeReview() {
 
 async function submitReview() {
   const comment = document.getElementById("review-comment").value.trim();
-  const user = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!comment) {
     UI.popup("Empty Review", "Please write something before submitting.", "✏️");

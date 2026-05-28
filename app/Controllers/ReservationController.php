@@ -49,8 +49,14 @@ class ReservationController extends Controller {
         $time = $data['time'] ?? '';
         $guests = $data['guests'] ?? 1;
 
-        $today = date('Y-m-d');
-        if ($date < $today) {
+        $reservationDate = \DateTimeImmutable::createFromFormat('Y-m-d', $date);
+        if (!$reservationDate || $reservationDate->format('Y-m-d') !== $date) {
+            $this->jsonResponse(['error' => 'Please choose a valid reservation date.'], 400);
+            return;
+        }
+
+        $today = new \DateTimeImmutable('today');
+        if ($reservationDate < $today) {
             $this->jsonResponse(['error' => 'Reservations cannot be made for past dates.'], 400);
             return;
         }

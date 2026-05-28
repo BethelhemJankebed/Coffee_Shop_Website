@@ -1,171 +1,254 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reserve | Abyssinia Coffee</title>
-  <link rel="icon" href="img/coffeelogo.png" />
-  <link rel="stylesheet" href="css/global.css?v=701" />
-  <style>
-    body { padding-top: 80px; }
-    .reserve-hero {
-      height: 380px;
-      background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
-                  url('img/reservebackg.jpg') center/cover no-repeat;
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; font-family: 'Unna', serif; font-size: 3rem;
-      letter-spacing: 4px;
-    }
-    .reserve-wrap {
-      max-width: 620px;
-      margin: -80px auto 100px;
-      background: #fff;
-      border-radius: 4px;
-      box-shadow: 0 40px 80px rgba(0,0,0,0.12);
-      padding: 50px 55px;
-      position: relative;
-      z-index: 10;
-      border-top: 5px solid var(--accent);
-    }
-    .reserve-wrap h2 { font-family:'Unna',serif; font-size:2rem; margin:0 0 8px; }
-    .reserve-wrap p  { color:#888; margin:0 0 35px; }
-    .row2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-    .field { margin-bottom:20px; }
-    .field label { display:block; font-size:.78rem; font-weight:700; text-transform:uppercase;
-                   letter-spacing:1px; margin-bottom:7px; color:var(--primary); }
-    .field input, .field select {
-      width:100%; padding:12px 14px; border:1px solid #ddd; border-radius:4px;
-      font-size:.95rem; box-sizing:border-box; transition:.2s;
-    }
-    .field input:focus, .field select:focus { outline:none; border-color:var(--accent); }
-    .reserve-btn {
-      width:100%; padding:15px; background:var(--primary); color:#fff;
-      border:none; border-radius:4px; font-size:1rem; font-weight:700;
-      letter-spacing:1px; cursor:pointer; transition:.3s;
-    }
-    .reserve-btn:hover { background:var(--accent); }
-  </style>
-</head>
-<body>
-
-  <header>
-    <div class="logo-row">
-      <img src="img/coffeelogo.png" alt="Logo">
-      <a href="index.html" class="brand-name">Abyssinia Coffee</a>
-    </div>
-    <nav class="nav-links" id="main-nav"></nav>
-  </header>
-
-  <div class="reserve-hero">Secure A Table</div>
-
-  <section style="padding:0 20px;">
-    <div class="reserve-wrap">
-      <h2>Private Reservation</h2>
-      <p>Experience the ritual of Ethiopian coffee in unmatched elegance.</p>
-
-      <div class="field">
-        <label>Full Name</label>
-        <input type="text" id="res-name" placeholder="Your full name" required>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reserve | Abyssinia Coffee</title>
+    <link rel="icon" href="img/coffeelogo.png" />
+    <link rel="stylesheet" href="css/global.css?v=701" />
+    <style>
+      body {
+        padding-top: 80px;
+      }
+      .reserve-hero {
+        height: 380px;
+        background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+          url("img/reservebackg.jpg") center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: "Unna", serif;
+        font-size: 3rem;
+        letter-spacing: 4px;
+      }
+      .reserve-wrap {
+        max-width: 620px;
+        margin: -80px auto 100px;
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+        padding: 50px 55px;
+        position: relative;
+        z-index: 10;
+        border-top: 5px solid var(--accent);
+      }
+      .reserve-wrap h2 {
+        font-family: "Unna", serif;
+        font-size: 2rem;
+        margin: 0 0 8px;
+      }
+      .reserve-wrap p {
+        color: #888;
+        margin: 0 0 35px;
+      }
+      .row2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .field {
+        margin-bottom: 20px;
+      }
+      .field label {
+        display: block;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 7px;
+        color: var(--primary);
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 0.95rem;
+        box-sizing: border-box;
+        transition: 0.2s;
+      }
+      .field input:focus,
+      .field select:focus {
+        outline: none;
+        border-color: var(--accent);
+      }
+      .reserve-btn {
+        width: 100%;
+        padding: 15px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .reserve-btn:hover {
+        background: var(--accent);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo-row">
+        <img src="img/coffeelogo.png" alt="Logo" />
+        <a href="index.html" class="brand-name">Abyssinia Coffee</a>
       </div>
-      <div class="field">
-        <label>Phone Number</label>
-        <input type="tel" id="res-phone" placeholder="+251 9XX XXX XXX">
-      </div>
-      <div class="row2">
+      <nav class="nav-links" id="main-nav"></nav>
+    </header>
+
+    <div class="reserve-hero">Secure A Table</div>
+
+    <section style="padding: 0 20px">
+      <div class="reserve-wrap">
+        <h2>Private Reservation</h2>
+        <p>Experience the ritual of Ethiopian coffee in unmatched elegance.</p>
+
         <div class="field">
-          <label>Date</label>
-          <input type="date" id="res-date" required>
+          <label>Full Name</label>
+          <input
+            type="text"
+            id="res-name"
+            placeholder="Your full name"
+            required
+          />
         </div>
         <div class="field">
-          <label>Time</label>
-          <select id="res-time">
-            <option value="09:00">9:00 AM</option>
-            <option value="10:00">10:00 AM</option>
-            <option value="11:00">11:00 AM</option>
-            <option value="12:00">12:00 PM</option>
-            <option value="13:00">1:00 PM</option>
-            <option value="14:00">2:00 PM</option>
-            <option value="15:00">3:00 PM</option>
-            <option value="16:00">4:00 PM</option>
-            <option value="17:00">5:00 PM</option>
-            <option value="18:00">6:00 PM</option>
-            <option value="19:00">7:00 PM</option>
-            <option value="20:00">8:00 PM</option>
+          <label>Phone Number</label>
+          <input type="tel" id="res-phone" placeholder="+251 9XX XXX XXX" />
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label>Date</label>
+            <input type="date" id="res-date" required />
+          </div>
+          <div class="field">
+            <label>Time</label>
+            <select id="res-time">
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+              <option value="18:00">6:00 PM</option>
+              <option value="19:00">7:00 PM</option>
+              <option value="20:00">8:00 PM</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Number of Guests (max 7)</label>
+          <select id="res-guests">
+            <option value="1">1 Guest</option>
+            <option value="2">2 Guests</option>
+            <option value="3">3 Guests</option>
+            <option value="4">4 Guests</option>
+            <option value="5">5 Guests</option>
+            <option value="6">6 Guests</option>
+            <option value="7">7 Guests (Full Table)</option>
           </select>
         </div>
+
+        <button class="reserve-btn" onclick="handleReserve()">
+          Confirm Reservation
+        </button>
       </div>
-      <div class="field">
-        <label>Number of Guests (max 7)</label>
-        <select id="res-guests">
-          <option value="1">1 Guest</option>
-          <option value="2">2 Guests</option>
-          <option value="3">3 Guests</option>
-          <option value="4">4 Guests</option>
-          <option value="5">5 Guests</option>
-          <option value="6">6 Guests</option>
-          <option value="7">7 Guests (Full Table)</option>
-        </select>
+    </section>
+
+    <footer class="standard-footer">
+      <div class="footer-col">
+        <h3>Visit Us</h3>
+        <p>Bole District, Addis Ababa<br />Ethiopia<br />+251 912 345 678</p>
       </div>
+      <div class="footer-col">
+        <h3>Hours</h3>
+        <p>Mon – Fri: 08:00 – 21:00<br />Sat – Sun: 09:00 – 22:00</p>
+      </div>
+      <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique.</div>
+    </footer>
 
-      <button class="reserve-btn" onclick="handleReserve()">Confirm Reservation</button>
-    </div>
-  </section>
+    <script src="js/ui_core.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+      const dateInput = document.getElementById("res-date");
+      const pad2 = (value) => String(value).padStart(2, "0");
+      const now = new Date();
+      const localToday = `${now.getFullYear()}-${pad2(
+        now.getMonth() + 1
+      )}-${pad2(now.getDate())}`;
 
-  <footer class="standard-footer">
-    <div class="footer-col">
-      <h3>Visit Us</h3>
-      <p>Bole District, Addis Ababa<br>Ethiopia<br>+251 912 345 678</p>
-    </div>
-    <div class="footer-col">
-      <h3>Hours</h3>
-      <p>Mon – Fri: 08:00 – 21:00<br>Sat – Sun: 09:00 – 22:00</p>
-    </div>
-    <div class="footer-bottom">&copy; 2024 Abyssinia Coffee Boutique.</div>
-  </footer>
+      // Set minimum date to today using local time
+      dateInput.min = localToday;
 
-  <script src="js/ui_core.js"></script>
-  <script src="js/nav.js"></script>
-  <script>
-    // Set minimum date to today
-    document.getElementById('res-date').min = new Date().toISOString().split('T')[0];
+      async function handleReserve() {
+        const name = document.getElementById("res-name").value.trim();
+        const phone = document.getElementById("res-phone").value.trim();
+        const date = document.getElementById("res-date").value;
+        const time = document.getElementById("res-time").value;
+        const guests = document.getElementById("res-guests").value;
 
-    async function handleReserve() {
-      const name  = document.getElementById('res-name').value.trim();
-      const phone = document.getElementById('res-phone').value.trim();
-      const date  = document.getElementById('res-date').value;
-      const time  = document.getElementById('res-time').value;
-      const guests = document.getElementById('res-guests').value;
-
-      if (!name || !date) {
-        UI.popup('Missing Info', 'Please fill in your name and preferred date.', '⚠️');
-        return;
-      }
-
-      const today = new Date().toISOString().split('T')[0];
-      if (date < today) {
-        UI.popup('Invalid Date', 'Reservations cannot be made for past dates.', '⚠️');
-        return;
-      }
-
-      try {
-        const res = await fetch('api.php?controller=reservations&action=create', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ full_name: name, phone, date, time, guests })
-        });
-        const data = await res.json();
-        if (data.success) {
-          UI.popup('Reservation Confirmed', `Thank you, ${name}! Your table for ${guests} on ${date} at ${time} is booked. We'll see you soon.`, '☕');
-          document.getElementById('res-name').value = '';
-          document.getElementById('res-phone').value = '';
-          document.getElementById('res-date').value = '';
-        } else {
-          UI.popup('Error', data.error || 'Something went wrong.', '❌');
+        if (!name || !date) {
+          UI.popup(
+            "Missing Info",
+            "Please fill in your name and preferred date.",
+            "⚠️"
+          );
+          return;
         }
-      } catch(e) {
-        UI.popup('Connection Error', 'Could not reach the server. Please try again.', '❌');
+
+        if (date < localToday) {
+          UI.popup(
+            "Invalid Date",
+            "Reservations cannot be made for past dates.",
+            "⚠️"
+          );
+          return;
+        }
+
+        try {
+          const res = await fetch(
+            "api.php?controller=reservations&action=create",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                full_name: name,
+                phone,
+                date,
+                time,
+                guests,
+              }),
+            }
+          );
+          const data = await res.json();
+          if (data.success) {
+            UI.popup(
+              "Reservation Confirmed",
+              `Thank you, ${name}! Your table for ${guests} on ${date} at ${time} is booked. We'll see you soon.`,
+              "☕"
+            );
+            document.getElementById("res-name").value = "";
+            document.getElementById("res-phone").value = "";
+            document.getElementById("res-date").value = "";
+          } else {
+            UI.popup("Error", data.error || "Something went wrong.", "❌");
+          }
+        } catch (e) {
+          UI.popup(
+            "Connection Error",
+            "Could not reach the server. Please try again.",
+            "❌"
+          );
+        }
       }
-    }
-  </script>
-</body>
+    </script>
+  </body>
 </html>

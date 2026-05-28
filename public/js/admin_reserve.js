@@ -1,22 +1,33 @@
 //admin_reserve js
-   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  if (!currentUser || currentUser.role !== "admin") {
-    alert("Access denied");
+async function ensureAdminOrRedirect() {
+  try {
+    const res = await fetch("api.php?controller=auth&action=me");
+    const data = await res.json();
+    const currentUser = data.user || null;
+    if (!currentUser || currentUser.role !== "admin") {
+      alert("Access denied");
+      window.location.href = "login.html";
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.error(err);
     window.location.href = "login.html";
-    throw new Error("Access denied"); 
+    return false;
   }
-    const tableBody = document.getElementById("reservations-table");
-    const refreshBtn = document.querySelector(".refresh-btn");
+}
+const tableBody = document.getElementById("reservations-table");
+const refreshBtn = document.querySelector(".refresh-btn");
 
-    function loadReservations() {
-      fetch("api.php?controller=reservations&action=list")
-        .then(res => res.json())
-        .then(data => {
-          const reservations = data.reservations || [];
-          tableBody.innerHTML = ""; 
-          reservations.forEach(reservation => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
+function loadReservations() {
+  fetch("api.php?controller=reservations&action=list")
+    .then((res) => res.json())
+    .then((data) => {
+      const reservations = data.reservations || [];
+      tableBody.innerHTML = "";
+      reservations.forEach((reservation) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
               <td>${reservation.id}</td>
               <td>${reservation.full_name}</td>
               <td>${reservation.phone}</td>
@@ -29,38 +40,40 @@
                 </button>
               </td>
             `;
-            tableBody.appendChild(row);
-          });
-        })
-        .catch(err => {
-          console.error(err);
-          alert("Error loading reservations");
-        });
-    }
+        tableBody.appendChild(row);
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Error loading reservations");
+    });
+}
 
-    refreshBtn?.addEventListener("click", loadReservations);
+refreshBtn?.addEventListener("click", loadReservations);
 
-window.deleteReservation = function(id) {
+window.deleteReservation = (function (id) {
   if (!confirm("Are you sure you want to delete this reservation?")) return;
 
   fetch(`api.php?controller=reservations&action=delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ id: id })
+    body: JSON.stringify({ id: id }),
   })
-  .then(res => res.json())
-  .then(data => {
-    if (data.success) {
-      loadReservations(); 
-    } else {
-      alert("Error: " + data.error);
-    }
-  })
-  .catch(err => {
-    console.error(err);
-    alert("Error deleting reservation");
-  });
-}
-
-    // Load reservations when page opens
-    loadReservations();
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        loadReservations();
+      } else {
+        alert("Error: " + data.error);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Error deleting reservation");
+    });
+})(
+  // Load reservations when page opens (after admin check)
+  async () => {
+    if (await ensureAdminOrRedirect()) loadReservations();
+  }
+)();
