@@ -31,6 +31,8 @@ class OrderController extends Controller {
     }
 
     private function listOrders() {
+        // listing all orders requires admin
+        $this->requireAdmin();
         try {
             $orders = $this->orderModel->getAllOrders();
             foreach ($orders as &$order) {
@@ -43,7 +45,15 @@ class OrderController extends Controller {
     }
 
     private function userOrders() {
-        $user_id = $_GET['user_id'] ?? 0;
+        // If non-admin, return only the session user's orders; admin may pass user_id
+        $sessionUser = $this->currentUser();
+        if (!$sessionUser) {
+            $user_id = $_GET['user_id'] ?? 0;
+        } elseif (isset($sessionUser['role']) && $sessionUser['role'] === 'admin') {
+            $user_id = $_GET['user_id'] ?? 0;
+        } else {
+            $user_id = $sessionUser['id'];
+        }
         try {
             $orders = $this->orderModel->getUserOrders($user_id);
             foreach ($orders as &$order) {
@@ -56,8 +66,10 @@ class OrderController extends Controller {
     }
 
     private function createOrder($data) {
-        $user_id  = $data['user_id'] ?? null;
-        $username = $data['username'] ?? 'Guest';
+        // Prefer server-side session user when available
+        $sessionUser = $this->currentUser();
+        $user_id  = $sessionUser['id'] ?? $data['user_id'] ?? null;
+        $username = $sessionUser['username'] ?? $data['username'] ?? 'Guest';
         $items_array = $data['items'] ?? [];
         $items_json  = json_encode($items_array);
         $total    = $data['total'] ?? 0;
@@ -79,6 +91,8 @@ class OrderController extends Controller {
     }
 
     private function deleteOrder($data) {
+        // only admins may delete orders
+        $this->requireAdmin();
         $id = $data['id'] ?? '';
         if (!$id) {
             $this->jsonResponse(['error' => 'Order ID is required.'], 400);

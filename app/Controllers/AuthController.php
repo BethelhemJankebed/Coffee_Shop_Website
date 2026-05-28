@@ -23,6 +23,9 @@ class AuthController extends Controller {
                 case 'login':
                     $this->login($data);
                     break;
+                case 'logout':
+                    $this->logout();
+                    break;
                 default:
                     $this->jsonResponse(['error' => 'Invalid action'], 400);
             }
@@ -82,6 +85,16 @@ class AuthController extends Controller {
                 }
 
                 unset($user['password']); // Don't return password
+                // Ensure session is started, regenerate id, and store minimal user info server-side
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+                session_regenerate_id(true);
+                $_SESSION['user'] = [
+                    'id' => $user['id'],
+                    'username' => $user['username'],
+                    'role' => $user['role'] ?? null
+                ];
                 $this->jsonResponse([
                     'success' => true,
                     'user' => [
@@ -97,6 +110,21 @@ class AuthController extends Controller {
         } else {
             $this->jsonResponse(['error' => 'User not found.'], 404);
         }
+    }
+    private function logout() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+        // Clear session data but keep behavior backward-compatible for client (localStorage)
+        $_SESSION = [];
+        if (ini_get('session.use_cookies')) {
+            $params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000,
+                $params['path'], $params['domain'], $params['secure'], $params['httponly']
+            );
+        }
+        session_destroy();
+        $this->jsonResponse(['success' => true]);
     }
 }
 ?>

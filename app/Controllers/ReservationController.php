@@ -15,6 +15,8 @@ class ReservationController extends Controller {
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if ($action === 'list') {
+                // listing reservations is admin-only
+                $this->requireAdmin();
                 $this->listReservations();
             }
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,6 +25,8 @@ class ReservationController extends Controller {
             if ($action === 'create') {
                 $this->createReservation($data);
             } elseif ($action === 'delete') {
+                // only admins may delete reservations
+                $this->requireAdmin();
                 $this->deleteReservation($data);
             }
         }
@@ -37,7 +41,9 @@ class ReservationController extends Controller {
         }
     }
     private function createReservation($data) {
-        $name = $data['full_name'] ?? '';
+        // prefer session user for reservation name when available
+        $sessionUser = $this->currentUser();
+        $name = $sessionUser['username'] ?? ($data['full_name'] ?? '');
         $phone = $data['phone'] ?? '';
         $date = $data['date'] ?? '';
         $time = $data['time'] ?? '';

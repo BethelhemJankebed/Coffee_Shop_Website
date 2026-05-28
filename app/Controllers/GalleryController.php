@@ -41,8 +41,10 @@ class GalleryController extends Controller {
         $url = $data['url'] ?? $data['image_url'] ?? '';
         $title = $data['title'] ?? $data['caption'] ?? '';
         $type = $data['type'] ?? 'image';
-        $owner_user_id   = $data['owner_user_id']   ?? $data['uploaded_by'] ?? null;
-        $owner_username  = $data['owner_username']  ?? null;
+        // prefer server session over client-provided ownership fields
+        $sessionUser = $this->currentUser();
+        $owner_user_id   = $sessionUser['id'] ?? ($data['owner_user_id'] ?? $data['uploaded_by'] ?? null);
+        $owner_username  = $sessionUser['username'] ?? ($data['owner_username'] ?? null);
 
         if (empty($url)) {
             $this->jsonResponse(['error' => 'URL is required.'], 400);
@@ -58,8 +60,10 @@ class GalleryController extends Controller {
 
     private function deleteItem($data) {
         $id = $data['id'] ?? '';
-        $requestUserId   = $data['owner_user_id'] ?? $data['user_id'] ?? null;
-        $requestUserRole = $data['role'] ?? '';
+        // prefer server-side session values for auth checks
+        $sessionUser = $this->currentUser();
+        $requestUserId   = $sessionUser['id'] ?? ($data['owner_user_id'] ?? $data['user_id'] ?? null);
+        $requestUserRole = $sessionUser['role'] ?? ($data['role'] ?? '');
 
         if (!$id) {
             $this->jsonResponse(['error' => 'Item ID is required.'], 400);

@@ -2,6 +2,10 @@
 /**
  * Main API Router
  */
+// Ensure PHP sessions are available to API endpoints
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require_once __DIR__ . '/../app/Controllers/AuthController.php';
 require_once __DIR__ . '/../app/Controllers/ProductController.php';
 require_once __DIR__ . '/../app/Controllers/UserController.php';

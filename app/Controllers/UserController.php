@@ -27,6 +27,8 @@ class UserController extends Controller {
     }
 
     private function listUsers() {
+        // only admins can list users
+        $this->requireAdmin();
         try {
             $users = $this->userModel->getAllUsers();
             $this->jsonResponse(['success' => true, 'users' => $users]);
@@ -36,6 +38,8 @@ class UserController extends Controller {
     }
 
     private function deleteUser($data) {
+        // only admins can delete users
+        $this->requireAdmin();
         $id = $data['id'] ?? '';
         if (!$id) {
             $this->jsonResponse(['error' => 'User ID is required.'], 400);

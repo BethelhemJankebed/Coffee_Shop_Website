@@ -39,8 +39,10 @@ class ReviewController extends Controller {
     }
 
     private function addReview($data) {
-        $user_id = $data['user_id'] ?? null;
-        $username = $data['username'] ?? 'Guest';
+        // prefer session user if available
+        $sessionUser = $this->currentUser();
+        $user_id = $sessionUser['id'] ?? ($data['user_id'] ?? null);
+        $username = $sessionUser['username'] ?? ($data['username'] ?? 'Guest');
         $rating = $data['rating'] ?? 5;
         $comment = $data['comment'] ?? '';
 
@@ -54,8 +56,9 @@ class ReviewController extends Controller {
 
     private function deleteReview($data) {
         $id              = $data['id']              ?? '';
-        $requestUserId   = $data['user_id']         ?? null;
-        $requestUserRole = $data['role']             ?? '';
+        $sessionUser = $this->currentUser();
+        $requestUserId   = $sessionUser['id'] ?? ($data['user_id'] ?? null);
+        $requestUserRole = $sessionUser['role'] ?? ($data['role'] ?? '');
 
         if (!$id) {
             $this->jsonResponse(['status' => 'error', 'message' => 'Review ID is required.'], 400);

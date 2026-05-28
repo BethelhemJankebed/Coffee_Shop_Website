@@ -25,5 +25,30 @@ abstract class Controller {
             exit();
         }
     }
+
+    // Session / Auth helpers
+    protected function currentUser() {
+        if (session_status() === PHP_SESSION_NONE) {
+            // session may be started already in api.php, but be defensive
+            @session_start();
+        }
+        return $_SESSION['user'] ?? null;
+    }
+
+    protected function requireAuth() {
+        $user = $this->currentUser();
+        if (!$user) {
+            $this->jsonResponse(['error' => 'Authentication required.'], 401);
+        }
+        return $user;
+    }
+
+    protected function requireAdmin() {
+        $user = $this->currentUser();
+        if (!$user || !isset($user['role']) || $user['role'] !== 'admin') {
+            $this->jsonResponse(['error' => 'Admin privileges required.'], 403);
+        }
+        return $user;
+    }
 }
 ?>

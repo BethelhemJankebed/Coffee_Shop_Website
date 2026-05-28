@@ -49,6 +49,8 @@ class ProductController extends Controller {
     }
 
     private function createProduct($data) {
+        // only admins may create products
+        $this->requireAdmin();
         $id = $data['id'] ?? uniqid();
         $name = $data['name'] ?? '';
         $price = $data['price'] ?? 0;
@@ -68,6 +70,8 @@ class ProductController extends Controller {
     }
 
     private function updateProduct($data) {
+        // only admins may update products
+        $this->requireAdmin();
         $id = $data['id'] ?? '';
         $name = $data['name'] ?? '';
         $price = $data['price'] ?? 0;
@@ -89,6 +93,8 @@ class ProductController extends Controller {
     }
 
     private function updateStock($data) {
+        // only admins may update stock
+        $this->requireAdmin();
         $id = $data['id'] ?? '';
         $stock = $data['stock'] ?? 0;
 
@@ -105,6 +111,8 @@ class ProductController extends Controller {
     }
 
     private function deleteProduct($data) {
+        // only admins may delete products
+        $this->requireAdmin();
         $id = $data['id'] ?? '';
 
         if (!$id) {

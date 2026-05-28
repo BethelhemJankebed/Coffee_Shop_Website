@@ -62,8 +62,13 @@
   if (logoutLink) {
     logoutLink.addEventListener("click", function (event) {
       event.preventDefault();
-      localStorage.removeItem("currentUser");
-      window.location.href = "login.html";
+      // call backend logout, then clear client state
+      fetch("api.php?controller=auth&action=logout", {
+        method: "POST",
+      }).finally(() => {
+        localStorage.removeItem("currentUser");
+        window.location.href = "login.html";
+      });
     });
   }
 })();
